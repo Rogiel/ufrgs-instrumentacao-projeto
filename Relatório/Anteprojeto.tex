@@ -21,9 +21,9 @@
 	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com} e
 	\emailaddress{Y.C.}{yichenpoa@gmail.com}
 }
-\resume{}
+\resume{Este trabalho visa o desenvolivemento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão de tempo e também  a caracterização do clima. Cabe-se, pois, desenvolver instrumentos (ou sensores eletrônicos) de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
 \abstract{}
-\keywords{}
+\keywords{estação meteorológica; instrumentos de medição; temperatura; quantidade de chuva; velocidade de vento.}
 \institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Profs. Dr. Alexandre Balbinot e Dra. Léia Bagesteiro}
 
 \headertext{Anteprojeto}
@@ -59,7 +59,7 @@ O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os an
 	\centering
 		\includegraphics{Figuras/anemometro.png}
 	\caption{Exemplo de anemômetro de copo}
-	Fonte: \url{https://www.google.com.br/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=&url=http%3A%2F%2Fwww.seinstrumentos.com.br%2Fanemometro.html&psig=AFQjCNGjijn5ng5hpmUAcBq4F_TVvceWUw&ust=1461032511805601}
+	Fonte: \url{https://www.google.com.br/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=&url=http\%3A\%2F\%2Fwww.seinstrumentos.com.br\%2Fanemometro.html&psig=AFQjCNGjijn5ng5hpmUAcBq4F_TVvceWUw&ust=1461032511805601}
 	\label{fig:anemometro}
 \end{figure}
 
@@ -67,11 +67,12 @@ Como forma de medir a velocidade de rotação do anemômetro, será utilizado um
 
 
 \section{Pluviômetro}
-O pluviômetro é um dispositivo de meteorologia usado para recolher e medir, em milímetros, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local. Tal aparelho é muito usado nas estações meteorológicas. Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura. Um dos princípios de funcionamento composto é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um software de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe-se os membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
 
 Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$].
 
 A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado.
+
+Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura. Um dos princípios de funcionamento composto é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um software de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe-se os membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
 
 Optou-se, dentre os vários métodos de medição de nível, a medição por ultrassom. O princípio de funcionamento desse método é medir o tempo de eco de um sinal enviado por um transdutor piezoelétrico. O transdutor que transmite o sinal também pode fazer a leitura (ou podem ser módulos separados emissor-receptor). Quando esse transdutor atua como transmissor, é excitado com um sinal elétrico gerando uma onda mecânica. Quando atua como receptor, o transdutor recebe um sinal mecânico e converte-o em sinal elétrico \cite{livro-texto}. O tempo entre o sinal enviado e o sinal de eco corresponde ao dobro da distância entre o medidor e a superfície cujo nível está sendo medido, conforme exemplifica a equação \ref{eq:dist_ultrassom}.
 
@@ -79,9 +80,6 @@ Optou-se, dentre os vários métodos de medição de nível, a medição por ult
 	d=(vt)/2
 	\label{eq:dist_ultrassom}
 \end{equation}
->>>>>>> origin/master
-
-
 
 \chapter{Cronograma de Execução}
 
@@ -111,7 +109,7 @@ Na Tabela \ref{tab:cronograma} é apresentado o cronograma de execução do proj
 \end{table}
 
 
-\chapter{Conclusões}
+%\chapter{Conclusões}
 
 \iftoggle{attachments}{
 	\chapter*{Anexos}
@@ -127,9 +125,9 @@ Na Tabela \ref{tab:cronograma} é apresentado o cronograma de execução do proj
 
 \bibitem{livro-texto}  Balbinot, A.; Brusamarello, V. J., Instrumentação e Fundamentos de Medida - Vol.1 - 2ª Ed. Rio de Janeiro: LTC, 2014.
 
-\bibitem{estacao} \url{https://pt.wikipedia.org/wiki/Esta%C3%A7%C3%A3o_meteorol%C3%B3gica}, acessado em 16/04/2016.
+\bibitem{estacao} \url{https://pt.wikipedia.org/wiki/Esta\%C3\%A7\%C3\%A3o_meteorol\%C3\%B3gica}, acessado em 16/04/2016.
 
-\bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi%C3%B4metro}, acessado em 16/04/2016.
+\bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi\%C3\%B4metro}, acessado em 16/04/2016.
 \bibitem{pluviometro-1} \url{http://www.agsolve.com.br/dicas-e-solucoes/como-funciona-o-pluviometro}, acessado em 16/04/2016.
 
 
