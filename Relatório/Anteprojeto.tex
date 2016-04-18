@@ -53,15 +53,49 @@ A seguir serão apresentadas as especificações de cada um dos instrumentos a s
 
 
 \section{Anemômetro}
-O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo será utilizado no projeto em questão.
+O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo será utilizado no projeto em questão, a exemplo da Figura \ref{fig:anemometro}
 
-Como forma de medir a 
+\begin{figure}[h]
+	\centering
+		\includegraphics{Figuras/anemometro.png}
+	\caption{Exemplo de anemômetro de copo}
+	Fonte: \url{https://www.google.com.br/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=&url=http%3A%2F%2Fwww.seinstrumentos.com.br%2Fanemometro.html&psig=AFQjCNGjijn5ng5hpmUAcBq4F_TVvceWUw&ust=1461032511805601}
+	\label{fig:anemometro}
+\end{figure}
+
+Como forma de medir a velocidade de rotação do anemômetro, será utilizado um sensor de efeito \textit{Hall} associado com um ímã. Assim, toda vez que o ímã passar pelo sensor de efeito \textit{Hall}, este deixa passar corrente, podendo assim ser contabilizado o número de voltas em um determinado período de análise.
+
 
 \section{Pluviômetro}
 
+Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em $mm$.
 
+\chapter{Cronograma de Execução}
 
-\chapter{Resultados e Discussões}
+Na Tabela \ref{tab:cronograma} é apresentado o cronograma de execução do projeto, tendo como premissa que "um bom projeto experimental obrigatoriamente deve ter um excelente planejamento experimental" \cite{livro-texto}.
+
+\begin{table}[H]
+\centering
+\caption{Cronograma de execução do projeto}
+\label{tab:cronograma}
+\begin{tabular}{|c|l|}
+\hline
+\textit{\textbf{Prazo}} & \multicolumn{1}{c|}{\textit{\textbf{Atividades}}}               \\ \hline
+18/abr                  & Entrega da Proposta do Projeto Final                            \\ \hline
+20/abr                  & Compra de sensores e componentes                                \\ \hline
+27/abr                  & Construção mecânica do anemômetro e do pluviômetro              \\ \hline
+04/mai                  & Levantamento das curvas dos sensores                            \\ \hline
+11/mai                  & Elaboração da interface homem-máquina no LABView                \\ \hline
+18/mai                  & Design e montagem de placa de circuito impresso                 \\ \hline
+25/mai                  & Testes e análise de incertezas dos sensores                     \\ \hline
+01/jun                  & Finalização do Anteprojeto                                      \\ \hline
+06/jun                  & Apresentação do Anteprojeto                                     \\ \hline
+08/jun                  & Ajuste da interface gráfica                                     \\ \hline
+15/jun                  & Ajustes, testes finais e finalização da documentação do projeto \\ \hline
+22/jun                  & Ajustes, testes finais e finalização da documentação do projeto \\ \hline
+27/jun                  & Apresentação do Projeto Final                                   \\ \hline
+\end{tabular}
+\end{table}
 
 
 \chapter{Conclusões}
@@ -81,6 +115,9 @@ Como forma de medir a
 \bibitem{livro-texto}  Balbinot, A.; Brusamarello, V. J., Instrumentação e Fundamentos de Medida - Vol.1 - 2ª Ed. Rio de Janeiro: LTC, 2014.
 
 \bibitem{estacao} \url{https://pt.wikipedia.org/wiki/Esta%C3%A7%C3%A3o_meteorol%C3%B3gica}, acessado em 16/04/2016.
+
+\bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi%C3%B4metro}, acessado em 16/04/2016.
+
 
 
 
