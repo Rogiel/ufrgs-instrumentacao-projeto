@@ -1,10 +1,6 @@
 \documentclass[12pt,a4paper]{instrumentacao}
 
 \usepackage{listings}
-\usepackage{etoolbox}
-
-\newtoggle{attachments}
-\togglefalse{attachments}
 
 \graphicspath{
 	{../Resources/Images/}
@@ -14,24 +10,22 @@
 
 \title{Central meteorológica: Dispositivo para medição de precipitação, de temperatura e de velocidade do vento}
 \author{Rogiel Sulzbach \and Rodrigo de Castro Silveira \and Yi Chen Wu}
-\startdate{28 de março de 2016}
-\finishdate{18 de abril de 2016}
+\startdate{18 de abril de 2016}
+\finishdate{27 de junho de 2016}
 \emails{
 	\emailaddress{R.J.S.}{rogiel@rogiel.com},
 	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com} e
 	\emailaddress{Y.C.}{yichenpoa@gmail.com}
 }
-\resume{Este trabalho visa o desenvolivemento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão de tempo e também  a caracterização do clima. Cabe-se, pois, desenvolver instrumentos (ou sensores eletrônicos) de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
-\abstract{}
+\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão de tempo e também a caracterização do clima. Para tanto, será desenvolvido instrumentos (ou sensores eletrônicos) de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
+\abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall.}
 \keywords{estação meteorológica; instrumentos de medição; temperatura; quantidade de chuva; velocidade de vento.}
-\institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Profs. Dr. Alexandre Balbinot e Dra. Léia Bagesteiro}
+\institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Prof. Dr. Alexandre Balbinot}
 
-\headertext{Anteprojeto}
+\headertext{Proposta de Projeto}
 
 \begin{document}
 \maketitle
-
-\todo{mudar a letra para times new roman.......}
 
 \chapter{Introdução}
 De acordo com o livro-texto da disciplina \textit{ENG04457 - Instrumentação A} \cite{livro-texto}, em seu prefácio, expõe que "hoje o mundo não escreve: digita. Internet, iPod, celulares, pen-drives... Toda essa revolução na sociedade criou novas habilitações dentro das engenharias, como, por exemplo, as engenharias de computação, de software e de tecnologia da informação. O analógico aparentemente tornou-se obsoleto, tirando a atenção de disciplinas relacionadas, como instrumentação, sensores e transdutores -- um equívoco ocorrido em função da compreensão superficial do que está por trás desta revolução tecnológica que estamos vivendo. Porém, o som, a imagem e diversos outros fenômenos que nos cercam são entes analógicos. Antes de virar bytes, o mundo é captado analogicamente". É com base nesta necessidade do domínio da captação do mundo analógico que a disciplina corretamente propõe a elaboração, planejamento e montagem de um projeto experimental utilizando os conceitos vistos em sala de aula.
@@ -50,7 +44,7 @@ O projeto desenvolvido pelo grupo fará a captação e tratamento dos dados de t
 A seguir serão apresentadas as especificações de cada um dos instrumentos a serem projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
 
 \section{Termômetro}
-
+Para o termômetro utilizaremos um sensor do tipo RTD a fim de medir a temperatura do ar ambiente onde a estação está instalada.
 
 \section{Anemômetro}
 O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo será utilizado no projeto em questão, a exemplo da Figura \ref{fig:anemometro}
@@ -72,7 +66,7 @@ Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteor
 
 A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado.
 
-Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura. Um dos princípios de funcionamento composto é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um software de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe-se os membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
+Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura. Um dos princípios de funcionamento composto é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um software de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe os membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
 
 Optou-se, dentre os vários métodos de medição de nível, a medição por ultrassom. O princípio de funcionamento desse método é medir o tempo de eco de um sinal enviado por um transdutor piezoelétrico. O transdutor que transmite o sinal também pode fazer a leitura (ou podem ser módulos separados emissor-receptor). Quando esse transdutor atua como transmissor, é excitado com um sinal elétrico gerando uma onda mecânica. Quando atua como receptor, o transdutor recebe um sinal mecânico e converte-o em sinal elétrico \cite{livro-texto}. O tempo entre o sinal enviado e o sinal de eco corresponde ao dobro da distância entre o medidor e a superfície cujo nível está sendo medido, conforme exemplifica a equação \ref{eq:dist_ultrassom}.
 
@@ -83,7 +77,7 @@ Optou-se, dentre os vários métodos de medição de nível, a medição por ult
 
 \chapter{Cronograma de Execução}
 
-Na Tabela \ref{tab:cronograma} é apresentado o cronograma de execução do projeto, tendo como premissa que "um bom projeto experimental obrigatoriamente deve ter um excelente planejamento experimental" \cite{livro-texto}.
+Na tabela \ref{tab:cronograma} está apresentado o cronograma de execução do projeto:
 
 \begin{table}[H]
 \centering
@@ -96,7 +90,6 @@ Na Tabela \ref{tab:cronograma} é apresentado o cronograma de execução do proj
 20/abr                  & Compra de sensores e componentes                                \\ \hline
 27/abr                  & Construção mecânica do anemômetro e do pluviômetro              \\ \hline
 04/mai                  & Levantamento das curvas dos sensores                            \\ \hline
-11/mai                  & Elaboração da interface homem-máquina no LABView                \\ \hline
 18/mai                  & Design e montagem de placa de circuito impresso                 \\ \hline
 25/mai                  & Testes e análise de incertezas dos sensores                     \\ \hline
 01/jun                  & Finalização do Anteprojeto                                      \\ \hline
@@ -107,18 +100,6 @@ Na Tabela \ref{tab:cronograma} é apresentado o cronograma de execução do proj
 27/jun                  & Apresentação do Projeto Final                                   \\ \hline
 \end{tabular}
 \end{table}
-
-
-%\chapter{Conclusões}
-
-\iftoggle{attachments}{
-	\chapter*{Anexos}
-	\section{Mathematica}
-
-	\section{LabVIEW}
-
-	\section{MATLAB}
-}
 
 \begin{thebibliography}{9}
 \bibitem{mathematica-numerial-precision} \url{https://reference.wolfram.com/language/tutorial/NumericalPrecision.html}, acessado em 16 de março de 2016

@@ -34,6 +34,8 @@
 \RequirePackage{pdfpages}
 \RequirePackage{pbox}
 
+\RequirePackage[labelsep=endash]{caption}
+
 
 %% TEMPLATE ARGUMENTS
 \newcommand{\institute}[1]{%
