@@ -68,7 +68,18 @@ Como forma de medir a velocidade de rotação do anemômetro, será utilizado um
 
 \section{Pluviômetro}
 
-Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em $mm$.
+Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$].
+
+A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado.
+
+Optou-se, dentre os vários métodos de medição de nível, a medição por ultrassom. O princípio de funcionamento desse método é medir o tempo de eco de um sinal enviado por um transdutor piezoelétrico. O transdutor que transmite o sinal também pode fazer a leitura (ou podem ser módulos separados emissor-receptor). Quando esse transdutor atua como transmissor, é excitado com um sinal elétrico gerando uma onda mecânica. Quando atua como receptor, o transdutor recebe um sinal mecânico e converte-o em sinal elétrico \cite{livro-texto}. O tempo entre o sinal enviado e o sinal de eco corresponde ao dobro da distância entre o medidor e a superfície cujo nível está sendo medido, conforme exemplifica a equação \ref{eq:dist_ultrassom}.
+
+\begin{equation}
+	d=(vt)/2
+	\label{eq:dist_ultrassom}
+\end{equation}
+
+
 
 \chapter{Cronograma de Execução}
 
