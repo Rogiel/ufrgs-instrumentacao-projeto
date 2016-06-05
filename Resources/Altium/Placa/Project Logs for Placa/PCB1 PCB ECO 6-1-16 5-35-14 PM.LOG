@@ -1,0 +1,68 @@
+Added Component: Designator=C1(RAD-0.3)
+Added Component: Designator=C2(RAD-0.3)
+Added Component: Designator=P1(VR5)
+Added Component: Designator=PT100-IN(691253510002)
+Added Component: Designator=PT100-OUT(691253510002)
+Added Component: Designator=PWR(691253510002)
+Added Component: Designator=R1(AXIAL-0.4)
+Added Component: Designator=R2(AXIAL-0.4)
+Added Component: Designator=R3(AXIAL-0.4)
+Added Component: Designator=R4(AXIAL-0.4)
+Added Component: Designator=R5(AXIAL-0.4)
+Added Component: Designator=R6(AXIAL-0.4)
+Added Component: Designator=R7(AXIAL-0.4)
+Added Component: Designator=R8(AXIAL-0.4)
+Added Component: Designator=U1(Q-8)
+Added Component: Designator=U2(Q-8)
+Added Pin To Net: NetName=+5 Pin=PWR-1
+Added Pin To Net: NetName=+5 Pin=R1-2
+Added Pin To Net: NetName=+5 Pin=R2-1
+Added Pin To Net: NetName=+5 Pin=U1-7
+Added Pin To Net: NetName=+5 Pin=U2-7
+Added Net: Name=+5
+Added Pin To Net: NetName=NetC1_2 Pin=C1-2
+Added Pin To Net: NetName=NetC1_2 Pin=R5-2
+Added Pin To Net: NetName=NetC1_2 Pin=U2-3
+Added Net: Name=NetC1_2
+Added Pin To Net: NetName=NetP1_1 Pin=P1-1
+Added Pin To Net: NetName=NetP1_1 Pin=R4-2
+Added Net: Name=NetP1_1
+Added Pin To Net: NetName=NetP1_3 Pin=P1-3
+Added Pin To Net: NetName=NetP1_3 Pin=R2-2
+Added Pin To Net: NetName=NetP1_3 Pin=R3-2
+Added Pin To Net: NetName=NetP1_3 Pin=U1-2
+Added Net: Name=NetP1_3
+Added Pin To Net: NetName=NetR4_1 Pin=R4-1
+Added Pin To Net: NetName=NetR4_1 Pin=R5-1
+Added Pin To Net: NetName=NetR4_1 Pin=U1-6
+Added Net: Name=NetR4_1
+Added Pin To Net: NetName=NetR6_2 Pin=R6-2
+Added Pin To Net: NetName=NetR6_2 Pin=R7-1
+Added Pin To Net: NetName=NetR6_2 Pin=U2-2
+Added Net: Name=NetR6_2
+Added Pin To Net: NetName=NetR7_2 Pin=R7-2
+Added Pin To Net: NetName=NetR7_2 Pin=R8-1
+Added Pin To Net: NetName=NetR7_2 Pin=U2-6
+Added Net: Name=NetR7_2
+Added Pin To Net: NetName=PT100-1 Pin=PT100-IN-1
+Added Pin To Net: NetName=PT100-1 Pin=R1-1
+Added Pin To Net: NetName=PT100-1 Pin=U1-3
+Added Net: Name=PT100-1
+Added Pin To Net: NetName=PT100-2 Pin=C1-1
+Added Pin To Net: NetName=PT100-2 Pin=C2-1
+Added Pin To Net: NetName=PT100-2 Pin=PT100-IN-2
+Added Pin To Net: NetName=PT100-2 Pin=PT100-OUT-2
+Added Pin To Net: NetName=PT100-2 Pin=PWR-2
+Added Pin To Net: NetName=PT100-2 Pin=R3-1
+Added Pin To Net: NetName=PT100-2 Pin=R6-1
+Added Pin To Net: NetName=PT100-2 Pin=U1-4
+Added Pin To Net: NetName=PT100-2 Pin=U2-4
+Added Net: Name=PT100-2
+Added Pin To Net: NetName=PT100-OUT-1 Pin=C2-2
+Added Pin To Net: NetName=PT100-OUT-1 Pin=PT100-OUT-1
+Added Pin To Net: NetName=PT100-OUT-1 Pin=R8-2
+Added Net: Name=PT100-OUT-1
+Added Class: Name=Condicionamento - Temperatura
+Added Class: Name=IO
+Added Room: Name=Condicionamento - Temperatura
+Added Room: Name=IO

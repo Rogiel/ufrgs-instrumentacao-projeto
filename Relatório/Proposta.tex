@@ -5,6 +5,7 @@
 \graphicspath{
 	{../Resources/Images/}
 	{../Resources/Mathematica/images/}
+	{../Resources/MATLAB/images/}
 }
 
 \title{Central meteorológica: Dispositivo para medição de precipitação, de temperatura e de velocidade do vento}
@@ -43,16 +44,7 @@ O projeto desenvolvido pelo grupo fará a captação e tratamento dos dados de t
 A seguir serão apresentadas as especificações de cada um dos instrumentos a serem projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
 
 \section{Termômetro}
-Assim como na maioria dos sensores, os avanços tecnológicos proporcionados pela sofisticação eletrônica dos dias de hoje possibilitaram o surgimento de uma ampla gama de sensores \cite{livro-texto}. Para o termômetro utilizaremos um sensor do tipo RTD (\textit{Resistance Temperature Detectors}) a fim de medir a temperatura do ar ambiente onde a estação está instalada.
-
-Os termômetros de resistência funcionam com base no fato de que, de modo geral, a resistência dos metais aumenta com a temperatura \cite{livro-texto}. As principais características dos RTDs são:
-
-\begin{itemize}
-	\item Condutor metálico (a platina é o metal mais utilizado);
-	\item São dispositivos praticamente lineares;
-	\item Dependendo do metal são muito estáveis;
-	\item Apresentam baixíssima tolerância de fabricação (0,06\% a 0,15\%).
-\end{itemize}
+Para o termômetro utilizaremos um sensor do tipo RTD a fim de medir a temperatura do ar ambiente onde a estação está instalada.
 
 \section{Anemômetro}
 O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo será utilizado no projeto em questão, a exemplo da Figura \ref{fig:anemometro}
@@ -75,21 +67,14 @@ A estrutura física do pluviômetro consiste em um sistema de captação de chuv
 
 Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura. Um dos princípios de funcionamento composto é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um software de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe os membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
 
-Optou-se por utilizar um sensor capacitivo com referência baseada em um documento do "TI Designs"\cite{pluviometro-capacitivo-texas} onde é proposto um sensor simples de medida de capacitância utilizando uma placa de circuito impresso com duas placas paralelas. A fim de determinar a validade do \textit{design} de sensor, foi confeccionado um sistema simples com uma placa de circuito impresso contendo duas barras que funcionam como eletrodos do sensor e a placa foi fixada na face interna de um recipiente e acrílico. A placa foi isolada com verniz para evitar que a água fizesse contato elétrico entre os eletrodos.
+Optou-se, dentre os vários métodos de medição de nível, a medição por ultrassom. O princípio de funcionamento desse método é medir o tempo de eco de um sinal enviado por um transdutor piezoelétrico. O transdutor que transmite o sinal também pode fazer a leitura (ou podem ser módulos separados emissor-receptor). Quando esse transdutor atua como transmissor, é excitado com um sinal elétrico gerando uma onda mecânica. Quando atua como receptor, o transdutor recebe um sinal mecânico e converte-o em sinal elétrico \cite{livro-texto}. O tempo entre o sinal enviado e o sinal de eco corresponde ao dobro da distância entre o medidor e a superfície cujo nível está sendo medido, conforme exemplifica a equação \ref{eq:dist_ultrassom}.
 
-A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do sensor de nível
+\begin{equation}
+	d=(vt)/2
+	\label{eq:dist_ultrassom}
+\end{equation}
 
-\begin{figure}[H]
-	\centering \includegraphics[width=0.5\textwidth]{SensorNivelCapacitivo.pdf}
-	\caption{Desenho esquemático do sensor de nível capacitivo. $C(H)$ é a capacitância equivalente da construção para um nível de água $h$ e $E$ são as linhas de campo elétrico internas no sensor.}
-	\label{fig:sensor-nivel-capacitivo}
-\end{figure}
-
-A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro \todo{nunca lembro o modelo......} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 200 mL com resolução de 2mL.
-
-
-\chapter{Resultados e discussões}
-
+Como a maneira de medir a quantidade de chuva é muito ampla, cabe aos membros do grupo investigar a melhor metodologia de medição apropriada para obter boas medidas.
 
 \chapter{Cronograma de Execução}
 
@@ -127,9 +112,6 @@ Na tabela \ref{tab:cronograma} está apresentado o cronograma de execução do p
 \bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi\%C3\%B4metro}, acessado em 16/04/2016.
 \bibitem{pluviometro-1} \url{http://www.agsolve.com.br/dicas-e-solucoes/como-funciona-o-pluviometro}, acessado em 16/04/2016.
 
-\bibitem{pluviometro-capacitivo-texas} Capacitive-Based Liquid Level Sensing Sensor Reference Design, \url{http://www.ti.com/lit/ug/tidu736a/tidu736a.pdf
-}, acessado em 30/05/2016.
-\bibitem{medicao-capacitancia} Use Analog Techniques To Measure Capacitance In Capacitive Sensors, \url{http://m.electronicdesign.com/analog/use-analog-techniques-measure-capacitance-capacitive-sensors}, acessado em 01/06/2016.
 
 
 %\bibitem{ref1} Sobrenome, A.B.; Sobrenome, C.D. Title of the cited article. Journal Title 2007, 6, 100-110. 
