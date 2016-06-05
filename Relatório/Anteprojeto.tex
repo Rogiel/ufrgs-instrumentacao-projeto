@@ -87,9 +87,51 @@ A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do 
 
 A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro \todo{nunca lembro o modelo......} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 200 mL com resolução de 2mL.
 
+O condicionamento do sensor ainda não foi testado, mas acredita-se que a melhor topologia para esta aplicação consiste em um amplificador numa topologia de integrador conectado a um comparador que compara a curva de carregamento do capacitor com uma referência fixa. A variação de frequência do sistema corresponde à variação de capacitância incorre em uma variação de frequência de oscilação do sistema. A Figura \ref{fig:sensor-nivel-capacitivo-condicionamento} apresenta o circuito de condicionamento.
+
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{SensorNivelCapacitivo-Condicionamento.jpg}
+	\caption{Desenho esquemático do sensor de nível capacitivo. $C(H)$ é a capacitância equivalente da construção para um nível de água $h$ e $E$ são as linhas de campo elétrico internas no sensor.}
+	Fonte: Electronic Design \cite{medicao-capacitancia}
+	\label{fig:sensor-nivel-capacitivo-condicionamento}
+\end{figure}
 
 \chapter{Resultados e discussões}
 
+\section{Termômetro}
+\section{Anemômtro}
+
+\section{Pluviômetro}
+
+O teste de capacitância do sensor apresentou a função de transferência da Figura \ref{fig:tf:nivel:capacitancia}:
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/TransferFunctionPlot.pdf}
+	\caption{Função de Transferência experimental da capacitância do sensor}
+	\label{fig:tf:nivel:capacitancia}
+\end{figure}
+
+Na Figura \ref{fig:tf:nivel:capacitancia} a linha contínua é um polinômio de terceira ordem regredido por mínimos quadrados conforme Equação \ref{eq:tf:nivel:capacitancia}
+
+\begin{equation}
+	V(C) = 3.585 + 1.896 C + 0.0261 C^2 - 0.000259 C^3
+	\label{eq:tf:nivel:capacitancia}
+\end{equation}
+\noindent onde $V(C)$ é a função de volume de líquido (em mL) em função da capacitância medida no sensor ($C$).
+
+A Equação \ref{eq:tf:nivel:capacitancia} foi ajustada com $R^2$ dado pela Equação \ref{eq:tf:nivel:capacitancia-r2} 
+
+\begin{equation}
+	R^2 = 0.999606
+	\label{eq:tf:nivel:capacitancia-r2}
+\end{equation}
+
+Pela Figura \ref{fig:tf:nivel:capacitancia} é visivel que o sensor é linear até 180 mL, após ele começa passa a ter erros significativos na leitura.
+
+Foi testado também o efeito da temperatura no valor de capacitância do sensor. Neste teste, o fundo de escala (200 mL) foi aquecido até 40ºC e a capacitância foi medida. Houve uma variação de 20 nF do valor esperado. Este teste prova a necessidade de compensação térmica do valor.
+
+A proposta é que sejam colocados eletrodos de referência no fundo do recipiente e que o valor de capacitância deste sensor seja utilizado como referência do ponto zero do sistema, isto é, o ponto em que o volume é zero (1-2mm de coluna de água).
 
 \chapter{Cronograma de Execução}
 
