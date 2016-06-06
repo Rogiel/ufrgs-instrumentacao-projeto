@@ -1,7 +1,7 @@
 \ProvidesClass{instrumentacao}[2014/08/16 Example LaTeX class]
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-\LoadClass[12pt,a4paper]{extreport}
+\LoadClass[]{report}
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage[brazil]{babel}
@@ -10,9 +10,8 @@
 \RequirePackage{todonotes}
 \RequirePackage{float}
 \RequirePackage{cite}
-\PassOptionsToPackage{hyphens}{url}\RequirePackage{url}
+\RequirePackage{url}
 \RequirePackage{hyperref}
-\RequirePackage{cleveref}
 \RequirePackage[all]{hypcap}
 \RequirePackage{titlesec}
 \RequirePackage{titling}
@@ -35,11 +34,8 @@
 \RequirePackage{pdfpages}
 \RequirePackage{pbox}
 
-\AtBeginDocument{
-	\fontsize{12pt}{16pt}\selectfont
-	\let\oldref=\ref
-	\def\ref#1{(\oldref{#1})}
-}
+\RequirePackage[labelsep=endash]{caption}
+
 
 %% TEMPLATE ARGUMENTS
 \newcommand{\institute}[1]{%
@@ -84,22 +80,13 @@
 
 
 % Attachments
-\newcommand{\includenotebook}[3]{
+\newcommand{\includenotebook}[2]{
 	\includepdf[pages={1},pagecommand={
 		\pagestyle{fancy}
 		\subsection{#2}
-		\label{att:#3}
 	}]{#1}
 	\includepdf[pages={2-},pagecommand={
 		\pagestyle{fancy}
-	}]{#1}
-}
-
-\newcommand{\includenotebooksingle}[3]{
-	\includepdf[pages={1}, pagecommand={
-		\pagestyle{fancy}
-		\subsection{#2}
-		\label{att:#3}
 	}]{#1}
 }
 
@@ -150,7 +137,7 @@
 \end{flushright}
 
 {\textit \noindent
-	Anteprojeto
+	Projeto final
 	\vspace{1em}
 }
 
@@ -184,26 +171,15 @@
 
 \hrule \vspace{1em}
 
-\end{flushleft}
-
 \begin{adjustwidth}{1cm}{}
-\noindent
-\sloppy
-\textbf{Resumo}: \theresume
+\textbf{Resumo}: \noindent \theresume
 \vspace{1.5em}
-
-\noindent
-\sloppy
-\textbf{Abstract}: \theabstract
+\textbf{Abstract}: \noindent \theabstract
 \vspace{1.5em}
-
-\noindent
-\sloppy
-\textbf{Palavras Chaves}: \thekeywords
+\textbf{Palavras Chaves}: \thekeywords
 
 \vspace{1em} \hrule
 \end{adjustwidth}
+\end{flushleft}
 \end{titlepage}
 }
-
-\sloppy
