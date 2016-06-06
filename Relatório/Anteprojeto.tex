@@ -176,7 +176,31 @@ O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os an
 	\label{fig:anemometro}
 \end{figure}
 
-Como forma de medir a velocidade de rotação do anemômetro, será utilizado um sensor de efeito \textit{Hall} associado com um ímã. Assim, toda vez que o ímã passar pelo sensor de efeito \textit{Hall}, este deixa passar corrente, podendo assim ser contabilizado o número de voltas em um determinado período de análise.
+Como forma de medir a velocidade de rotação do anemômetro, será utilizado um sensor de efeito \textit{Hall} associado com um ímã (Figura \ref{fig:anemometro-ilustracao}). Assim, toda vez que o ímã passar pelo sensor de efeito \textit{Hall}, este deixa passar corrente, podendo assim ser contabilizado o número de voltas em um determinado período de análise.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{anemometro-ilustracao.jpg}
+	\caption{Ilustração de modelo de anemômetro a ser confeccionado.}
+	Fonte:  \url{https://www.google.com.br/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=0ahUKEwje97Oi9pPNAhUMLyYKHTUiAOEQjBwIBA&url=http\%3A\%2F\%2Fs3.amazonaws.com\%2Fmagoo\%2FABAAAfwekAI-10.jpg&psig=AFQjCNFkGa7fc_vFBE0k5IBXnofWPzO8kQ&ust=1465320453086124}
+	\label{fig:anemometro-ilustracao}
+\end{figure}
+
+Para o sensor de efeito Hall, será utilizado o  \textit{switch} de efeito Hall modelo A3144 \cite{datasheet-hall}, da Allegro MicroSystems. Seu diagrama de blocos funcional pode ser verificado na Figura \ref{fig:anemometro-bloco-hall}
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{anemometro-bloco-hall.jpg}
+	\caption{Diagrama de blocos funcional do \textit{switch} de efeito hall A3144.}
+	Fonte:  Datasheet do fabricante \cite{datasheet-hall}
+	\label{fig:anemometro-bloco-hall}
+\end{figure}.
+
+Na Figura \ref{fig:anemometro-bloco-experimental} verifica-se o digrama de blocos proposto para para a implementação experimental do anemômetro.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.8\textwidth]{anemometro-fluxograma.jpg}
+	\caption{Diagrama de blocos proposto para implementação experimental do anemômetro.}
+	\label{fig:anemometro-bloco-experimental}
+\end{figure}.
 
 
 \section{Pluviômetro}
@@ -341,6 +365,8 @@ A variação de $+0.1ºC$ utilizando a função de transferência teórica para 
 
 \section{Anemômetro}
 
+A parte prática referente à implementação experimental do anemômetro ainda não foi efetivada, pois os sensores comprados ainda não chegaram e, na visão do grupo, trata-se de uma área que não exige muito condicionamento eletrônico, logo, demanda menos tempo para desenvolvimento.
+
 \section{Pluviômetro}
 
 O teste de capacitância do sensor apresentou a função de transferência da Figura \ref{fig:tf:nivel:capacitancia}:
@@ -372,7 +398,7 @@ Foi testado também o efeito da temperatura no valor de capacitância do sensor.
 
 A proposta é que sejam colocados eletrodos de referência no fundo do recipiente e que o valor de capacitância deste sensor seja utilizado como referência do ponto zero do sistema, isto é, o ponto em que o volume é zero (1-2mm de coluna de água).
 
-
+\newpage
 \begin{thebibliography}{9}
 \bibitem{mathematica-numerial-precision} \url{https://reference.wolfram.com/language/tutorial/NumericalPrecision.html}, acessado em 16 de março de 2016
 
@@ -382,6 +408,8 @@ A proposta é que sejam colocados eletrodos de referência no fundo do recipient
 
 \bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi\%C3\%B4metro}, acessado em 16/04/2016.
 \bibitem{pluviometro-1} \url{http://www.agsolve.com.br/dicas-e-solucoes/como-funciona-o-pluviometro}, acessado em 16/04/2016.
+
+\bibitem{datasheet-hall} Datasheet do \textit{switch} de efeito Hall A3144, da Allegro MicroSystems, disponível em \url{http://www.allegromicro.com/~/media/Files/Datasheets/A3141-2-3-4-Datasheet.ashx?la=en}.
 
 \bibitem{catalogo-pt100} Catálogo de sensores resistivos de platina da LABFACILITY, \url{http://www.farnell.com/datasheets/1848446.pdf }, acessado em 31/05/2016.
 
