@@ -8,20 +8,19 @@
 }
 
 \title{Central meteorológica: Dispositivo para medição de precipitação, de temperatura e de velocidade do vento}
-\author{Rogiel Sulzbach \and Rodrigo de Castro Silveira \and Yi Chen Wu}
+\author{Rogiel Sulzbach \and Rodrigo de Castro Silveira}
 \startdate{18 de abril de 2016}
 \finishdate{27 de junho de 2016}
 \emails{
-	\emailaddress{R.J.S.}{rogiel@rogiel.com},
-	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com} e
-	\emailaddress{Y.C.}{yichenpoa@gmail.com}
+	\emailaddress{R.J.S.}{rogiel@rogiel.com} e
+	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com}
 }
 \resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão de tempo e também a caracterização do clima. Para tanto, será desenvolvido instrumentos (ou sensores eletrônicos) de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
 \abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall.}
 \keywords{estação meteorológica; instrumentos de medição; temperatura; quantidade de chuva; velocidade de vento.}
 \institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Prof. Dr. Alexandre Balbinot}
 
-\headertext{Proposta de Projeto}
+\headertext{Anteprojeto}
 
 \begin{document}
 \maketitle
@@ -40,12 +39,10 @@ O projeto desenvolvido pelo grupo fará a captação e tratamento dos dados de t
 \end{itemize}
 
 \chapter{Metodologia Experimental}
-A seguir serão apresentadas as especificações de cada um dos instrumentos a serem projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
+A seguir serão apresentadas as especificações de cada um dos instrumentos que estão sendo projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
 
 \section{Termômetro}
-Assim como na maioria dos sensores, os avanços tecnológicos proporcionados pela sofisticação eletrônica dos dias de hoje possibilitaram o surgimento de uma ampla gama de sensores \cite{livro-texto}. Para o termômetro utilizaremos um sensor do tipo RTD (\textit{Resistance Temperature Detectors}) a fim de medir a temperatura do ar ambiente onde a estação está instalada.
-
-Os termômetros de resistência funcionam com base no fato de que, de modo geral, a resistência dos metais aumenta com a temperatura \cite{livro-texto}. As principais características dos RTDs são:
+Para a implementação do termômetro será utilizado um sensor do tipo RTD (\textit{Resistance Temperature Detectors}) a fim de medir a temperatura do ar ambiente onde a estação está instalada. A faixa de medição de interesse foi estipulada de $-10ºC$ a $+50ºC$. Os termômetros de resistência funcionam com base no fato de que, de modo geral, a resistência dos metais aumenta com a temperatura \cite{livro-texto}. As principais características dos RTDs são:
 
 \begin{itemize}
 	\item Condutor metálico (a platina é o metal mais utilizado);
@@ -53,6 +50,86 @@ Os termômetros de resistência funcionam com base no fato de que, de modo geral
 	\item Dependendo do metal são muito estáveis;
 	\item Apresentam baixíssima tolerância de fabricação (0,06\% a 0,15\%).
 \end{itemize}
+
+O RTD utilizado será um Pt100, que é um RTD de platina que apresenta $100\Omega$ @ $0ºC$. O modelo utilizado é o DM-301, da LABFACILITY. Segundo catálogo \cite{catalogo-pt100} disponibilizado por um distribuidor do sensor, o DM-301 é um sensor Pt100 do tipo película fina, para uso de $-50ºC$ a $+500ºC$, classe B da norma IEC751. Sua resistência no ponto de fusão da água ($0ºC$) é de $100\Omega$, apresenta um intervalo fundamental ($0ºC$ a $100ºC$) de $38.5\Omega$ (nominal), resposta térmica de $0.1s$ e estabilidade $\pm 0.05\%$. A Figura \ref{fig:DM-301} apresenta uma foto do sensor DM-301.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{DM-301.jpg}
+	\caption{Foto do sensor resistivo Pt100, modelo DM-301, da LABFACILITY.}
+	Fonte: \url{https://www.digchip.com/datasheets/parts/datasheet/2403/DM-301.php}
+	\label{fig:DM-301}
+\end{figure}
+
+A classe B de tolerância, segundo a norma IEC751, apresenta um coeficiente térmico $\alpha = 0.003850 \Omega/\OmegaºC \pm 0.000063$, e um $R_0= 100\Omega \pm 0.12\%$. Os desvios admissíveis, para temperatura e resistência, são observados na Equações \ref{eq:pt100-desvio-admissivel-temp} e \ref{eq:pt100-desvio-admissivel-resist}, respectivamente.
+
+\begin{equation}
+	T(ºC)=\pm (0.3+0.005*t)
+	\label{eq:pt100-desvio-admissivel-temp}
+\end{equation}
+\begin{equation}
+	R(\Omega)=\pm (0.12+0.0018*t)
+	\label{eq:pt100-desvio-admissivel-resist}
+\end{equation}
+
+Usando-se os valores-padrão estabelecidos pela norma IEC751 para sensores Pt100, pode-se chegar à função de transferência teórica aproximada para esse sensor:
+
+\begin{equation}
+	R=R_0(1+\alpha(T-T_0))
+	\label{eq:pt100-eq-teorica}
+\end{equation}
+
+\noindent onde $R_0$ é a resistência elétrica na temperatura $T_0$ e $\alpha$ é o coeficiente térmico da platina. Substituindo-se os valores na Equação \ref{eq:pt100-eq-teorica}, tem-se:
+
+\begin{equation}
+	R=100+0.385*T
+	\label{eq:pt100-eq-teorica-valor}
+\end{equation}
+
+Tendo a sensibilidade teórica desse sistema representado por:
+
+\begin{equation}
+	S=0.385 [\Omega/ºC]
+	\label{eq:pt100-sensibilidade-teorica-valor}
+\end{equation}
+
+Um típico condicionamento dado a RTDs utiliza o método baseado em uma ponte de Wheatstone. A Figura \ref{fig:termometro-ponte} apresenta o esquemático da estrutura básica da Ponte utilizada.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{pt100-ponte.png}
+	\caption{Esquemático da estrutura básica da ponte de Wheatstone utilizada como parte do circuito condicionador do Pt100.}
+	\label{fig:termometro-ponte}
+\end{figure}
+
+\noindent onde $R_1=R_2=R_3$ são resistores de $100\Omega$ e $R(T)$ é o sensor Pt100 com $100\Omega@0ºC$. $V_{in}$ é uma fonte de tensão de $5V$, e $V_1$ e $V_2$ são os nós diferenciais da ponte.
+
+Equacionando o circuito apresentado na Figura \ref{fig:termometro-ponte}, para a saída diferencial, tem-se:
+
+\begin{equation}
+	V_{out}=V_1-V_2=\frac{R_2R(T)-R_3R_1}{(R_2+R_3)(R_1R(T))}V_{in}
+	\label{eq:termometro-ponte-saida}
+\end{equation}
+
+Substituindo-se, na Equação \ref{eq:termometro-ponte-saida}, pelos valores nominais dos resistores, tem-se:
+
+\begin{equation}
+	V_{out}=2.5-\frac{500}{R(T)+100}
+	\label{eq:termometro-ponte-saida-valores}
+\end{equation}
+
+A ponte de Wheatstone tem como característica principal o atingimento da tensão diferencial igual a zero para a seguinte relação:
+
+ \begin{equation}
+	R_1*R_3=R_2*R(T)
+	\label{eq:termometro-ponte-equilibrio}
+\end{equation}
+
+Para os valores indicados, a situação explicitada na Equação \ref{eq:termometro-ponte-equilibrio} só acontece para $R(T)=100\Omega$, isto é, quando o sensor estiver percebendo uma temperatura de $0ºC$. Neste caso, a tensão diferencial é de $0V$.
+
+Porém, como a temperatura mínima a ser medida é de $-10ºC$, é interessante que se tenha um circuito para o ajuste de \textit{offset}, na qual se consiga ajustar o valor de   saída zero independente do valor de $R(T)$.
+
+
+
+
 
 \section{Anemômetro}
 O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo será utilizado no projeto em questão, a exemplo da Figura \ref{fig:anemometro}
@@ -85,9 +162,9 @@ A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do 
 	\label{fig:sensor-nivel-capacitivo}
 \end{figure}
 
-A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro \todo{nunca lembro o modelo......} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 200 mL com resolução de 2mL.
+A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro Minipa ET-2082B \cite{multimetro-minipa} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 200 mL com resolução de 2mL.
 
-O condicionamento do sensor ainda não foi testado, mas acredita-se que a melhor topologia para esta aplicação consiste em um amplificador numa topologia de integrador conectado a um comparador que compara a curva de carregamento do capacitor com uma referência fixa. A variação de frequência do sistema corresponde à variação de capacitância incorre em uma variação de frequência de oscilação do sistema. A Figura \ref{fig:sensor-nivel-capacitivo-condicionamento} apresenta o circuito de condicionamento.
+O condicionamento do sensor ainda não foi testado, mas acredita-se que a melhor topologia para esta aplicação consiste em um amplificador numa topologia de integrador conectado a um comparador que compara a curva de carregamento do capacitor com uma referência fixa. A variação de frequência do sistema corresponde à variação de capacitância, que incorre em uma variação de frequência de oscilação do sistema. A Figura \ref{fig:sensor-nivel-capacitivo-condicionamento} apresenta o circuito de condicionamento.
 
 
 \begin{figure}[H]
@@ -127,37 +204,12 @@ A Equação \ref{eq:tf:nivel:capacitancia} foi ajustada com $R^2$ dado pela Equa
 	\label{eq:tf:nivel:capacitancia-r2}
 \end{equation}
 
-Pela Figura \ref{fig:tf:nivel:capacitancia} é visivel que o sensor é linear até 180 mL, após ele começa passa a ter erros significativos na leitura.
+Pela Figura \ref{fig:tf:nivel:capacitancia} é visivel que o sensor é linear até 180 mL, após ele passa a ter erros significativos na leitura.
 
 Foi testado também o efeito da temperatura no valor de capacitância do sensor. Neste teste, o fundo de escala (200 mL) foi aquecido até 40ºC e a capacitância foi medida. Houve uma variação de 20 nF do valor esperado. Este teste prova a necessidade de compensação térmica do valor.
 
 A proposta é que sejam colocados eletrodos de referência no fundo do recipiente e que o valor de capacitância deste sensor seja utilizado como referência do ponto zero do sistema, isto é, o ponto em que o volume é zero (1-2mm de coluna de água).
 
-\chapter{Cronograma de Execução}
-
-Na tabela \ref{tab:cronograma} está apresentado o cronograma de execução do projeto:
-
-\begin{table}[H]
-\centering
-\caption{Cronograma de execução do projeto}
-\label{tab:cronograma}
-\begin{tabular}{|c|l|}
-\hline
-\textit{\textbf{Prazo}} & \multicolumn{1}{c|}{\textit{\textbf{Atividades}}}               \\ \hline
-18/abr                  & Entrega da Proposta do Projeto Final                            \\ \hline
-20/abr                  & Compra de sensores e componentes                                \\ \hline
-27/abr                  & Construção mecânica do anemômetro e do pluviômetro              \\ \hline
-04/mai                  & Levantamento das curvas dos sensores                            \\ \hline
-18/mai                  & Design e montagem de placa de circuito impresso                 \\ \hline
-25/mai                  & Testes e análise de incertezas dos sensores                     \\ \hline
-01/jun                  & Finalização do Anteprojeto                                      \\ \hline
-06/jun                  & Apresentação do Anteprojeto                                     \\ \hline
-08/jun                  & Ajuste da interface gráfica                                     \\ \hline
-15/jun                  & Ajustes, testes finais e finalização da documentação do projeto \\ \hline
-22/jun                  & Ajustes, testes finais e finalização da documentação do projeto \\ \hline
-27/jun                  & Apresentação do Projeto Final                                   \\ \hline
-\end{tabular}
-\end{table}
 
 \begin{thebibliography}{9}
 \bibitem{mathematica-numerial-precision} \url{https://reference.wolfram.com/language/tutorial/NumericalPrecision.html}, acessado em 16 de março de 2016
@@ -169,9 +221,14 @@ Na tabela \ref{tab:cronograma} está apresentado o cronograma de execução do p
 \bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi\%C3\%B4metro}, acessado em 16/04/2016.
 \bibitem{pluviometro-1} \url{http://www.agsolve.com.br/dicas-e-solucoes/como-funciona-o-pluviometro}, acessado em 16/04/2016.
 
+\bibitem{catalogo-pt100} Catálogo de sensores resistivos de platina da LABFACILITY, \url{http://www.farnell.com/datasheets/1848446.pdf }, acessado em 31/05/2016.
+
 \bibitem{pluviometro-capacitivo-texas} Capacitive-Based Liquid Level Sensing Sensor Reference Design, \url{http://www.ti.com/lit/ug/tidu736a/tidu736a.pdf
 }, acessado em 30/05/2016.
+
 \bibitem{medicao-capacitancia} Use Analog Techniques To Measure Capacitance In Capacitive Sensors, \url{http://m.electronicdesign.com/analog/use-analog-techniques-measure-capacitance-capacitive-sensors}, acessado em 01/06/2016.
+
+\bibitem{multimetro-minipa} Manual do multímetro digital Minipa ET-2082B, disponível em \url{http://portal.if.usp.br/labdid/sites/portal.if.usp.br.labdid/files/Et-2082b-1100.pdf}.
 
 
 %\bibitem{ref1} Sobrenome, A.B.; Sobrenome, C.D. Title of the cited article. Journal Title 2007, 6, 100-110. 
