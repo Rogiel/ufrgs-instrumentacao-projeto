@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     17556,        471]
-NotebookOptionsPosition[     16794,        439]
-NotebookOutlinePosition[     17204,        457]
-CellTagsIndexPosition[     17161,        454]
+NotebookDataLength[     18623,        492]
+NotebookOptionsPosition[     17857,        460]
+NotebookOutlinePosition[     18270,        478]
+CellTagsIndexPosition[     18227,        475]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -105,7 +105,14 @@ Cell[BoxData[{
           RowBox[{"data", "[", 
            RowBox[{"[", 
             RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], 
-      "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+      "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<Temperatura (\[Degree]C)\>\"", ",", " ", 
+        "\"\<Resist\[EHat]ncia El\[EAcute]trica (\[CapitalOmega])\>\""}], 
+       "}"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{"Show", "[", 
   RowBox[{"tf", ",", " ", 
    RowBox[{"ImageSize", "\[Rule]", "Full"}]}], "]"}], "\[IndentingNewLine]", 
@@ -116,7 +123,8 @@ Cell[BoxData[{
      RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
      "\"\<Images/Temperatura/ResistenceTransferFunction.pdf\>\""}], ",", " ", 
     "tf"}], "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.674132617946949*^9, 3.674133044196898*^9}}],
+ CellChangeTimes->{{3.674132617946949*^9, 3.674133044196898*^9}, {
+  3.6742211175992393`*^9, 3.674221144362896*^9}}],
 
 Cell[CellGroupData[{
 
@@ -134,7 +142,7 @@ Cell[BoxData[
    100.25231106499766` (1 + 0.0037820652324838835` $CellContext`T)],
   Editable->False]], "Print",
  CellChangeTimes->{{3.6741329582451982`*^9, 3.674133000366*^9}, 
-   3.67413353477039*^9}],
+   3.67413353477039*^9, {3.674221139519863*^9, 3.6742211446448383`*^9}}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -144,7 +152,7 @@ Cell[BoxData[
   SequenceForm[$CellContext`R^2, " = ", 0.9999995373547095],
   Editable->False]], "Print",
  CellChangeTimes->{{3.6741329582451982`*^9, 3.674133000366*^9}, 
-   3.674133534779513*^9}]
+   3.67413353477039*^9, {3.674221139519863*^9, 3.674221144650631*^9}}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -187,7 +195,11 @@ HI2srl9kYGHSKL71ixOJOmVx3x7Ol768EbVLQMI4L8u0kfN/j/IqUQ==
        "]]}}, {}}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{True, True},
-  AxesLabel->{None, None},
+  AxesLabel->{
+    FormBox["\"Temperatura (\[Degree]C)\"", TraditionalForm], 
+    FormBox[
+    "\"Resist\[EHat]ncia El\[EAcute]trica (\[CapitalOmega])\"", 
+     TraditionalForm]},
   AxesOrigin->{10.690625, 103.65},
   DisplayFunction->Identity,
   Frame->{{False, False}, {False, False}},
@@ -216,7 +228,7 @@ HI2srl9kYGHSKL71ixOJOmVx3x7Ol768EbVLQMI4L8u0kfN/j/IqUQ==
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
  CellChangeTimes->{{3.674132958314061*^9, 3.674133000427129*^9}, 
-   3.6741335348497143`*^9}]
+   3.6741335348497143`*^9, {3.674221139714123*^9, 3.674221144716917*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -310,7 +322,13 @@ Cell[BoxData[{
           RowBox[{"data", "[", 
            RowBox[{"[", 
             RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], 
-      "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+      "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<Temperatura (\[Degree]C)\>\"", ",", " ", 
+        "\"\<Tens\[ATilde]o El\[EAcute]trica (V)\>\""}], "}"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"Show", "[", 
   RowBox[{"tf", ",", " ", 
    RowBox[{"ImageSize", "\[Rule]", "Full"}]}], "]"}], "\[IndentingNewLine]", 
@@ -321,7 +339,8 @@ Cell[BoxData[{
      RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
      "\"\<Images/Temperatura/ConditionatedTransferFunction.pdf\>\""}], ",", 
     " ", "tf"}], "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.674133054253528*^9, 3.674133130274016*^9}}],
+ CellChangeTimes->{{3.674133054253528*^9, 3.674133130274016*^9}, {
+  3.674221155564863*^9, 3.674221161370824*^9}}],
 
 Cell[CellGroupData[{
 
@@ -338,7 +357,7 @@ Cell[BoxData[
    0.08074805194805189 $CellContext`T],
   Editable->False]], "Print",
  CellChangeTimes->{{3.674133080062669*^9, 3.6741331305868073`*^9}, 
-   3.674133536593913*^9}],
+   3.674133536593913*^9, 3.67422116166658*^9}],
 
 Cell[BoxData[
  InterpretationBox[
@@ -348,7 +367,7 @@ Cell[BoxData[
   SequenceForm[$CellContext`R^2, " = ", 0.999955380359227],
   Editable->False]], "Print",
  CellChangeTimes->{{3.674133080062669*^9, 3.6741331305868073`*^9}, 
-   3.674133536600115*^9}]
+   3.674133536593913*^9, 3.6742211616724052`*^9}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -395,7 +414,9 @@ lPGiu74y1haCA18MbqXnaBRXuqzZspVgbmjlGh8TjTvLPxyI2UZwRJ1fUMG4
        "]]}}, {}}},
   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
   Axes->{True, True},
-  AxesLabel->{None, None},
+  AxesLabel->{
+    FormBox["\"Temperatura (\[Degree]C)\"", TraditionalForm], 
+    FormBox["\"Tens\[ATilde]o El\[EAcute]trica (V)\"", TraditionalForm]},
   AxesOrigin->{99.6875, 0},
   DisplayFunction->Identity,
   Frame->{{False, False}, {False, False}},
@@ -424,7 +445,7 @@ lPGiu74y1haCA18MbqXnaBRXuqzZspVgbmjlGh8TjTvLPxyI2UZwRJ1fUMG4
      Scaled[0.05]}},
   Ticks->{Automatic, Automatic}]], "Output",
  CellChangeTimes->{{3.674133080137376*^9, 3.674133130662985*^9}, 
-   3.674133536665557*^9}]
+   3.674133536665557*^9, 3.674221161733975*^9}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -438,7 +459,7 @@ Cell[BoxData[
      RowBox[{"EvaluationNotebook", "[", "]"}]}], "]"}], ";"}]}]], "Input"]
 },
 WindowSize->{808, 699},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{Automatic, 351}, {Automatic, 48}},
 PrintingCopies->1,
 PrintingPageRange->{1, Automatic},
 FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 25, \
@@ -457,22 +478,22 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 3450, 96, 267, "Input"],
+Cell[580, 22, 3752, 104, 284, "Input"],
 Cell[CellGroupData[{
-Cell[4055, 122, 534, 14, 21, "Print"],
-Cell[4592, 138, 341, 8, 23, "Print"]
+Cell[4357, 130, 582, 14, 21, "Print"],
+Cell[4942, 146, 386, 8, 23, "Print"]
 }, Open  ]],
-Cell[4948, 149, 3491, 69, 449, "Output"]
+Cell[5343, 157, 3690, 73, 395, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8476, 223, 3592, 100, 284, "Input"],
+Cell[9070, 235, 3869, 107, 301, "Input"],
 Cell[CellGroupData[{
-Cell[12093, 327, 494, 13, 21, "Print"],
-Cell[12590, 342, 342, 8, 23, "Print"]
+Cell[12964, 346, 515, 13, 21, "Print"],
+Cell[13482, 361, 366, 8, 23, "Print"]
 }, Open  ]],
-Cell[12947, 353, 3555, 73, 444, "Output"]
+Cell[13863, 372, 3702, 75, 396, "Output"]
 }, Open  ]],
-Cell[16517, 429, 273, 8, 46, "Input"]
+Cell[17580, 450, 273, 8, 46, "Input"]
 }
 ]
 *)

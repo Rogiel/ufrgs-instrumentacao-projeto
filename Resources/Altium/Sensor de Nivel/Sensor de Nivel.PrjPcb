@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for Sensor de Nivel
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -70,6 +70,23 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document3]
+DocumentPath=Condicionamento.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=ODLFUQHA
+
 [SearchPath1]
 Path=C:\Users\Public\Documents\Altium\AD15\Library\*.*
 IncludeSubFolders=1
@@ -85,7 +102,7 @@ GenerateBOM=1
 OutputJobsCount=0
 
 [Generic_EDE]
-OutputDir=Project Outputs for Sensor de Nivel
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
