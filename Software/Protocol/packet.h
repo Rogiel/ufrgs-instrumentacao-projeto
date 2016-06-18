@@ -9,6 +9,8 @@
 #ifndef packet_h
 #define packet_h
 
+typedef float frequency_t;
+
 /**
  * The level sensor comm protocol packet structure
  */
@@ -17,7 +19,10 @@ struct packet_payload {
 	 * A sync packet that indicates the start of a sequence
 	 */
 	uint8_t sync;
-	uint32_t integer;
+
+	frequency_t level;
+	frequency_t reference;
+	frequency_t environment;
 } __attribute__((packed));
 
 union packet_t {

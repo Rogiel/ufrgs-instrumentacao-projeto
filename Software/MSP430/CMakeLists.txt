@@ -10,7 +10,7 @@ set(BOARD_NAME "msp430g2553")
 # be equal to the target board.
 set(MSP_CPU_FLAG "-mmcu=${BOARD_NAME}")
 set(CMAKE_C_FLAGS "${MSP_CPU_FLAG} -Os")
-set(CMAKE_CXX_FLAGS "${MSP_CPU_FLAG}")
+set(CMAKE_CXX_FLAGS "${MSP_CPU_FLAG} --std=c++11")
 set(CMAKE_EXE_LINKER_FLAGS "${MSP_CPU_FLAG}")
 
 # Create the executable
