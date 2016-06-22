@@ -34,27 +34,26 @@
 
 typedef uint64_t counter_t;
 
-struct measurement_t {
+struct measurement_ctx {
 	counter_t time;
 	counter_t counter;
 
-	measurement_t() {
+	measurement_ctx() {
 		time = 0;
 		counter = 0;
 	}
 };
 
 struct context_t {
-	measurement_t level;
-	measurement_t reference;
-	measurement_t environment;
+	measurement_ctx level;
+	measurement_ctx reference;
+	measurement_ctx environment;
 };
 
 context_t context;
 counter_t counter = 0;
 
 uint8_t lastState = 0;
-bool hasChange = false;
 
 int main(void) {
 	WDTCTL = WDTPW + WDTHOLD;                 // Stop watchdog timer
@@ -81,9 +80,19 @@ int main(void) {
 	while(true) {
 		packet_t packet;
 		packet.payload.sync = 0xBF;
-		packet.payload.level = 16000000.0 / context.level.counter;
-		packet.payload.reference = 16000000.0 / context.reference.counter;
-		packet.payload.environment = 16000000.0 / context.environment.counter;
+
+		__disable_interrupt();
+		context_t contextCopy = context;
+		__enable_interrupt();
+
+		packet.payload.level.id = 0;
+		packet.payload.level.frequency = contextCopy.level.counter;
+
+		packet.payload.reference.id = 1;
+		packet.payload.reference.frequency = contextCopy.reference.counter;
+
+		packet.payload.environment.id = 2;
+		packet.payload.environment.frequency = contextCopy.environment.counter;
 
 		for(int i = 0; i < sizeof(packet.payload); i++) {
 			uart_putc(packet.buffer[i]);
@@ -98,31 +107,27 @@ int main(void) {
 //// Timer A0 interrupt service routine
 static void __attribute__((__interrupt__(TIMER0_A0_VECTOR))) TimerA0 (void) {
 	counter++;
-	P2OUT ^= BIT0;
+//	P2OUT ^= BIT0;
 }
 
 static counter_t counter_time() {
-	return TA0R | (counter << 16);
+	return TA0R | ((counter & 0x0000FFFF) << 16);
 }
 
-static void processValue(measurement_t& measurement, uint8_t bit);
+static void processValue(measurement_ctx& measurement, uint8_t bit);
 
 // Port1 interrupt service routine
 static void __attribute__((__interrupt__(PORT1_VECTOR))) Port1 (void) {
-#define SENSOR_PROCESSING(name, id)									\
-	if((port & name) != (lastState & name) && (port & name) == 0) 	\
-		processValue(context.id, name);
-
-	uint8_t port = P1IN;
-
-	SENSOR_PROCESSING(SENSOR_LVL, level);
-	SENSOR_PROCESSING(SENSOR_REFLVL, reference);
-	SENSOR_PROCESSING(SENSOR_ENVREF, environment);
-
-	lastState = port;
+    if(P1IFG & SENSOR_LVL) {
+        processValue(context.level, SENSOR_LVL);
+    } else if(P1IFG & SENSOR_REFLVL) {
+        processValue(context.reference, SENSOR_REFLVL);
+    } else if(P1IFG & SENSOR_ENVREF) {
+        processValue(context.environment, SENSOR_ENVREF);
+    }
 }
 
-static void processValue(measurement_t& measurement, uint8_t bit) {
+static void processValue(measurement_ctx& measurement, uint8_t bit) {
 	P1IE &= ~bit;
 
 	counter_t now = counter_time();

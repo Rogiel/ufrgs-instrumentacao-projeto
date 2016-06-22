@@ -88,16 +88,23 @@ unsigned char cpuclock_baudrate_to_MCTL[] = {
 void uart_init(void) {
     uart_set_rx_isr_ptr(0L);
 
+    P1DIR |= TXD;
+    P1DIR &= ~(RXD);
+
+    P1REN &= ~(TXD | RXD);
+
     P1SEL  = RXD + TXD;
     P1SEL2 = RXD + TXD;
     UCA0CTL1 = UCSSEL_2;                     // SMCLK
 
+#define CPU_FREQ 16000000
+
     // Set the baudrate dividers and modulation
     unsigned int N_div;
-    N_div = 16000000 / 9600;
+    N_div = CPU_FREQ / 9600;
 
     float N_div_f;
-    N_div_f = (float)16000000 / (float)9600;
+    N_div_f = (float)CPU_FREQ / (float)9600;
 
     if(N_div >= 16) {
         // We can use Oversampling mode
@@ -116,6 +123,7 @@ void uart_init(void) {
         UCA0MCTL = (unsigned char)((N_div_f - round(N_div_f))*8.0f) << 1; // Set BRS
     }
 
+//    UCA0CTL0 &= UCPEN & UCPAR;
     UCA0CTL1 &= ~UCSWRST;                     // Initialize USCI state machine
     IE2 |= UCA0RXIE;                          // Enable USCI_A0 RX interrupt
 }
