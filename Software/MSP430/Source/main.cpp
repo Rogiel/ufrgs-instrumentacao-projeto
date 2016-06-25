@@ -107,10 +107,11 @@ int main(void) {
 //// Timer A0 interrupt service routine
 static void __attribute__((__interrupt__(TIMER0_A0_VECTOR))) TimerA0 (void) {
 	counter++;
-//	P2OUT ^= BIT0;
 }
 
 static counter_t counter_time() {
+    // shifts the incrementing counter by 16 bits to the left
+    // and appends the 16-bit timer to the result
 	return TA0R | ((counter & 0x0000FFFF) << 16);
 }
 

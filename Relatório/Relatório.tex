@@ -205,6 +205,7 @@ Na Figura \ref{fig:anemometro-bloco-experimental} verifica-se o digrama de bloco
 
 
 \section{Pluviômetro}
+\todo{tirar referência da wikipedia}
 Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$]. Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura.
 
 A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado.
@@ -223,14 +224,142 @@ A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do 
 
 A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro Minipa ET-2082B \cite{multimetro-minipa} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 200 mL com resolução de 2mL.
 
-O condicionamento do sensor ainda não foi testado, mas acredita-se que a melhor topologia para esta aplicação consiste em um amplificador numa topologia de integrador conectado a um comparador que compara a curva de carregamento do capacitor com uma referência fixa. A variação de frequência do sistema corresponde à variação de capacitância, que incorre em uma variação de frequência de oscilação do sistema. A Figura \ref{fig:sensor-nivel-capacitivo-condicionamento} apresenta o circuito de condicionamento.
+A fim de estimar o valor de capacitância do sistema, foi utilizado um circuito de condicionamento misto digital e analógico. Na parte analógica, um oscilador controlado pela capacitância do sensor foi utilizado. O oscilador gera uma onda quadrada com frequência (e período) variável que depende diretamente do valor de capacitância do sensor. A Figura \ref{fig:metodologia-capacitivo-oscilador} apresenta o esquemático do oscilador.
 
 \begin{figure}[H]
-	\centering \includegraphics[width=\textwidth]{SensorNivelCapacitivo-Condicionamento.jpg}
-	\caption{Desenho esquemático do sensor de nível capacitivo. $C(H)$ é a capacitância equivalente da construção para um nível de água $h$ e $E$ são as linhas de campo elétrico internas no sensor.}
-	Fonte: Electronic Design \cite{medicao-capacitancia}
-	\label{fig:sensor-nivel-capacitivo-condicionamento}
+	\centering
+%	\includegraphics[width=\textwidth]{}
+	\caption{Esquemático do oscilador utilizado no circuito de condicionamento do sensor de nível capacitivo}
+	\label{fig:metodologia-capacitivo-oscilador}
 \end{figure}
+\todo{figura}
+
+Neste sistema, a equação teórica que determina o período de oscilação do sistema é dada pela expressão da Equação \ref{eq:metologia-pluviometro-periodo}.
+
+\begin{equation}
+	T = 2 R C ln \left(\frac{1+\lambda}{1-\lambda}\right)
+	\label{eq:metologia-pluviometro-periodo}
+\end{equation}
+\noindent onde $R$ é o resistor de realimentação positiva, C é o valor de capacitância do oscilador, $ln$ é o logaritmo natural neperiano e $\lambda$ é definido conforme a expressão da Equação \label{eq:metologia-pluviometro-periodo-2}.
+
+\begin{equation}
+	\lambda = \frac{R_1}{R_1 + R_2}
+	\label{eq:metologia-pluviometro-periodo-2}
+\end{equation}
+\noindent onde $R_1$ e $R_2$ consiste nos resistores de realimentação positiva do circuito.
+
+Para evitar que a frequência ficasse num valor muito alto, ou seja, períodos muito baixos, o que torna mais dificultosa a medida, foi adicionado um capacitor de $40 nF$ em paralelo com o sensor cuja única função é limitar a frequência de oscilação do sistema.
+
+No sistema montado foram utilizados os seguintes componentes indicados nas Equações ...
+
+\begin{eqnarray}
+	R &=& (1 k\Omega \pm 10\%)							\\
+	C &=& (40 nF \pm 20\%) + C(V) 				\\
+	R_1 = R_2 &=& (10 k\Omega \pm 10\%)
+\end{eqnarray}
+\todo{verificar valores}
+
+\noindent onde $C(V)$ é o valor de capacitância do sensor correspondente à um volume $V$ em $mL$.
+
+Em termos práticos, foi utilizado um sistema com três entradas para que haja compensação de variação de temperatura ambiente, ou seja, o líquido deve estar à mesma temperatura ambiente do sensor de referência externa. A expressão da Equação \ref{eq:metodologia-pluviometro-compensacao} apresenta a expressão utilizada para agregar os valores dos 3 sensores num único valor.
+
+\begin{equation}
+	N = \frac{C(V) - C(0)}{C_{ref} - C_{ambiente}}
+	\label{eq:metodologia-pluviometro-compensacao}
+\end{equation}
+\noindent onde $N$ é uma unidade adimensional sem significado físico que atribui um valor numérico ao sistema de medida, $C(V)$ é o valor correspondente de capacitância do sensor para um volume $V$, $C(0)$ é o valor de capacitância do sistema quando sem líquido (à vazio), $C_{ref}$ é o valor de capacitância do sensor de referência de líquido e $C_{ambiente}$ é o sensor externo que compensa variações externas de temperatura.
+
+\todo{expressão teórica da capacitancia}
+
+Observando-se a equação \ref{eq:metologia-pluviometro-periodo} é possível observar que, desde que os componentes passivos permanecam constantes, a relação entre a capacitância e o período de oscilação é direta e dada pela multiplicação de uma constante, conforme mostrado na Equação \ref{...}.
+
+\begin{equation}
+	T = 2 R C ln \left(\frac{1+\lambda}{1-\lambda}\right) = k C
+	\label{eq:metologia-pluviometro-periodo-simplificado}
+\end{equation}
+\noindent onde $T$ é o período de oscilação do oscilador, $C$ é a capacitância do sensor e $k$ é uma constante definida pelos componentes passivos do sistema.
+
+Dessa forma, é possível considerar tanto o período quanto a capacitância para cálculo da grandeza $N$ (Equação \ref{eq:metodologia-pluviometro-compensacao}) do sistema. Portanto, a segunda parte do sistema é realizada digitalmente utilizando um microcontrolador MSP430G2553 da Texas Instruments onde um timer de 16 bits à uma frequência de 16 MHz foi utilizado para calcular o período da forma de onda gerada pelo oscilador.
+
+O programa microcontrolado foi desenvolvido em C++ utilizando o compilador mspgcc (um \textit{port} do \textit{GNU C Compiler} para o MSP430) versão "msp430-gcc (MSPGCC 20120406 (With patches: sf3540953 sf3559978)) 4.6.3 20120301 (mspgcc LTS 20120406 unpatched)". Neste programa, um timer de 16 bits de contagem contínua crescente foi iniciado à 16 MHz. A cada \textit{overflow} do timer um segundo contador e 64 bits era incrementado em 1. Desta forma, era possível obter um timer efetivo de 80 bits mas por limitação técnica do processador os últimos 16 bits do segundo contador eram descartados, totalizando em 64 bits efetivos. Vale ressaltar que destes 64 bits, 16 deles eram acionados pelo timer interno do processador e os 48 restantes gerados por software usando interrupções do timer. Este contador é denominado de "temporizador" no restante deste documento. Técnicas semelhantes à estas são utilizadas nos diversos sistemas operacionais de computador doméstico utilizados comercialmente hoje em dia.
+
+\begin{lstlisting}[caption=Rotina de extração do timer do temporizador]
+static counter_t counter_time() {
+	// shifts the incrementing counter by 16 bits to the left
+    // and appends the 16-bit timer to the result
+	return TA0R | ((counter & 0x0000FFFF) << 16);
+}
+\end{lstlisting}
+
+Na inicialização do processador três interrupções de borda de descida eram ativadas para cada um dos sensores e quando disparadas, o valor do temporizador era obtido e salvo na memória do processador. No próximo disparo de interrupção um novo valor do temporizador é extraído e a diferença entre o temporizador do ciclo anterior e do atual são subtraídos e este resultado determina o número $N$ de ciclos do processador entre as duas bordas de subida do sinal, isto é, indiretamente representa o período do oscilador.
+
+Uma vez que o \textit{timer} está sendo incrementado à uma taxa de 16 MHz, o tempo real de oscilação pode ser obtido pela relação da Equação \ref{eq:metodologia-pluviometro-relacao-ciclos-tempo}:
+
+\begin{equation}
+	T_{real} = \frac{16 000 000}{n_{ciclos}}
+	\label{eq:metodologia-pluviometro-relacao-ciclos-tempo}
+\end{equation}
+
+Para transferir os dados para um computador foi utilizado o controlador de serial por hardware do próprio processador para comunicar via UART com o computador. A placa desenvolvimento do MSP430 já possui adaptador UART-USB para conexão com o computador, esta mesma que impõe um limite da \textit{baud rate} de no máximo 9600 bps. Periodicamente o processador enviava os dados pela comunicação serial utilizando um pacote de dados com a seguinte estrutura, expressa conforme uma estrutura em C:
+
+\begin{lstlisting}[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial]
+/**
+ * The type used to represent a number of cycles
+ */
+typedef uint32_t cicles_t;
+
+/**
+ * A struture containing the measurement ID and cicle count
+ */
+struct measurement_t {
+    /**
+     * The measurement ID
+     */
+    uint8_t id;
+
+    /**
+     * The number of cicles that happened between the last two oscilator low borders
+     */
+    cicles_t cicleCount;
+};
+
+/**
+ * The level sensor communication protocol packet structure
+ */
+struct packet_payload {
+    /**
+     * A sync packet that indicates the start of a sequence
+     */
+    uint8_t sync;
+
+    /**
+     * A measurement payload representing the level sensor
+     */
+    measurement_t level;
+
+    /**
+     * A measurement payload representing the reference sensor
+     */
+	measurement_t reference;
+
+    /**
+     * A measurement payload representing the environment sensor
+     */
+    measurement_t environment;
+};
+\end{lstlisting}
+
+Periodicamente um pacote "packet\_payload" era enviado com os dados de todas as medidas. O campo "sync" possuía um byte de sincronia fixo definido arbitrariamente com o valor hexadecimal de $0xFB$. O cliente, ao iniciar a comunicação aguardava até o recebimento do campo de sincronia e então começava a leitura dos dados de forma sequencial.
+
+O programa completo se encontra no anexo \todo{anexo do msp430}.
+
+No computador, foi implementado uma classe em C++11 utilizando APIs \textit{POSIX} (\textit{Portable Operating System Interface}, padrão definido pela IEEE para interoperabilidade de sistemas operacionais) para a leitura de dados da porta serial. A classe pode ser compilada e utilizada em qualquer sistema operacional \textit{UNIX-like} como Apple Mac OS X, Linux, FreeBSD ou Solaris. Esta classe apenas oferece uma forma assíncrona de acesso aos dados e não implementa nenhuma interface gráfica.
+
+Para a interface gráfica utilizada para a interação homem-máquina, foi desenvolvido um aplicativo para Apple Mac OS X 10.11.5 utilizando a linguagem de programação Objective-C para as partes nativas do sistema (\textit{Cocoa}) e Objective-C++ para comunicação com o sistema de aquisição de dados via serial.
+
+Por conter arquivos muito grandes para a inclusão em anexo, o código completo do programa se encontra em um repositório no GitHub na seguinte \textit{URL}:
+
+\url{https://github.com/Rogiel/ufrgs-instrumentacao-projeto}
 
 \chapter{Resultados e discussões}
 

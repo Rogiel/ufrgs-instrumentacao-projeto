@@ -9,15 +9,28 @@
 #ifndef packet_h
 #define packet_h
 
-typedef uint32_t frequency_t;
+/**
+ * The type used to represent a number of cycles
+ */
+typedef uint32_t cicles_t;
 
+/**
+ * A struture containing the measurement ID and cicle count
+ */
 struct measurement_t {
+    /**
+     * The measurement ID
+     */
 	uint8_t id;
-	frequency_t frequency;
+
+    /**
+     * The number of cicles that happened between the last two oscilator low borders
+     */
+    cicles_t cicleCount;
 } __attribute__((packed));
 
 /**
- * The level sensor comm protocol packet structure
+ * The level sensor communication protocol packet structure
  */
 struct packet_payload {
 	/**
@@ -25,8 +38,19 @@ struct packet_payload {
 	 */
 	uint8_t sync;
 
+    /**
+     * A measurement payload representing the level sensor
+     */
 	measurement_t level;
+
+    /**
+     * A measurement payload representing the reference sensor
+     */
 	measurement_t reference;
+
+    /**
+     * A measurement payload representing the environment sensor
+     */
 	measurement_t environment;
 } __attribute__((packed));
 
