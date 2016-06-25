@@ -14,5 +14,10 @@
 @property (weak) IBOutlet NSTextField *reference;
 @property (weak) IBOutlet NSLevelIndicator *levelIndicator;
 
+@property (weak) IBOutlet NSTextField *levelField;
+@property (weak) IBOutlet NSTextField *referenceField;
+@property (weak) IBOutlet NSTextField *environmentField;
+
+- (IBAction)calibrateAction:(id)sender;
 @end
 

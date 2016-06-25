@@ -11,11 +11,11 @@
 #include <thread>
 
 class SerialProcessingQueueDelegateImpl: public SerialProcessingQueueDelegate {
-    virtual void receivedData(double data) const {
+    virtual void receivedData(SerialPayload payload) const {
         NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
         
         NSDictionary* userInfo = @{
-            @"Value": [NSNumber numberWithDouble:data]
+            @"Value": [NSNumber numberWithLong:(long)&payload]
         };
         
         [center postNotificationName:@"SensorValue" object:nil userInfo:userInfo];
