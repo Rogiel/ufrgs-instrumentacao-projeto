@@ -86,13 +86,13 @@ int main(void) {
 		__enable_interrupt();
 
 		packet.payload.level.id = 0;
-		packet.payload.level.frequency = contextCopy.level.counter;
+		packet.payload.level.cicleCount = contextCopy.level.counter;
 
 		packet.payload.reference.id = 1;
-		packet.payload.reference.frequency = contextCopy.reference.counter;
+		packet.payload.reference.cicleCount = contextCopy.reference.counter;
 
 		packet.payload.environment.id = 2;
-		packet.payload.environment.frequency = contextCopy.environment.counter;
+		packet.payload.environment.cicleCount = contextCopy.environment.counter;
 
 		for(int i = 0; i < sizeof(packet.payload); i++) {
 			uart_putc(packet.buffer[i]);

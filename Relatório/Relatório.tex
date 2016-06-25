@@ -1,6 +1,8 @@
 \documentclass[a4paper]{instrumentacao}
 
 \usepackage{listings}
+\usepackage{longtable}
+\usepackage{multicol}
 
 \graphicspath{
 	{../Resources/Images/}
@@ -284,10 +286,11 @@ Dessa forma, é possível considerar tanto o período quanto a capacitância par
 O programa microcontrolado foi desenvolvido em C++ utilizando o compilador mspgcc (um \textit{port} do \textit{GNU C Compiler} para o MSP430) versão "msp430-gcc (MSPGCC 20120406 (With patches: sf3540953 sf3559978)) 4.6.3 20120301 (mspgcc LTS 20120406 unpatched)". Neste programa, um timer de 16 bits de contagem contínua crescente foi iniciado à 16 MHz. A cada \textit{overflow} do timer um segundo contador e 64 bits era incrementado em 1. Desta forma, era possível obter um timer efetivo de 80 bits mas por limitação técnica do processador os últimos 16 bits do segundo contador eram descartados, totalizando em 64 bits efetivos. Vale ressaltar que destes 64 bits, 16 deles eram acionados pelo timer interno do processador e os 48 restantes gerados por software usando interrupções do timer. Este contador é denominado de "temporizador" no restante deste documento. Técnicas semelhantes à estas são utilizadas nos diversos sistemas operacionais de computador doméstico utilizados comercialmente hoje em dia.
 
 \begin{lstlisting}[caption=Rotina de extração do timer do temporizador]
+typedef uint64_t counter_t;
 static counter_t counter_time() {
-	// shifts the incrementing counter by 16 bits to the left
+    // shifts the incrementing counter by 16 bits to the left
     // and appends the 16-bit timer to the result
-	return TA0R | ((counter & 0x0000FFFF) << 16);
+    return TA0R | ((counter & 0x0000FFFF) << 16);
 }
 \end{lstlisting}
 
@@ -300,6 +303,8 @@ Uma vez que o \textit{timer} está sendo incrementado à uma taxa de 16 MHz, o t
 	\label{eq:metodologia-pluviometro-relacao-ciclos-tempo}
 \end{equation}
 
+A sensibilidade do sistema digital é de 
+
 Para transferir os dados para um computador foi utilizado o controlador de serial por hardware do próprio processador para comunicar via UART com o computador. A placa desenvolvimento do MSP430 já possui adaptador UART-USB para conexão com o computador, esta mesma que impõe um limite da \textit{baud rate} de no máximo 9600 bps. Periodicamente o processador enviava os dados pela comunicação serial utilizando um pacote de dados com a seguinte estrutura, expressa conforme uma estrutura em C:
 
 \begin{lstlisting}[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial]
@@ -309,7 +314,7 @@ Para transferir os dados para um computador foi utilizado o controlador de seria
 typedef uint32_t cicles_t;
 
 /**
- * A struture containing the measurement ID and cicle count
+ * A structure containing the measurement ID and cicle count
  */
 struct measurement_t {
     /**
@@ -318,7 +323,8 @@ struct measurement_t {
     uint8_t id;
 
     /**
-     * The number of cicles that happened between the last two oscilator low borders
+     * The number of cicles that happened between the last two 
+     * oscillator low borders
      */
     cicles_t cicleCount;
 };
@@ -498,35 +504,500 @@ A variação de $+0.1ºC$ utilizando a função de transferência teórica para 
 A parte prática referente à implementação experimental do anemômetro ainda não foi efetivada, pois os sensores comprados ainda não chegaram e, na visão do grupo, trata-se de uma área que não exige muito condicionamento eletrônico, logo, demanda menos tempo para desenvolvimento.
 
 \section{Pluviômetro}
+\subsection{Função de Transferência para a capacitância}
 
-O teste de capacitância do sensor apresentou a função de transferência da Figura \ref{fig:tf:nivel:capacitancia}:
+A Tabela \ref{tab:resultados-pluviometro-capacitancia} apresenta os dados experimentais 
+
+\begin{longtable}{cc}
+\caption{Valores de capacitância obtidos experimentalmente} \label{tab:resultados-pluviometro-capacitancia} \\
+\textbf{$Volume (mL)$} & \textbf{$Capacitância (pF)$} \\ \hline
+ 0 & 89.5$\pm$ 0.895 \\
+ 1 & 86.1$\pm$ 0.861 \\
+ 2 & 72.5$\pm$ 0.725 \\
+ 3 & 84.9$\pm$ 0.849 \\
+ 4 & 49.$\pm$ 0.49 \\
+ 5 & 71$\pm$ 0.71 \\
+ 6 & 82.8$\pm$ 0.828 \\
+ 7 & 93.$\pm$ 0.93 \\
+ 8 & 87.$\pm$ 0.87 \\
+ 9 & 89.9$\pm$ 0.899 \\
+ 10 & 86.9$\pm$ 0.869 \\
+ 11 & 100.$\pm$ 1. \\
+ 12 & 85.$\pm$ 0.85 \\
+ 13 & 91.6$\pm$ 0.916 \\
+ 14 & 108.5$\pm$ 1.085 \\
+ 15 & 110.6$\pm$ 1.106 \\
+ 16 & 109.2$\pm$ 1.092 \\
+ 17 & 103.4$\pm$ 1.034 \\
+ 18 & 106.3$\pm$ 1.063 \\
+ 19 & 108.4$\pm$ 1.084 \\
+ 20 & 110.8$\pm$ 1.108 \\
+ 21 & 113.7$\pm$ 1.137 \\
+ 22 & 118.1$\pm$ 1.181 \\
+ 23 & 117.8$\pm$ 1.178 \\
+ 24 & 124.9$\pm$ 1.249 \\
+ 25 & 114.8$\pm$ 1.148 \\
+ 26 & 130.5$\pm$ 1.305 \\
+ 27 & 121.2$\pm$ 1.212 \\
+ 28 & 129.5$\pm$ 1.295 \\
+ 29 & 129.2$\pm$ 1.292 \\
+ 30 & 135.7$\pm$ 1.357 \\
+ 31 & 138.3$\pm$ 1.383 \\
+ 32 & 144.8$\pm$ 1.448 \\
+ 33 & 146.5$\pm$ 1.465 \\
+ 34 & 152.8$\pm$ 1.528 \\
+ 35 & 157.9$\pm$ 1.579 \\
+ 36 & 150.6$\pm$ 1.506 \\
+ 37 & 134.1$\pm$ 1.341 \\
+ 38 & 142.3$\pm$ 1.423 \\
+ 39 & 149.6$\pm$ 1.496 \\
+ 40 & 152.1$\pm$ 1.521 \\
+ 41 & 156.5$\pm$ 1.565 \\
+ 42 & 174.$\pm$ 1.74 \\
+ 43 & 166.$\pm$ 1.66 \\
+ 44 & 165.$\pm$ 1.65 \\
+ 45 & 164.4$\pm$ 1.644 \\
+ 46 & 158.6$\pm$ 1.586 \\
+ 47 & 154.5$\pm$ 1.545 \\
+ 48 & 144.9$\pm$ 1.449 \\
+ 49 & 172.8$\pm$ 1.728 \\
+ 50 & 181.$\pm$ 1.81 \\
+ 51 & 204.5$\pm$ 2.045 \\
+ 52 & 208.4$\pm$ 2.084 \\
+ 53 & 212.$\pm$ 2.12 \\
+ 54 & 213.2$\pm$ 2.132 \\
+ 55 & 216.8$\pm$ 2.168 \\
+ 56 & 221.9$\pm$ 2.219 \\
+ 57 & 225.8$\pm$ 2.258 \\
+ 58 & 228.4$\pm$ 2.284 \\
+ 59 & 231.4$\pm$ 2.314 \\
+ 60 & 233.4$\pm$ 2.334 \\
+ 61 & 237.2$\pm$ 2.372 \\
+ 62 & 238.6$\pm$ 2.386 \\
+ 63 & 241.7$\pm$ 2.417 \\
+ 64 & 243.7$\pm$ 2.437 \\
+ 65 & 247.3$\pm$ 2.473 \\
+ 66 & 250.4$\pm$ 2.504 \\
+ 67 & 254.5$\pm$ 2.545 \\
+ 68 & 256.1$\pm$ 2.561 \\
+ 69 & 258.2$\pm$ 2.582 \\
+ 70 & 179.3$\pm$ 1.793 \\
+ 71 & 215.1$\pm$ 2.151 \\
+ 72 & 252.4$\pm$ 2.524 \\
+ 73 & 255.2$\pm$ 2.552 \\
+ 74 & 263.1$\pm$ 2.631 \\
+ 75 & 266.6$\pm$ 2.666 \\
+ 76 & 268.$\pm$ 2.68 \\
+ 77 & 270.5$\pm$ 2.705 \\
+ 78 & 273.6$\pm$ 2.736 \\
+ 79 & 277.2$\pm$ 2.772 \\
+ 80 & 279.$\pm$ 2.79 \\
+ 81 & 281.1$\pm$ 2.811 \\
+ 82 & 285.3$\pm$ 2.853 \\
+ 83 & 286.6$\pm$ 2.866 \\
+ 84 & 291.1$\pm$ 2.911 \\
+ 85 & 293.4$\pm$ 2.934 \\
+ 86 & 294.9$\pm$ 2.949 \\
+ 87 & 295.7$\pm$ 2.957 \\
+ 88 & 297.4$\pm$ 2.974 \\
+ 89 & 303.6$\pm$ 3.036 \\
+ 90 & 313.9$\pm$ 3.139 \\
+ 91 & 312.9$\pm$ 3.129 \\
+ 92 & 314.2$\pm$ 3.142 \\
+ 93 & 317.7$\pm$ 3.177 \\
+ 94 & 322.7$\pm$ 3.227 \\
+ 95 & 324.3$\pm$ 3.243 \\
+ 96 & 327.2$\pm$ 3.272 \\
+ 97 & 329.5$\pm$ 3.295 \\
+ 98 & 332.7$\pm$ 3.327 \\
+ 99 & 335.7$\pm$ 3.357 \\
+ 100 & 335.4$\pm$ 3.354 \\
+ 101 & 336.1$\pm$ 3.361 \\
+ 102 & 340$\pm$ 3.4 \\
+ 103 & 341.3$\pm$ 3.413 \\
+ 104 & 345.6$\pm$ 3.456 \\
+ 105 & 346.2$\pm$ 3.462 \\
+ 106 & 350.2$\pm$ 3.502 \\
+ 107 & 353.1$\pm$ 3.531 \\
+ 108 & 355.3$\pm$ 3.553 \\
+ 109 & 358.1$\pm$ 3.581 \\
+ 110 & 359.6$\pm$ 3.596 \\
+ 111 & 363.9$\pm$ 3.639 \\
+ 112 & 367.6$\pm$ 3.676 \\
+ 113 & 369.7$\pm$ 3.697 \\
+ 114 & 372.9$\pm$ 3.729 \\
+ 115 & 376.4$\pm$ 3.764 \\
+ 116 & 377.5$\pm$ 3.775 \\
+ 117 & 378.8$\pm$ 3.788 \\
+ 118 & 384.7$\pm$ 3.847 \\
+\end{longtable}
+
+A Figura \ref{fig:tf:nivel:capacitancia} apresenta um gráfico com a função de transferência ajustada e os pontos medidos individualmente.
 
 \begin{figure}[H]
-	\centering \includegraphics[width=\textwidth]{Nivel/TransferFunctionPlot.pdf}
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Capacitancia-Ajuste.pdf}
 	\caption{Função de Transferência experimental da capacitância do sensor}
 	\label{fig:tf:nivel:capacitancia}
 \end{figure}
 
-Na Figura \ref{fig:tf:nivel:capacitancia} a linha contínua é um polinômio de terceira ordem regredido por mínimos quadrados conforme Equação \ref{eq:tf:nivel:capacitancia}
+Na Figura \ref{fig:tf:nivel:capacitancia} a linha contínua é uma reta regredida por mínimos quadrados conforme Equação \ref{eq:tf:nivel:capacitancia}
 
 \begin{equation}
-	V(C) = 3.585 + 1.896 C + 0.0261 C^2 - 0.000259 C^3
+	C(V) = 2.75376 V+57.3962
 	\label{eq:tf:nivel:capacitancia}
 \end{equation}
-\noindent onde $V(C)$ é a função de volume de líquido (em mL) em função da capacitância medida no sensor ($C$).
+\noindent onde $C(V)$ é a capacitância do sensor dado um volume $V$ de água no recipiente.
 
 A Equação \ref{eq:tf:nivel:capacitancia} foi ajustada com $R^2$ dado pela Equação \ref{eq:tf:nivel:capacitancia-r2} 
 
 \begin{equation}
-	R^2 = 0.999606
+	R^2 = 0.99716
 	\label{eq:tf:nivel:capacitancia-r2}
 \end{equation}
 
-Pela Figura \ref{fig:tf:nivel:capacitancia} é visivel que o sensor é linear até 180 mL, após ele passa a ter erros significativos na leitura.
+Pela Figura \ref{fig:tf:nivel:capacitancia} é possível aproximar o sensor como linear e obter erros inferiores à 5\%. Acredita-se que os pontos de discrepância das medidas se dá devido ao erro do instrumento utilizado para estimar a capacitância.
 
-Foi testado também o efeito da temperatura no valor de capacitância do sensor. Neste teste, o fundo de escala (200 mL) foi aquecido até 40ºC e a capacitância foi medida. Houve uma variação de 20 nF do valor esperado. Este teste prova a necessidade de compensação térmica do valor.
+\todo{erro de linearidade}
 
-A proposta é que sejam colocados eletrodos de referência no fundo do recipiente e que o valor de capacitância deste sensor seja utilizado como referência do ponto zero do sistema, isto é, o ponto em que o volume é zero (1-2mm de coluna de água).
+\subsection{Função de Transferência para a frequência do oscilador}
+
+A Tabela \ref{tab:resultados-pluviometro-frequencia} apresenta as medidas experimentais individuais para a frequência de oscilação do oscilador para os volumes de líquido de 0 mL até 118 mL.
+
+\begin{longtable}{cc}
+\caption{Valores de frequência obtidos experimentalmente} \label{tab:resultados-pluviometro-frequencia} \\
+\textbf{$Volume (mL)$} & \textbf{$Frequência (Hz) - 51ppm$} \\ \hline
+ 0 & 400 $\pm$ 0.020 \\
+ 1 & 500 $\pm$ 0.025 \\
+ 2 & 450 $\pm$ 0.023 \\
+ 3 & 440 $\pm$ 0.022 \\
+ 4 & 430 $\pm$ 0.022 \\
+ 5 & 480 $\pm$ 0.025 \\
+ 6 & 430 $\pm$ 0.022 \\
+ 7 & 430 $\pm$ 0.022 \\
+ 8 & 370 $\pm$ 0.019 \\
+ 9 & 370 $\pm$ 0.019 \\
+ 10 & 360 $\pm$ 0.019 \\
+ 11 & 360 $\pm$ 0.018 \\
+ 12 & 360 $\pm$ 0.018 \\
+ 13 & 350 $\pm$ 0.018 \\
+ 14 & 350 $\pm$ 0.018 \\
+ 15 & 340 $\pm$ 0.017 \\
+ 16 & 340 $\pm$ 0.017 \\
+ 17 & 330 $\pm$ 0.017 \\
+ 18 & 330 $\pm$ 0.017 \\
+ 19 & 320 $\pm$ 0.017 \\
+ 20 & 220 $\pm$ 0.011 \\
+ 21 & 370 $\pm$ 0.019 \\
+ 22 & 370 $\pm$ 0.019 \\
+ 23 & 370 $\pm$ 0.019 \\
+ 24 & 360 $\pm$ 0.019 \\
+ 25 & 360 $\pm$ 0.018 \\
+ 26 & 350 $\pm$ 0.018 \\
+ 27 & 350 $\pm$ 0.018 \\
+ 28 & 340 $\pm$ 0.017 \\
+ 29 & 330 $\pm$ 0.017 \\
+ 30 & 340 $\pm$ 0.017 \\
+ 31 & 330 $\pm$ 0.017 \\
+ 32 & 330 $\pm$ 0.017 \\
+ 33 & 320 $\pm$ 0.017 \\
+ 34 & 320 $\pm$ 0.016 \\
+ 35 & 320 $\pm$ 0.016 \\
+ 36 & 320 $\pm$ 0.016 \\
+ 37 & 310 $\pm$ 0.016 \\
+ 38 & 310 $\pm$ 0.016 \\
+ 39 & 310 $\pm$ 0.016 \\
+ 40 & 310 $\pm$ 0.016 \\
+ 41 & 310 $\pm$ 0.016 \\
+ 42 & 310 $\pm$ 0.016 \\
+ 43 & 300 $\pm$ 0.015 \\
+ 44 & 300 $\pm$ 0.015 \\
+ 45 & 300 $\pm$ 0.015 \\
+ 46 & 290 $\pm$ 0.015 \\
+ 47 & 290 $\pm$ 0.015 \\
+ 48 & 290 $\pm$ 0.015 \\
+ 49 & 290 $\pm$ 0.015 \\
+ 50 & 230 $\pm$ 0.012 \\
+ 51 & 230 $\pm$ 0.012 \\
+ 52 & 230 $\pm$ 0.012 \\
+ 53 & 230 $\pm$ 0.012 \\
+ 54 & 230 $\pm$ 0.012 \\
+ 55 & 230 $\pm$ 0.011 \\
+ 56 & 220 $\pm$ 0.011 \\
+ 57 & 220 $\pm$ 0.011 \\
+ 58 & 220 $\pm$ 0.011 \\
+ 59 & 210 $\pm$ 0.011 \\
+ 60 & 210 $\pm$ 0.011 \\
+ 61 & 210 $\pm$ 0.011 \\
+ 62 & 210 $\pm$ 0.011 \\
+ 63 & 210 $\pm$ 0.011 \\
+ 64 & 210 $\pm$ 0.011 \\
+ 65 & 210 $\pm$ 0.011 \\
+ 66 & 210 $\pm$ 0.011 \\
+ 67 & 210 $\pm$ 0.011 \\
+ 68 & 210 $\pm$ 0.011 \\
+ 69 & 210 $\pm$ 0.011 \\
+ 70 & 200 $\pm$ 0.010 \\
+ 71 & 240 $\pm$ 0.012 \\
+ 72 & 230 $\pm$ 0.012 \\
+ 73 & 230 $\pm$ 0.012 \\
+ 74 & 230 $\pm$ 0.012 \\
+ 75 & 230 $\pm$ 0.012 \\
+ 76 & 220 $\pm$ 0.011 \\
+ 77 & 220 $\pm$ 0.011 \\
+ 78 & 220 $\pm$ 0.011 \\
+ 79 & 210 $\pm$ 0.011 \\
+ 80 & 210 $\pm$ 0.011 \\
+ 81 & 210 $\pm$ 0.011 \\
+ 82 & 210 $\pm$ 0.011 \\
+ 83 & 210 $\pm$ 0.011 \\
+ 84 & 210 $\pm$ 0.011 \\
+ 85 & 210 $\pm$ 0.011 \\
+ 86 & 200 $\pm$ 0.010 \\
+ 87 & 200 $\pm$ 0.010 \\
+ 88 & 200 $\pm$ 0.010 \\
+ 89 & 200 $\pm$ 0.010 \\
+ 90 & 200 $\pm$ 0.010 \\
+ 91 & 200 $\pm$ 0.010 \\
+ 92 & 200 $\pm$ 0.0099 \\
+ 93 & 190 $\pm$ 0.0099 \\
+ 94 & 190 $\pm$ 0.0098 \\
+ 95 & 190 $\pm$ 0.0097 \\
+ 96 & 190 $\pm$ 0.0097 \\
+ 97 & 190 $\pm$ 0.0096 \\
+ 98 & 190 $\pm$ 0.0095 \\
+ 99 & 180 $\pm$ 0.0094 \\
+ 100 & 180 $\pm$ 0.0092 \\
+ 101 & 180 $\pm$ 0.0090 \\
+ 102 & 180 $\pm$ 0.0090 \\
+ 103 & 170 $\pm$ 0.0089 \\
+ 104 & 170 $\pm$ 0.0088 \\
+ 105 & 170 $\pm$ 0.0087 \\
+ 106 & 170 $\pm$ 0.0086 \\
+ 107 & 170 $\pm$ 0.0086 \\
+ 108 & 170 $\pm$ 0.0085 \\
+ 109 & 170 $\pm$ 0.0085 \\
+ 110 & 160 $\pm$ 0.0083 \\
+ 111 & 170 $\pm$ 0.0085 \\
+ 112 & 160 $\pm$ 0.0084 \\
+ 113 & 160 $\pm$ 0.0082 \\
+ 114 & 160 $\pm$ 0.0082 \\
+ 115 & 160 $\pm$ 0.0081 \\
+ 116 & 160 $\pm$ 0.0080 \\
+ 117 & 160 $\pm$ 0.0081 \\
+ 118 & 160 $\pm$ 0.0080 \\
+\end{longtable}
+
+A função de transferência da frequência de oscilação da onda quadrada do sistema de condicionamento é dada pela Figura \ref{fig:resultados-pluviometro-tf-frequencia}:
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Frequencia-Ajuste.pdf}
+	\caption{Função de Transferência experimental da frequência de oscilação do oscilador versus o volume de água contido no recipiente}
+	\label{fig:resultados-pluviometro-tf-frequencia}
+\end{figure}
+
+
+Na Figura \ref{fig:resultados-pluviometro-tf-frequencia} a linha contínua é uma reta regredida por mínimos quadrados conforme Equação \ref{eq:resultados-pluviometro-tf-frequencia} e os pontos são as medidas experimentais obtidas em laboratório.
+
+\begin{equation}
+	f(V) = 394.095 - 2.24631 V
+	\label{eq:resultados-pluviometro-tf-frequencia}
+\end{equation}
+\noindent onde $f(V)$ é a frequência de oscilação do oscilador com o sensor conectado e com volume $V$ de água no recipiente.
+
+A Equação \ref{eq:resultados-pluviometro-tf-frequencia} foi ajustada com $R^2$ dado pela Equação \ref{eq:resultados-pluviometro-tf-frequencia-r2} 
+
+\begin{equation}
+	R^2 = 0.99716
+	\label{eq:resultados-pluviometro-tf-frequencia-r2}
+\end{equation}
+
+\todo{erro de linearidade}
+
+\subsection{Função de Transferência para a contagem de ciclos por oscilação}
+
+A Tabela \ref{tab:resultados-pluviometro-ciclos} apresenta as medidas experimentais individuais para a contagem de ciclos por oscilação do oscilador para os volumes de líquido de 0 mL até 118 mL.
+
+\begin{longtable}{cc}
+\caption{Valores de frequência obtidos experimentalmente} \label{tab:resultados-pluviometro-ciclos} \\
+\textbf{$Volume (mL)$} & \textbf{$Ciclos$} \\ \hline
+ 1 & 37486 \\
+ 2 & 40850 \\
+ 3 & 42334 \\
+ 4 & 43008 \\
+ 5 & 41820 \\
+ 6 & 42070 \\
+ 7 & 32801 \\
+ 8 & 43025 \\
+ 9 & 43882 \\
+ 10 & 44016 \\
+ 11 & 44950 \\
+ 12 & 45270 \\
+ 13 & 45650 \\
+ 14 & 46050 \\
+ 15 & 46370 \\
+ 16 & 46680 \\
+ 17 & 47100 \\
+ 18 & 48700 \\
+ 19 & 49500 \\
+ 20 & 49820 \\
+ 21 & 49445 \\
+ 22 & 49799 \\
+ 23 & 49922 \\
+ 24 & 50161 \\
+ 25 & 50525 \\
+ 26 & 50885 \\
+ 27 & 51696 \\
+ 28 & 53607 \\
+ 29 & 54584 \\
+ 30 & 54664 \\
+ 31 & 54701 \\
+ 32 & 55471 \\
+ 33 & 56156 \\
+ 34 & 56891 \\
+ 35 & 57063 \\
+ 36 & 57521 \\
+ 37 & 58759 \\
+ 38 & 58334 \\
+ 39 & 58889 \\
+ 40 & 58820 \\
+ 41 & 59876 \\
+ 42 & 60012 \\
+ 43 & 60470 \\
+ 44 & 61385 \\
+ 45 & 62069 \\
+ 46 & 62462 \\
+ 47 & 62864 \\
+ 48 & 63658 \\
+ 49 & 64137 \\
+ 50 & 65700 \\
+ 51 & 66457 \\
+ 52 & 66564 \\
+ 53 & 66634 \\
+ 54 & 69120 \\
+ 55 & 69039 \\
+ 56 & 68550 \\
+ 57 & 69683 \\
+ 58 & 70506 \\
+ 59 & 69606 \\
+ 60 & 70856 \\
+ 61 & 71955 \\
+ 62 & 72584 \\
+ 63 & 72565 \\
+ 64 & 72764 \\
+ 65 & 73350 \\
+ 66 & 73667 \\
+ 67 & 74037 \\
+ 68 & 74546 \\
+ 69 & 75906 \\
+ 70 & 77431 \\
+ 71 & 77081 \\
+ 72 & 77095 \\
+ 73 & 78513 \\
+ 74 & 79193 \\
+ 75 & 80757 \\
+ 76 & 82842 \\
+ 77 & 82744 \\
+ 78 & 83908 \\
+ 79 & 85830 \\
+ 80 & 86328 \\
+ 81 & 87064 \\
+ 82 & 87765 \\
+ 83 & 89036 \\
+ 84 & 88383 \\
+ 85 & 89184 \\
+ 86 & 89963 \\
+ 87 & 90343 \\
+ 88 & 91270 \\
+ 89 & 92768 \\
+ 90 & 92808 \\
+ 91 & 93586 \\
+ 92 & 95212 \\
+ 93 & 94823 \\
+ 94 & 95428 \\
+ 95 & 96383 \\
+ 96 & 97512 \\
+ 97 & 98066 \\
+ 98 & 98428 \\
+ 99 & 99034 \\
+ 100 & 102584 \\
+ 101 & 103142 \\
+ 102 & 104111 \\
+ 103 & 105461 \\
+ 104 & 105806 \\
+ 105 & 104868 \\
+ 106 & 107401 \\
+ 107 & 108077 \\
+ 108 & 109047 \\
+ 109 & 109381 \\
+ 110 & 110243 \\
+ 111 & 111285 \\
+ 112 & 112573 \\
+ 113 & 113507 \\
+ 114 & 114288 \\
+ 115 & 114869 \\
+ 116 & 116016 \\
+ 117 & 116015 \\
+ 118 & 117082 \\
+\end{longtable}
+\todo{adicionar incerteza}
+
+A função de transferência da contagem de ciclos do processador para cada oscilação da onda quadrada do sistema de condicionamento é dada pela Figura \ref{fig:resultados-pluviometro-tf-ciclos}:
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Ciclos-Ajuste.pdf}
+	\caption{Função de Transferência experimental da contagem de ciclos do processador para cada oscilação da onda quadrada versus o volume de água contido no recipiente}
+	\label{fig:resultados-pluviometro-tf-ciclos}
+\end{figure}
+
+
+Na Figura \ref{fig:resultados-pluviometro-tf-ciclos} a linha contínua é uma reta regredida por mínimos quadrados conforme Equação \ref{eq:resultados-pluviometro-tf-ciclos} e os pontos são as medidas experimentais obtidas em laboratório.
+
+\begin{equation}
+	n(V) = 34409.2 + 658.776 V
+	\label{eq:resultados-pluviometro-tf-ciclos}
+\end{equation}
+\noindent onde $n(V)$ é o número de ciclos do processador em um período de oscilação do oscilador com o sensor conectado e com volume $V$ de água no recipiente.
+
+A Equação \ref{eq:resultados-pluviometro-tf-ciclos} foi ajustada com $R^2$ dado pela Equação \ref{eq:resultados-pluviometro-tf-ciclos-r2} 
+
+\begin{equation}
+	R^2 = 0.998731
+	\label{eq:resultados-pluviometro-tf-ciclos-r2}
+\end{equation}
+
+Logo, conforme esperado pela Equação \ref{eq:metologia-pluviometro-periodo} apresentada na metodologia experimental, o comportamento do período de oscilação é linear em função da capacitância.
+
+\todo{erro de linearidade}
+
+\subsection{Função de Transferência para a equação de compensação}
+
+A função de transferência da equação de compensação do sistema em função do volume de água dentro do recipiente do sensor está apresentado na Figura \ref{fig:resultados-pluviometro-tf-compensado}
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Compensado-Ajuste.pdf}
+	\caption{Função de Transferência experimental da medida compensada de tempo em função da quantidade de volume dentro do recipiente do sensor.}
+	\label{fig:resultados-pluviometro-tf-compensado}
+\end{figure}
+
+
+Na Figura \ref{fig:resultados-pluviometro-tf-compensado} a linha contínua é uma reta regredida por mínimos quadrados conforme Equação \ref{eq:resultados-pluviometro-tf-compensado} e os pontos são as medidas experimentais obtidas em laboratório.
+
+\begin{equation}
+	N(V) = 0.133032 + 0.00898593 V - 0.0000148452 V^2
+	\label{eq:resultados-pluviometro-tf-compensado}
+\end{equation}
+\noindent onde $N(V)$ é a quantidade adimensional calculada após a compensação dos sensores pela equação \ref{eq:metodologia-pluviometro-compensacao} do sistema completo e com volume $V$ de água no recipiente.
+
+A Equação \ref{eq:resultados-pluviometro-tf-compensado} foi ajustada com $R^2$ dado pela Equação \ref{eq:resultados-pluviometro-tf-compensado-r2} 
+
+\begin{equation}
+	R^2 = 0.989612
+	\label{eq:resultados-pluviometro-tf-compensado-r2}
+\end{equation}
+
+Devido aos sensores de compensação, em especial o sensor de referência de líquido, o sistema perdeu a característica linear. Isto se deve ao fato da referência não ser perfeitamente fixa durante a execução do experimento. Isto é, a capacitância continuava variando a medida que água fosse adicionada ao recipiente. Este efeito pode ser compensado caso seja usada uma referência de líquido externa, semelhante à referência de ambiente.
+
+\todo{erro de linearidade}
 
 \newpage
 \begin{thebibliography}{9}
