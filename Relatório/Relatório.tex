@@ -224,7 +224,7 @@ A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do 
 	\label{fig:sensor-nivel-capacitivo}
 \end{figure}
 
-A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro Minipa ET-2082B \cite{multimetro-minipa} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 200 mL com resolução de 2mL.
+A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro Minipa ET-2082B \cite{multimetro-minipa} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 118 mL com resolução de 1mL.
 
 A fim de estimar o valor de capacitância do sistema, foi utilizado um circuito de condicionamento misto digital e analógico. Na parte analógica, um oscilador controlado pela capacitância do sensor foi utilizado. O oscilador gera uma onda quadrada com frequência (e período) variável que depende diretamente do valor de capacitância do sensor. A Figura \ref{fig:metodologia-capacitivo-oscilador} apresenta o esquemático do oscilador.
 
@@ -252,7 +252,7 @@ Neste sistema, a equação teórica que determina o período de oscilação do s
 
 Para evitar que a frequência ficasse num valor muito alto, ou seja, períodos muito baixos, o que torna mais dificultosa a medida, foi adicionado um capacitor de $40 nF$ em paralelo com o sensor cuja única função é limitar a frequência de oscilação do sistema.
 
-No sistema montado foram utilizados os seguintes componentes indicados nas Equações ...
+No sistema montado foram utilizados os seguintes componentes indicados nas Equações abaixo
 
 \begin{eqnarray}
 	R &=& (1 k\Omega \pm 10\%)							\\
@@ -271,7 +271,53 @@ Em termos práticos, foi utilizado um sistema com três entradas para que haja c
 \end{equation}
 \noindent onde $N$ é uma unidade adimensional sem significado físico que atribui um valor numérico ao sistema de medida, $C(V)$ é o valor correspondente de capacitância do sensor para um volume $V$, $C(0)$ é o valor de capacitância do sistema quando sem líquido (à vazio), $C_{ref}$ é o valor de capacitância do sensor de referência de líquido e $C_{ambiente}$ é o sensor externo que compensa variações externas de temperatura.
 
-\todo{expressão teórica da capacitancia}
+A expressão teórica da capacitância pode ser aproximada utilizando as expressões propostas por Lawrenson em \textit{Analysis and Computation of Electric and Magnetic Field Problems}\cite{capacitor-plano} em 1973, conforme a Equação \ref{eq:metodologia-pluviometro-capacitancia-coplanar}:
+
+\begin{equation}
+	C_{cp} = \epsilon l \frac{K\left(\sqrt{1-\frac{d^2}{4 (d+w_1) (d+w_2)}}\right)}{K\left(\frac{1}{2} \sqrt{\frac{d^2}{(d+w_1) (d+w_2)}}\right)}
+	\label{eq:metodologia-pluviometro-capacitancia-coplanar}
+\end{equation}
+\noindent onde $C_{cp}$ é a capacitância de um capacitor com duas placas co-planares, $K(x)$ é a integral elíptica do primeiro tipo, $\epsilon$ é a permissividade elétrica do dielétrico, $l$ é o comprimento das faixas, $d$ é o espaçamento entre as placas co-planares e $w_1$ e $w_2$ são as larguras das placas do capacitor.
+
+No caso específico do sensor de nível, é possível dividir este capacitor em 2 subcapacitores em paralelo: um cujo dielétrico é o ar e outro cujo dielétrico é a água. A expressão da Equação \ref{eq:metodologia-pluviometro-capacitancia-relacao} define a relação entre os capacitores de forma matemática.
+
+\begin{equation}
+	C(h) = C_{cp}\left(l=H-h, \epsilon=\epsilon_{ar}\right) + C_{cp}\left(l=h, \epsilon=\epsilon_{agua}\right)
+	\label{eq:metodologia-pluviometro-capacitancia-relacao}
+\end{equation}
+\noindent onde $C(h)$ é a capacitância para um nível $h$ de água, $H$ é a altura total do sensor e $C_{cp}$ é a expressão da Equação \ref{eq:metodologia-pluviometro-capacitancia-coplanar}.
+
+Substituindo as constantes físicas $\epsilon_{ar}$ e $\epsilon_{agua}$ na equação e simplificando, obtém-se a Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico} que dá a função de transferência experimental do sistema para a capacitância do sensor em $pF$.
+
+\begin{equation}
+	C(h) = \frac{(700.035 h+8.85 H) K\left(\sqrt{1-\frac{d^4}{16 (d+w)^4}}\right)}{K\left(\frac{1}{2} \sqrt{\frac{d^2}{(d+w)^2}}\right)}
+	\label{eq:metodologia-pluviometro-capacitancia-teorico}
+\end{equation}
+\noindent onde $C(h)$ é a capacitância do sensor para o nível de água $h$, $K(x)$ é a integral elíptica do primeiro tipo, $H$ é a altura do sensor, $d$ é o espaçamento entre as placas co-planares e $w$ é a largura das placas do capacitor.
+
+A Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico} não pode ser simplificada mais pois não há solução simbólica para a integral elíptica dada. Uma solução final pode ser obtida substituindo as dimensões físicas do sensor utilizado. O sensor possui as características físicas dadas pelas Equações \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-1}, \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-2}, \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-3}.
+
+\begin{eqnarray}
+	H &=& 13.5cm \label{eq:metodologia-pluviometro-capacitancia-caracteristicas-1} \\
+	w &=& 1.80cm \label{eq:metodologia-pluviometro-capacitancia-caracteristicas-2} \\
+	d &=& 1.40cm \label{eq:metodologia-pluviometro-capacitancia-caracteristicas-3}
+\end{eqnarray}
+
+A Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico-final} apresenta a função de transferência final após a substituição das características físicas do sensor.
+
+\begin{equation}
+	C(h) = 6.31325 + 3699.09 h
+	\label{eq:metodologia-pluviometro-capacitancia-teorico-final}
+\end{equation}
+\noindent onde $C(h)$ é a capacitância (em pF) do sensor para uma coluna $h$ (em metros) de água.
+
+Substituindo a coluna de água por volume (as calibrações foram realizadas em função do volume de água por facilitar as medições) na Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico-final} o valor de capacitância é dado conforme Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico-volume}
+
+\begin{equation}
+	C(V) = 6.31325 + 3699.09 V
+	\label{eq:metodologia-pluviometro-capacitancia-teorico-volume}
+\end{equation}
+\noindent onde $C(V)$ é a capacitância (em pF) do sensor para um volume $V$ (em mL) de água dentro do recipiente.
 
 Observando-se a equação \ref{eq:metologia-pluviometro-periodo} é possível observar que, desde que os componentes passivos permanecam constantes, a relação entre a capacitância e o período de oscilação é direta e dada pela multiplicação de uma constante, conforme mostrado na Equação \ref{...}.
 
@@ -1004,6 +1050,8 @@ Devido aos sensores de compensação, em especial o sensor de referência de lí
 \bibitem{mathematica-numerial-precision} \url{https://reference.wolfram.com/language/tutorial/NumericalPrecision.html}, acessado em 16 de março de 2016
 
 \bibitem{livro-texto}  Balbinot, A.; Brusamarello, V. J., Instrumentação e Fundamentos de Medida - Vol.1 - 2ª Ed. Rio de Janeiro: LTC, 2014.
+
+\bibitem{capacitor-plano} K. J. Binns and P. J. Lawrenson (Auth.), Analysis and Computation of Electric and Magnetic Field Problems - 2ª Ed., Pergamon Press, 1973.
 
 \bibitem{estacao} \url{https://pt.wikipedia.org/wiki/Esta\%C3\%A7\%C3\%A3o_meteorol\%C3\%B3gica}, acessado em 16/04/2016.
 
