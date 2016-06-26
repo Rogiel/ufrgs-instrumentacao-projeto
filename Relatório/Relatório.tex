@@ -3,6 +3,25 @@
 \usepackage{listings}
 \usepackage{longtable}
 \usepackage{multicol}
+\usepackage{color}
+
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mygreen}{rgb}{0,0.8,0.6}
+\definecolor{myorange}{rgb}{1.0,0.4,0}
+
+\lstset{
+	basicstyle=\footnotesize\sffamily\color{black},
+	commentstyle=\color{mygray},
+%	frame=single,
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	keywordstyle=\color{mygreen},
+	showspaces=false,
+	showstringspaces=false,
+	stringstyle=\color{myorange},
+	tabsize=2
+}
 
 \graphicspath{
 	{../Resources/Images/}
@@ -230,11 +249,10 @@ A fim de estimar o valor de capacitância do sistema, foi utilizado um circuito 
 
 \begin{figure}[H]
 	\centering
-%	\includegraphics[width=\textwidth]{}
+	\includegraphics[width=0.7\textwidth]{Circuitos/Pluviometro-Oscilador.pdf}
 	\caption{Esquemático do oscilador utilizado no circuito de condicionamento do sensor de nível capacitivo}
 	\label{fig:metodologia-capacitivo-oscilador}
 \end{figure}
-\todo{figura}
 
 Neste sistema, a equação teórica que determina o período de oscilação do sistema é dada pela expressão da Equação \ref{eq:metologia-pluviometro-periodo}.
 
@@ -252,16 +270,16 @@ Neste sistema, a equação teórica que determina o período de oscilação do s
 
 Para evitar que a frequência ficasse num valor muito alto, ou seja, períodos muito baixos, o que torna mais dificultosa a medida, foi adicionado um capacitor de $40 nF$ em paralelo com o sensor cuja única função é limitar a frequência de oscilação do sistema.
 
-No sistema montado foram utilizados os seguintes componentes indicados nas Equações abaixo
+No sistema montado foram utilizados os seguintes componentes indicados nas Equações \ref{eq:metodologia-pluviometro-componentes}
 
 \begin{eqnarray}
-	R &=& (1 k\Omega \pm 10\%)							\\
-	C &=& (40 nF \pm 20\%) + C(V) 				\\
-	R_1 = R_2 &=& (10 k\Omega \pm 10\%)
+	R &=& (2.2 M\Omega \pm 10\%) 		\label{eq:metodologia-pluviometro-componentes}					\\
+	C &=& (27 nF \pm 20\%) + C(V) 		\nonumber			\\
+	R_1 = R_2 &=& (10 k\Omega \pm 10\%)	\nonumber
 \end{eqnarray}
-\todo{verificar valores}
-
 \noindent onde $C(V)$ é o valor de capacitância do sensor correspondente à um volume $V$ em $mL$.
+
+Como amplificador operacional para o oscilador foi utilizado um OP27 fabricado pela \textit{Analog Devices} com resistências típicas de entrada diferencial de $6 M\Omega$ e modo comum de $3 G\Omega$. Estes valores são significativas perante o valor de resistência utilizadas na realimentação do negativa do circuito.
 
 Em termos práticos, foi utilizado um sistema com três entradas para que haja compensação de variação de temperatura ambiente, ou seja, o líquido deve estar à mesma temperatura ambiente do sensor de referência externa. A expressão da Equação \ref{eq:metodologia-pluviometro-compensacao} apresenta a expressão utilizada para agregar os valores dos 3 sensores num único valor.
 
@@ -319,7 +337,25 @@ Substituindo a coluna de água por volume (as calibrações foram realizadas em 
 \end{equation}
 \noindent onde $C(V)$ é a capacitância (em pF) do sensor para um volume $V$ (em mL) de água dentro do recipiente.
 
-Observando-se a equação \ref{eq:metologia-pluviometro-periodo} é possível observar que, desde que os componentes passivos permanecam constantes, a relação entre a capacitância e o período de oscilação é direta e dada pela multiplicação de uma constante, conforme mostrado na Equação \ref{...}.
+A Figura \ref{fig:metodologia-pluviometro-teorico-capacitancia} apresenta de forma gráfica a função de transferência do sensor para o seu valor de capacitância.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Nivel/Teorico/Capacitancia.pdf}
+	\caption{Função de Transferência para o valor de capacitância do sensor}
+	\label{fig:metodologia-pluviometro-teorico-capacitancia}
+\end{figure}
+
+Na Figura \ref{fig:metodologia-pluviometro-teorico-capacitancia} observa-se que a variação de capacitância em função do volume de água é linear. A sensibilidade do sistema é dada pela expressão da Equação \label{eq:metodologia-pluviometro-teorico-capacitancia-sensibilidade}
+
+\begin{eqnarray}
+	S &=& 1.66821 pF/mL \\
+	  &=& 2.00185 pF/mm \nonumber
+	\label{eq:metodologia-pluviometro-teorico-capacitancia-sensibilidade}
+\end{eqnarray}
+\noindent são as sensibilidades para o volume de líquido e para a coluna de líquido.
+
+Observando-se a equação \ref{eq:metologia-pluviometro-periodo} é possível notar que, desde que os componentes passivos permaneçam constantes, a relação entre a capacitância e o período de oscilação é direta e dada pela multiplicação de uma constante, conforme mostrado na Equação \ref{eq:metologia-pluviometro-periodo-simplificado}.
 
 \begin{equation}
 	T = 2 R C ln \left(\frac{1+\lambda}{1-\lambda}\right) = k C
@@ -327,9 +363,9 @@ Observando-se a equação \ref{eq:metologia-pluviometro-periodo} é possível ob
 \end{equation}
 \noindent onde $T$ é o período de oscilação do oscilador, $C$ é a capacitância do sensor e $k$ é uma constante definida pelos componentes passivos do sistema.
 
-Dessa forma, é possível considerar tanto o período quanto a capacitância para cálculo da grandeza $N$ (Equação \ref{eq:metodologia-pluviometro-compensacao}) do sistema. Portanto, a segunda parte do sistema é realizada digitalmente utilizando um microcontrolador MSP430G2553 da Texas Instruments onde um timer de 16 bits à uma frequência de 16 MHz foi utilizado para calcular o período da forma de onda gerada pelo oscilador.
+Dessa forma, é possível considerar tanto o período quanto a capacitância para cálculo da grandeza $N$ (Equação \ref{eq:metodologia-pluviometro-compensacao}) do sistema. Portanto, a segunda parte do sistema é realizada digitalmente utilizando um microcontrolador MSP430G2553 da Texas Instruments onde um timer de 16 bits à uma frequência de (16 $\pm$ 0.48) MHz foi utilizado para calcular o período da forma de onda gerada pelo oscilador.
 
-O programa microcontrolado foi desenvolvido em C++ utilizando o compilador mspgcc (um \textit{port} do \textit{GNU C Compiler} para o MSP430) versão "msp430-gcc (MSPGCC 20120406 (With patches: sf3540953 sf3559978)) 4.6.3 20120301 (mspgcc LTS 20120406 unpatched)". Neste programa, um timer de 16 bits de contagem contínua crescente foi iniciado à 16 MHz. A cada \textit{overflow} do timer um segundo contador e 64 bits era incrementado em 1. Desta forma, era possível obter um timer efetivo de 80 bits mas por limitação técnica do processador os últimos 16 bits do segundo contador eram descartados, totalizando em 64 bits efetivos. Vale ressaltar que destes 64 bits, 16 deles eram acionados pelo timer interno do processador e os 48 restantes gerados por software usando interrupções do timer. Este contador é denominado de "temporizador" no restante deste documento. Técnicas semelhantes à estas são utilizadas nos diversos sistemas operacionais de computador doméstico utilizados comercialmente hoje em dia.
+O programa microcontrolado foi desenvolvido em C++ utilizando o compilador mspgcc (um \textit{port} do \textit{GNU C Compiler} para o MSP430) versão "msp430-gcc (MSPGCC 20120406 (With patches: sf3540953 sf3559978)) 4.6.3 20120301 (mspgcc LTS 20120406 unpatched)". Neste programa, um timer de 16 bits de contagem contínua crescente foi iniciado à (16 $\pm$ 0.48) MHz. A cada \textit{overflow} do timer um segundo contador e 64 bits era incrementado em 1. Desta forma, era possível obter um timer efetivo de 80 bits mas por limitação técnica do processador os últimos 16 bits do segundo contador eram descartados, totalizando em 64 bits efetivos. Vale ressaltar que destes 64 bits, 16 deles eram acionados pelo timer interno do processador e os 48 restantes gerados por software usando interrupções do timer. Este contador é denominado de "temporizador" no restante deste documento. Técnicas semelhantes à estas são utilizadas nos diversos sistemas operacionais de computador doméstico utilizados comercialmente hoje em dia.
 
 \begin{lstlisting}[caption=Rotina de extração do timer do temporizador]
 typedef uint64_t counter_t;
@@ -342,25 +378,38 @@ static counter_t counter_time() {
 
 Na inicialização do processador três interrupções de borda de descida eram ativadas para cada um dos sensores e quando disparadas, o valor do temporizador era obtido e salvo na memória do processador. No próximo disparo de interrupção um novo valor do temporizador é extraído e a diferença entre o temporizador do ciclo anterior e do atual são subtraídos e este resultado determina o número $N$ de ciclos do processador entre as duas bordas de subida do sinal, isto é, indiretamente representa o período do oscilador.
 
-Uma vez que o \textit{timer} está sendo incrementado à uma taxa de 16 MHz, o tempo real de oscilação pode ser obtido pela relação da Equação \ref{eq:metodologia-pluviometro-relacao-ciclos-tempo}:
+Uma vez que o \textit{timer} está sendo incrementado à uma taxa de (16 $\pm$ 0.48) MHz, o tempo real de oscilação pode ser obtido pela relação da Equação \ref{eq:metodologia-pluviometro-relacao-ciclos-tempo}:
 
 \begin{equation}
 	T_{real} = \frac{16 000 000}{n_{ciclos}}
 	\label{eq:metodologia-pluviometro-relacao-ciclos-tempo}
 \end{equation}
 
-A sensibilidade do sistema digital é de 
+A função de transferência teórica para o sistema é dada pela Equação \ref{eq:metodologia-pluviometro-ciclos-teorico}
+
+\begin{eqnarray}
+	n &=& 8768.36 + 480.903 V \text{ (ciclos)} \label{eq:metodologia-pluviometro-ciclos-teorico} \\
+	  &=& 8768.36 + 577084 h \text{ (ciclos)} \nonumber
+\end{eqnarray}
+\noindent onde $n$ é o número de ciclos em uma oscilação, $V$ é o volume de água em mL dentro do recipiente e $h$ é a altura de líquido em metros dentro do recipiente.
+
+A sensibilidade do sistema é dada pela Equação \ref{eq:metodologia-pluviometro-ciclos-teorico-sensibilidade}
+
+\begin{eqnarray}
+	S &=& 480.903 \text{ ciclos/mL} \label{eq:metodologia-pluviometro-ciclos-teorico-sensibilidade} \\
+	  &=& 577.084 \text{ ciclos/mm} \nonumber
+\end{eqnarray}
 
 Para transferir os dados para um computador foi utilizado o controlador de serial por hardware do próprio processador para comunicar via UART com o computador. A placa desenvolvimento do MSP430 já possui adaptador UART-USB para conexão com o computador, esta mesma que impõe um limite da \textit{baud rate} de no máximo 9600 bps. Periodicamente o processador enviava os dados pela comunicação serial utilizando um pacote de dados com a seguinte estrutura, expressa conforme uma estrutura em C:
 
-\begin{lstlisting}[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial]
+\begin{lstlisting}[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial, language=C++, directivestyle={\color{black}} emph={int,char,double,float,unsigned,uint8_t}, emphstyle={\color{blue}}]
 /**
  * The type used to represent a number of cycles
  */
-typedef uint32_t cicles_t;
+typedef uint32_t cycles_t;
 
 /**
- * A structure containing the measurement ID and cicle count
+ * A structure containing the measurement ID and cycle count
  */
 struct measurement_t {
     /**
@@ -369,10 +418,10 @@ struct measurement_t {
     uint8_t id;
 
     /**
-     * The number of cicles that happened between the last two 
+     * The number of cycles that happened between the last two 
      * oscillator low borders
      */
-    cicles_t cicleCount;
+    cycles_t cycleCount;
 };
 
 /**
@@ -703,7 +752,15 @@ A Equação \ref{eq:tf:nivel:capacitancia} foi ajustada com $R^2$ dado pela Equa
 
 Pela Figura \ref{fig:tf:nivel:capacitancia} é possível aproximar o sensor como linear e obter erros inferiores à 5\%. Acredita-se que os pontos de discrepância das medidas se dá devido ao erro do instrumento utilizado para estimar a capacitância.
 
-\todo{erro de linearidade}
+Na Figura \ref{fig:resultados-pluviometro-capacitancia-comparacao} está apresentada uma comparação entre os valores de capacitância medidas e calculadas pela Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico-final}.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Capacitancia-Comparacao.pdf}
+	\caption{Comparação entre a função de transferência experimental (pontos) e a função de transferência teórica (linha contínua).}
+	\label{fig:resultados-pluviometro-capacitancia-comparacao}
+\end{figure}
+
+O erro de linearidade da medida de capacitância foi de 24.6777\%. O erro é grande devido ao fato de haver um deslocamento dos valores medidos e teóricos calculados devido à capacitância dos fios de conexão e imprecisão do instrumento que indicava erro de bateria fraca durante as medidas.
 
 \subsection{Função de Transferência para a frequência do oscilador}
 
@@ -857,7 +914,16 @@ A Equação \ref{eq:resultados-pluviometro-tf-frequencia} foi ajustada com $R^2$
 	\label{eq:resultados-pluviometro-tf-frequencia-r2}
 \end{equation}
 
-\todo{erro de linearidade}
+
+Na Figura \ref{fig:resultados-pluviometro-frequencia-comparacao} está apresentada uma comparação entre os valores de frequência medidas e calculadas.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Frequencia-Comparacao.pdf}
+	\caption{Comparação entre a função de transferência experimental (pontos) e a função de transferência teórica (linha contínua) da frequência de oscilação do oscilador.}
+	\label{fig:resultados-pluviometro-frequencia-comparacao}
+\end{figure}
+
+O erro de conformidade da medida de frequência foi de 368\%. A confiança neste valor é baixa, o erro é amplificado pelo comportamento de $x^{-1}$ da curva, que magnifica de forma grande os valores iniciais de frequência bem como a impedância de entrada pouco definida do amplificador operacional de entrada do circuito de condicionamento.
 
 \subsection{Função de Transferência para a contagem de ciclos por oscilação}
 
@@ -866,126 +932,126 @@ A Tabela \ref{tab:resultados-pluviometro-ciclos} apresenta as medidas experiment
 \begin{longtable}{cc}
 \caption{Valores de frequência obtidos experimentalmente} \label{tab:resultados-pluviometro-ciclos} \\
 \textbf{$Volume (mL)$} & \textbf{$Ciclos$} \\ \hline
- 1 & 37486 \\
- 2 & 40850 \\
- 3 & 42334 \\
- 4 & 43008 \\
- 5 & 41820 \\
- 6 & 42070 \\
- 7 & 32801 \\
- 8 & 43025 \\
- 9 & 43882 \\
- 10 & 44016 \\
- 11 & 44950 \\
- 12 & 45270 \\
- 13 & 45650 \\
- 14 & 46050 \\
- 15 & 46370 \\
- 16 & 46680 \\
- 17 & 47100 \\
- 18 & 48700 \\
- 19 & 49500 \\
- 20 & 49820 \\
- 21 & 49445 \\
- 22 & 49799 \\
- 23 & 49922 \\
- 24 & 50161 \\
- 25 & 50525 \\
- 26 & 50885 \\
- 27 & 51696 \\
- 28 & 53607 \\
- 29 & 54584 \\
- 30 & 54664 \\
- 31 & 54701 \\
- 32 & 55471 \\
- 33 & 56156 \\
- 34 & 56891 \\
- 35 & 57063 \\
- 36 & 57521 \\
- 37 & 58759 \\
- 38 & 58334 \\
- 39 & 58889 \\
- 40 & 58820 \\
- 41 & 59876 \\
- 42 & 60012 \\
- 43 & 60470 \\
- 44 & 61385 \\
- 45 & 62069 \\
- 46 & 62462 \\
- 47 & 62864 \\
- 48 & 63658 \\
- 49 & 64137 \\
- 50 & 65700 \\
- 51 & 66457 \\
- 52 & 66564 \\
- 53 & 66634 \\
- 54 & 69120 \\
- 55 & 69039 \\
- 56 & 68550 \\
- 57 & 69683 \\
- 58 & 70506 \\
- 59 & 69606 \\
- 60 & 70856 \\
- 61 & 71955 \\
- 62 & 72584 \\
- 63 & 72565 \\
- 64 & 72764 \\
- 65 & 73350 \\
- 66 & 73667 \\
- 67 & 74037 \\
- 68 & 74546 \\
- 69 & 75906 \\
- 70 & 77431 \\
- 71 & 77081 \\
- 72 & 77095 \\
- 73 & 78513 \\
- 74 & 79193 \\
- 75 & 80757 \\
- 76 & 82842 \\
- 77 & 82744 \\
- 78 & 83908 \\
- 79 & 85830 \\
- 80 & 86328 \\
- 81 & 87064 \\
- 82 & 87765 \\
- 83 & 89036 \\
- 84 & 88383 \\
- 85 & 89184 \\
- 86 & 89963 \\
- 87 & 90343 \\
- 88 & 91270 \\
- 89 & 92768 \\
- 90 & 92808 \\
- 91 & 93586 \\
- 92 & 95212 \\
- 93 & 94823 \\
- 94 & 95428 \\
- 95 & 96383 \\
- 96 & 97512 \\
- 97 & 98066 \\
- 98 & 98428 \\
- 99 & 99034 \\
- 100 & 102584 \\
- 101 & 103142 \\
- 102 & 104111 \\
- 103 & 105461 \\
- 104 & 105806 \\
- 105 & 104868 \\
- 106 & 107401 \\
- 107 & 108077 \\
- 108 & 109047 \\
- 109 & 109381 \\
- 110 & 110243 \\
- 111 & 111285 \\
- 112 & 112573 \\
- 113 & 113507 \\
- 114 & 114288 \\
- 115 & 114869 \\
- 116 & 116016 \\
- 117 & 116015 \\
- 118 & 117082 \\
+ 0 & 35132$\pm$ 1054 \\
+ 1 & 37486$\pm$ 1125 \\
+ 2 & 40850$\pm$ 1226 \\
+ 3 & 42334$\pm$ 1270 \\
+ 4 & 43008$\pm$ 1290 \\
+ 5 & 41820$\pm$ 1255 \\
+ 6 & 42070$\pm$ 1262 \\
+ 7 & 32801$\pm$ 984 \\
+ 8 & 43025$\pm$ 1291 \\
+ 9 & 43882$\pm$ 1316 \\
+ 10 & 44016$\pm$ 1320 \\
+ 11 & 44950$\pm$ 1349 \\
+ 12 & 45270$\pm$ 1358 \\
+ 13 & 45650$\pm$ 1370 \\
+ 14 & 46050$\pm$ 1382 \\
+ 15 & 46370$\pm$ 1391 \\
+ 16 & 46680$\pm$ 1400 \\
+ 17 & 47100$\pm$ 1413 \\
+ 18 & 48700$\pm$ 1461 \\
+ 19 & 49500$\pm$ 1485 \\
+ 20 & 49820$\pm$ 1495 \\
+ 21 & 49445$\pm$ 1483 \\
+ 22 & 49799$\pm$ 1494 \\
+ 23 & 49922$\pm$ 1498 \\
+ 24 & 50161$\pm$ 1505 \\
+ 25 & 50525$\pm$ 1516 \\
+ 26 & 50885$\pm$ 1527 \\
+ 27 & 51696$\pm$ 1551 \\
+ 28 & 53607$\pm$ 1608 \\
+ 29 & 54584$\pm$ 1638 \\
+ 30 & 54664$\pm$ 1640 \\
+ 31 & 54701$\pm$ 1641 \\
+ 32 & 55471$\pm$ 1664 \\
+ 33 & 56156$\pm$ 1685 \\
+ 34 & 56891$\pm$ 1707 \\
+ 35 & 57063$\pm$ 1712 \\
+ 36 & 57521$\pm$ 1726 \\
+ 37 & 58759$\pm$ 1763 \\
+ 38 & 58334$\pm$ 1750 \\
+ 39 & 58889$\pm$ 1767 \\
+ 40 & 58820$\pm$ 1765 \\
+ 41 & 59876$\pm$ 1796 \\
+ 42 & 60012$\pm$ 1800 \\
+ 43 & 60470$\pm$ 1814 \\
+ 44 & 61385$\pm$ 1842 \\
+ 45 & 62069$\pm$ 1862 \\
+ 46 & 62462$\pm$ 1874 \\
+ 47 & 62864$\pm$ 1886 \\
+ 48 & 63658$\pm$ 1910 \\
+ 49 & 64137$\pm$ 1924 \\
+ 50 & 65700$\pm$ 1971 \\
+ 51 & 66457$\pm$ 1994 \\
+ 52 & 66564$\pm$ 1997 \\
+ 53 & 66634$\pm$ 1999 \\
+ 54 & 69120$\pm$ 2074 \\
+ 55 & 69039$\pm$ 2071 \\
+ 56 & 68550$\pm$ 2057 \\
+ 57 & 69683$\pm$ 2090 \\
+ 58 & 70506$\pm$ 2115 \\
+ 59 & 69606$\pm$ 2088 \\
+ 60 & 70856$\pm$ 2126 \\
+ 61 & 71955$\pm$ 2159 \\
+ 62 & 72584$\pm$ 2178 \\
+ 63 & 72565$\pm$ 2177 \\
+ 64 & 72764$\pm$ 2183 \\
+ 65 & 73350$\pm$ 2201 \\
+ 66 & 73667$\pm$ 2210 \\
+ 67 & 74037$\pm$ 2221 \\
+ 68 & 74546$\pm$ 2236 \\
+ 69 & 75906$\pm$ 2277 \\
+ 70 & 77431$\pm$ 2323 \\
+ 71 & 77081$\pm$ 2312 \\
+ 72 & 77095$\pm$ 2313 \\
+ 73 & 78513$\pm$ 2355 \\
+ 74 & 79193$\pm$ 2376 \\
+ 75 & 80757$\pm$ 2423 \\
+ 76 & 82842$\pm$ 2485 \\
+ 77 & 82744$\pm$ 2482 \\
+ 78 & 83908$\pm$ 2517 \\
+ 79 & 85830$\pm$ 2575 \\
+ 80 & 86328$\pm$ 2590 \\
+ 81 & 87064$\pm$ 2612 \\
+ 82 & 87765$\pm$ 2633 \\
+ 83 & 89036$\pm$ 2671 \\
+ 84 & 88383$\pm$ 2652 \\
+ 85 & 89184$\pm$ 2676 \\
+ 86 & 89963$\pm$ 2699 \\
+ 87 & 90343$\pm$ 2710 \\
+ 88 & 91270$\pm$ 2738 \\
+ 89 & 92768$\pm$ 2783 \\
+ 90 & 92808$\pm$ 2784 \\
+ 91 & 93586$\pm$ 2808 \\
+ 92 & 95212$\pm$ 2856 \\
+ 93 & 94823$\pm$ 2845 \\
+ 94 & 95428$\pm$ 2863 \\
+ 95 & 96383$\pm$ 2891 \\
+ 96 & 97512$\pm$ 2925 \\
+ 97 & 98066$\pm$ 2942 \\
+ 98 & 98428$\pm$ 2953 \\
+ 99 & 99034$\pm$ 2971 \\
+ 100 & 102584$\pm$ 3078 \\
+ 101 & 103142$\pm$ 3094 \\
+ 102 & 104111$\pm$ 3123 \\
+ 103 & 105461$\pm$ 3164 \\
+ 104 & 105806$\pm$ 3174 \\
+ 105 & 104868$\pm$ 3146 \\
+ 106 & 107401$\pm$ 3222 \\
+ 107 & 108077$\pm$ 3242 \\
+ 108 & 109047$\pm$ 3271 \\
+ 109 & 109381$\pm$ 3281 \\
+ 110 & 110243$\pm$ 3307 \\
+ 111 & 111285$\pm$ 3339 \\
+ 112 & 112573$\pm$ 3377 \\
+ 113 & 113507$\pm$ 3405 \\
+ 114 & 114288$\pm$ 3429 \\
+ 115 & 114869$\pm$ 3446 \\
+ 116 & 116016$\pm$ 3480 \\
+ 117 & 116015$\pm$ 3480 \\
+ 118 & 117082$\pm$ 3512 \\
 \end{longtable}
-\todo{adicionar incerteza}
 
 A função de transferência da contagem de ciclos do processador para cada oscilação da onda quadrada do sistema de condicionamento é dada pela Figura \ref{fig:resultados-pluviometro-tf-ciclos}:
 
@@ -1013,7 +1079,15 @@ A Equação \ref{eq:resultados-pluviometro-tf-ciclos} foi ajustada com $R^2$ dad
 
 Logo, conforme esperado pela Equação \ref{eq:metologia-pluviometro-periodo} apresentada na metodologia experimental, o comportamento do período de oscilação é linear em função da capacitância.
 
-\todo{erro de linearidade}
+Na Figura \ref{fig:resultados-pluviometro-ciclos-comparacao} está apresentada uma comparação entre os números de ciclos contados em cada oscilação medidas e calculadas pela Equação \ref{eq:metodologia-pluviometro-ciclos-teorico}.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Ciclos-Comparacao.pdf}
+	\caption{Comparação entre a função de transferência experimental (pontos) e a função de transferência teórica (linha contínua) para a contagem de ciclos por oscilação.}
+	\label{fig:resultados-pluviometro-ciclos-comparacao}
+\end{figure}
+
+O erro de linearidade da medida de capacitância foi de 14.03\%.
 
 \subsection{Função de Transferência para a equação de compensação}
 
@@ -1043,7 +1117,15 @@ A Equação \ref{eq:resultados-pluviometro-tf-compensado} foi ajustada com $R^2$
 
 Devido aos sensores de compensação, em especial o sensor de referência de líquido, o sistema perdeu a característica linear. Isto se deve ao fato da referência não ser perfeitamente fixa durante a execução do experimento. Isto é, a capacitância continuava variando a medida que água fosse adicionada ao recipiente. Este efeito pode ser compensado caso seja usada uma referência de líquido externa, semelhante à referência de ambiente.
 
-\todo{erro de linearidade}
+Na Figura \ref{fig:resultados-pluviometro-compensacao-comparacao} está apresentada uma comparação entre os números de ciclos contados em cada oscilação medidas e calculadas pela Equação \ref{eq:metodologia-pluviometro-compensacao}.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Compensado-Comparacao.pdf}
+	\caption{Comparação entre a função de transferência experimental (pontos) e a função de transferência teórica (linha contínua) para a função de compensação.}
+	\label{fig:resultados-pluviometro-compensacao-comparacao}
+\end{figure}
+
+O erro de linearidade da medida de capacitância foi de 66.86\%.
 
 \newpage
 \begin{thebibliography}{9}
