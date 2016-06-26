@@ -150,7 +150,7 @@
 \end{flushright}
 
 {\textit \noindent
-	Anteprojeto
+	Relatório
 	\vspace{1em}
 }
 
