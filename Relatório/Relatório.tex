@@ -36,12 +36,12 @@
 	\emailaddress{R.J.S.}{rogiel@rogiel.com} e
 	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com}
 }
-\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão de tempo e também a caracterização do clima. Para tanto, será desenvolvido instrumentos (ou sensores eletrônicos) de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
+\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão do tempo e também a caracterização do clima. Para tanto, será desenvolvido instrumentos e sensores eletrônicos de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
 \abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall.}
 \keywords{estação meteorológica; instrumentos de medição; temperatura; quantidade de chuva; velocidade de vento.}
 \institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Prof. Dr. Alexandre Balbinot}
 
-\headertext{Anteprojeto}
+\headertext{Projeto Final}
 
 \begin{document}
 \fontsize{12pt}{16pt}\selectfont
@@ -50,7 +50,7 @@
 \chapter{Introdução}
 De acordo com o livro-texto da disciplina \textit{ENG04457 - Instrumentação A} \cite{livro-texto}, em seu prefácio, expõe que "hoje o mundo não escreve: digita. Internet, iPod, celulares, pen-drives... Toda essa revolução na sociedade criou novas habilitações dentro das engenharias, como, por exemplo, as engenharias de computação, de software e de tecnologia da informação. O analógico aparentemente tornou-se obsoleto, tirando a atenção de disciplinas relacionadas, como instrumentação, sensores e transdutores -- um equívoco ocorrido em função da compreensão superficial do que está por trás desta revolução tecnológica que estamos vivendo. Porém, o som, a imagem e diversos outros fenômenos que nos cercam são entes analógicos. Antes de virar bytes, o mundo é captado analogicamente". É com base nesta necessidade do domínio da captação do mundo analógico que a disciplina corretamente propõe a elaboração, planejamento e montagem de um projeto experimental utilizando os conceitos vistos em sala de aula.
 
-O grupo, orientado por algumas indicações do professor da disciplina, optou pela elaboração do projeto de uma \textit{Central Meteorológica} capaz de executar medições de precipitação (chuva), de temperatura e de velocidade do vento, por meio de um pluviômetro, um termômetro e um anemômetro, respectivamente. Esses instrumentos experimentais foram projetados, montados e testados pelo grupo e esse desenvolvimento é apresentado nos capítulos seguintes.
+O grupo, orientado por indicações do professor da disciplina, optou pela elaboração do projeto de uma \textit{Central Meteorológica} capaz de executar medições de precipitação (chuva), de temperatura e de velocidade do vento, por meio de um pluviômetro, um termômetro e um anemômetro, respectivamente. Esses instrumentos experimentais foram projetados, montados e testados pelo grupo e esse desenvolvimento é apresentado nos capítulos seguintes.
 
 \chapter{Metodologia Experimental}
 A seguir serão apresentadas as especificações de cada um dos instrumentos experientais que foram projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
@@ -130,7 +130,7 @@ Substituindo-se, na Equação \ref{eq:termometro-ponte-saida}, pelos valores nom
 	\label{eq:termometro-ponte-saida-valores}
 \end{equation}
 
-A ponte de Wheatstone tem como característica principal o atingimento da tensão diferencial igual a zero para a seguinte relação:
+A ponte de Wheatstone tem como característica principal de atingir tensão diferencial igual a zero para a seguinte relação de resistências elétricas:
 
  \begin{equation}
 	R_1*R_3=R_2*R(T)
@@ -166,7 +166,7 @@ A Figura \ref{fig:termometro-ckt-condicionador-completo} mostra o circuito condi
 	\label{fig:termometro-ckt-condicionador-completo}
 \end{figure}
 
-Com base na estrutura de condicionamento proposta e os valores teóricos da função de transferência do Pt100 (Equação \ref{eq:pt100-eq-teorica-valor}), pode-se elaborar a Cadeia de Medidas experimental proposta para o termômetro a ser implementado, verificada na Figura \ref{fig:termometro-cadeia-medidas-proposta}. Os potênciômetros de balanço e de \textit{offset} foram ajustados para uma saída próximo de $0V$ para uma temperatura de 20$ºC$, que é a metade do range escolhido, representado por cerca de $108\Omega$.
+Com base na estrutura de condicionamento proposta e os valores teóricos da função de transferência do Pt100 (Equação \ref{eq:pt100-eq-teorica-valor}), pode-se elaborar a Cadeia de Medidas experimental proposta para o termômetro a ser implementado, verificada na Figura \ref{fig:termometro-cadeia-medidas-proposta}. Os potenciômetros de balanço e de \textit{offset} foram ajustados para uma saída próximo de $0V$ para uma temperatura de 20$ºC$, que é a metade do \textit{range} escolhido, representado por cerca de $108\Omega$.
 
 \begin{figure}[H]
 	\centering \includegraphics[width=\textwidth]{termometro-cadeia-medidas-proposta2.jpg}
@@ -175,6 +175,7 @@ Com base na estrutura de condicionamento proposta e os valores teóricos da fun�
 \end{figure}
 
 \section{Anemômetro}
+
 O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo foi utilizado neste projeto.
 
 %\begin{figure}[h]
@@ -211,16 +212,15 @@ Na Figura \ref{fig:anemometro-bloco-experimental} verifica-se o digrama de bloco
 	\label{fig:anemometro-bloco-experimental}
 \end{figure}.
 
-
 \section{Pluviômetro}
 \todo{tirar referência da wikipedia}
-Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$]. Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura.
+Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$]. Como o equipamento mensura a quantidade de chuva que precipita, em conjunto com o sensor de temperatura, são variáveis elementares para estudos meteorológicos e hidrológicos.
 
 A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado.
 
-Como o equipamento mensura a quantidade de chuva que precipita, é elementar para estudos meteorológicos e hidrológicos em conjunto com o sensor de temperatura. Um dos princípios de funcionamento composto é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um software de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe os membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
+Um dos princípios de funcionamento é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um \textit{software} de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe aos membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
 
-Optou-se por utilizar um sensor capacitivo com referência baseada em um documento do "TI Designs"\cite{pluviometro-capacitivo-texas} onde é proposto um sensor simples de medida de capacitância utilizando uma placa de circuito impresso com duas placas paralelas. A fim de determinar a validade do \textit{design} de sensor, foi confeccionado um sistema simples com uma placa de circuito impresso contendo duas barras que funcionam como eletrodos do sensor e a placa foi fixada na face interna de um recipiente e acrílico. A placa foi isolada com verniz para evitar que a água fizesse contato elétrico entre os eletrodos. O recipiente possui dimensões internas de 3cm por 6cm com 15cm de altura e foi confeccionado sob medida.
+Optou-se por utilizar um sensor capacitivo com referência baseada em um documento do "TI Designs"\cite{pluviometro-capacitivo-texas} onde é proposto um sensor simples de medida de capacitância utilizando uma placa de circuito impresso com duas placas paralelas co-planares. A fim de determinar a validade do \textit{design} de sensor, foi confeccionado um sistema simples com uma placa de circuito impresso contendo duas barras que funcionam como eletrodos do sensor e a placa foi fixa na face interna de um recipiente de acrílico. A placa foi isolada com verniz e papel \textit{contact} para evitar que a água fizesse contato elétrico entre os eletrodos. O recipiente possui dimensões internas de 3cm por 6cm com 15cm de altura e foi confeccionado sob medida.
 
 A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do sensor de nível
 
@@ -232,7 +232,7 @@ A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do 
 
 A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro Minipa ET-2082B \cite{multimetro-minipa} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 118 mL com resolução de 1mL.
 
-A fim de estimar o valor de capacitância do sistema, foi utilizado um circuito de condicionamento misto digital e analógico. Na parte analógica, um oscilador controlado pela capacitância do sensor foi utilizado. O oscilador gera uma onda quadrada com frequência (e período) variável que depende diretamente do valor de capacitância do sensor. A Figura \ref{fig:metodologia-capacitivo-oscilador} apresenta o esquemático do oscilador.
+Com o intuito de estimar o valor de capacitância do sistema, foi utilizado um circuito de condicionamento misto digital e analógico. Na parte analógica, um oscilador controlado pela capacitância do sensor foi utilizado. O oscilador gera uma onda quadrada com frequência (e período) variável que depende diretamente do valor de capacitância do sensor. A Figura \ref{fig:metodologia-capacitivo-oscilador} apresenta o esquemático do oscilador.
 
 \begin{figure}[H]
 	\centering
@@ -247,7 +247,7 @@ Neste sistema, a equação teórica que determina o período de oscilação do s
 	T = 2 R C ln \left(\frac{1+\lambda}{1-\lambda}\right)
 	\label{eq:metologia-pluviometro-periodo}
 \end{equation}
-\noindent onde $R$ é o resistor de realimentação positiva, C é o valor de capacitância do oscilador, $ln$ é o logaritmo natural neperiano e $\lambda$ é definido conforme a expressão da Equação \label{eq:metologia-pluviometro-periodo-2}.
+\noindent onde $R$ é o resistor de realimentação positiva, C é o valor de capacitância do oscilador, $ln$ é o logaritmo natural neperiano e $\lambda$ é definido conforme a expressão da Equação \ref{eq:metologia-pluviometro-periodo-2}.
 
 \begin{equation}
 	\lambda = \frac{R_1}{R_1 + R_2}
@@ -264,11 +264,11 @@ No sistema montado foram utilizados os seguintes componentes indicados nas Equa�
 	C &=& (27 nF \pm 20\%) + C(V) 		\nonumber			\\
 	R_1 = R_2 &=& (10 k\Omega \pm 10\%)	\nonumber
 \end{eqnarray}
-\noindent onde $C(V)$ é o valor de capacitância do sensor correspondente à um volume $V$ em $mL$.
+\noindent onde $C(V)$ é o valor de capacitância do sensor correspondente ao volume $V$ em $mL$.
 
-Como amplificador operacional para o oscilador foi utilizado um OP27 fabricado pela \textit{Analog Devices} com resistências típicas de entrada diferencial de $6 M\Omega$ e modo comum de $3 G\Omega$. Estes valores são significativas perante o valor de resistência utilizadas na realimentação do negativa do circuito.
+Como amplificador operacional para o oscilador foi utilizado um OP27 fabricado pela \textit{Analog Devices} com resistências típicas de entrada diferencial de $6 M\Omega$ e modo comum de $3 G\Omega$. Estes valores são significativoss perante o valor de resistência elétrica utilizado na realimentação do negativa do circuito.
 
-Em termos práticos, foi utilizado um sistema com três entradas para que haja compensação de variação de temperatura ambiente, ou seja, o líquido deve estar à mesma temperatura ambiente do sensor de referência externa. A expressão da Equação \ref{eq:metodologia-pluviometro-compensacao} apresenta a expressão utilizada para agregar os valores dos 3 sensores num único valor.
+Em termos práticos, foi utilizado um sistema com três entradas para que haja compensação da variação de temperatura ambiente, ou seja, o líquido deve estar à mesma temperatura ambiente do sensor de referência externa. A expressão da Equação \ref{eq:metodologia-pluviometro-compensacao} apresenta a expressão utilizada para agregar os valores dos 3 sensores num único valor.
 
 \begin{equation}
 	N = \frac{C(V) - C(0)}{C_{ref} - C_{ambiente}}
@@ -300,7 +300,7 @@ Substituindo as constantes físicas $\epsilon_{ar}$ e $\epsilon_{agua}$ na equa�
 \end{equation}
 \noindent onde $C(h)$ é a capacitância do sensor para o nível de água $h$, $K(x)$ é a integral elíptica do primeiro tipo, $H$ é a altura do sensor, $d$ é o espaçamento entre as placas co-planares e $w$ é a largura das placas do capacitor.
 
-A Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico} não pode ser simplificada mais pois não há solução simbólica para a integral elíptica dada. Uma solução final pode ser obtida substituindo as dimensões físicas do sensor utilizado. O sensor possui as características físicas dadas pelas Equações \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-1}, \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-2}, \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-3}.
+A Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico} não pode ser simplificada além pois não há solução simbólica para a integral elíptica dada. Uma solução final pode ser obtida substituindo as dimensões físicas do sensor utilizado. O sensor possui as características físicas dadas pelas Equações \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-1}, \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-2}, \ref{eq:metodologia-pluviometro-capacitancia-caracteristicas-3}.
 
 \begin{eqnarray}
 	H &=& 13.5cm \label{eq:metodologia-pluviometro-capacitancia-caracteristicas-1} \\
@@ -350,9 +350,9 @@ Observando-se a equação \ref{eq:metologia-pluviometro-periodo} é possível no
 \end{equation}
 \noindent onde $T$ é o período de oscilação do oscilador, $C$ é a capacitância do sensor e $k$ é uma constante definida pelos componentes passivos do sistema.
 
-Dessa forma, é possível considerar tanto o período quanto a capacitância para cálculo da grandeza $N$ (Equação \ref{eq:metodologia-pluviometro-compensacao}) do sistema. Portanto, a segunda parte do sistema é realizada digitalmente utilizando um microcontrolador MSP430G2553 da Texas Instruments onde um timer de 16 bits à uma frequência de (16 $\pm$ 0.48) MHz foi utilizado para calcular o período da forma de onda gerada pelo oscilador.
+Dessa forma, é possível considerar tanto o período quanto a capacitância para cálculo da grandeza $N$ (Equação \ref{eq:metodologia-pluviometro-compensacao}) do sistema. Portanto, a segunda parte do sistema é realizada digitalmente utilizando um microcontrolador MSP430G2553 da Texas Instruments onde um \textit{timer} de 16 bits à uma frequência de (16 $\pm$ 0.48) MHz foi utilizado para calcular o período da forma de onda gerada pelo oscilador.
 
-O programa microcontrolado foi desenvolvido em C++ utilizando o compilador mspgcc (um \textit{port} do \textit{GNU C Compiler} para o MSP430) versão "msp430-gcc (MSPGCC 20120406 (With patches: sf3540953 sf3559978)) 4.6.3 20120301 (mspgcc LTS 20120406 unpatched)". Neste programa, um timer de 16 bits de contagem contínua crescente foi iniciado à (16 $\pm$ 0.48) MHz. A cada \textit{overflow} do timer um segundo contador e 64 bits era incrementado em 1. Desta forma, era possível obter um timer efetivo de 80 bits mas por limitação técnica do processador os últimos 16 bits do segundo contador eram descartados, totalizando em 64 bits efetivos. Vale ressaltar que destes 64 bits, 16 deles eram acionados pelo timer interno do processador e os 48 restantes gerados por software usando interrupções do timer. Este contador é denominado de "temporizador" no restante deste documento. Técnicas semelhantes à estas são utilizadas nos diversos sistemas operacionais de computador doméstico utilizados comercialmente hoje em dia.
+O programa microcontrolado foi desenvolvido em C++ utilizando o compilador mspgcc (um \textit{port} do \textit{GNU C Compiler} para o MSP430) versão "msp430-gcc (MSPGCC 20120406 (With patches: sf3540953 sf3559978)) 4.6.3 20120301 (mspgcc LTS 20120406 unpatched)". Neste programa, um \textit{timer} de 16 bits de contagem contínua crescente foi iniciado à (16 $\pm$ 0.48) MHz. A cada \textit{overflow} do \textit{timer} um segundo contador e 64 bits era incrementado em 1. Desta forma, era possível obter um v efetivo de 80 bits mas por limitação técnica do processador os últimos 16 bits do segundo contador eram descartados, totalizando em 64 bits efetivos. Vale ressaltar que destes 64 bits, 16 deles eram acionados pelo \textit{timer} interno do processador e os 48 restantes gerados por \textit{software} usando interrupções do v. Este contador é denominado de "temporizador" no restante deste documento. Técnicas semelhantes a estas são utilizadas nos diversos sistemas operacionais de computador doméstico utilizados comercialmente hoje em dia.
 
 \begin{lstlisting}[caption=Rotina de extração do timer do temporizador]
 typedef uint64_t counter_t;
@@ -387,7 +387,7 @@ A sensibilidade do sistema é dada pela Equação \ref{eq:metodologia-pluviometr
 	  &=& 577.084 \text{ ciclos/mm} \nonumber
 \end{eqnarray}
 
-Para transferir os dados para um computador foi utilizado o controlador de serial por hardware do próprio processador para comunicar via UART com o computador. A placa desenvolvimento do MSP430 já possui adaptador UART-USB para conexão com o computador, esta mesma que impõe um limite da \textit{baud rate} de no máximo 9600 bps. Periodicamente o processador enviava os dados pela comunicação serial utilizando um pacote de dados com a seguinte estrutura, expressa conforme uma estrutura em C:
+Para transferir os dados para um computador foi utilizado o controlador de serial por hardware do próprio processador para comunicar via UART com o computador. A placa desenvolvimento do MSP430 já possui adaptador UART-USB para conexão com o computador, esta mesma que impõe um limite da \textit{baud rate} de no máximo 9600 bps. Periodicamente o processador envia os dados pela comunicação serial utilizando um pacote de dados com a seguinte estrutura, expressa conforme uma estrutura em C:
 
 \begin{lstlisting}[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial, language=C++, directivestyle={\color{black}} emph={int,char,double,float,unsigned,uint8_t}, emphstyle={\color{blue}}]
 /**
@@ -437,7 +437,7 @@ struct packet_payload {
 };
 \end{lstlisting}
 
-Periodicamente um pacote "packet\_payload" era enviado com os dados de todas as medidas. O campo "sync" possuía um byte de sincronia fixo definido arbitrariamente com o valor hexadecimal de $0xFB$. O cliente, ao iniciar a comunicação aguardava até o recebimento do campo de sincronia e então começava a leitura dos dados de forma sequencial.
+Periodicamente um pacote "packet\_payload" é enviado com os dados de todas as medidas. O campo "sync" possui um byte de sincronia fixo definido arbitrariamente com o valor hexadecimal de $0xFB$. O cliente, ao iniciar a comunicação aguarda até o recebimento do campo de sincronia e então começa a leitura dos dados de forma sequencial.
 
 O programa completo se encontra no anexo \todo{anexo do msp430}.
 
@@ -526,7 +526,7 @@ A Tabela \ref{tab:pt100-exp-teorico-tf-erro} faz um comparativo com os valores a
 
 \begin{table}[H]
 \centering
-\caption{Valores experimentais, teóricos e pela função de transferência experimental de $R(T)$, e o erro de linearidade observado.}
+\caption{Valores experimentais, teóricos e pela função de transferência experimental regredida de $R(T)$ e o erro de linearidade observado.}
 \label{tab:pt100-exp-teorico-tf-erro}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -577,13 +577,11 @@ A Tabela \ref{tab:pt100-simulacao-ckt-condicionador} mostra os resultados de uma
 \end{tabular}
 \end{table}
 
-Esse experimento, com valores apresentados na Tabela \ref{tab:pt100-simulacao-ckt-condicionador}, não foi realizado ainda de forma prática, portanto seus valores são apenas teóricos/simulados.
-
-A variação de $+0.1ºC$ utilizando a função de transferência teórica para o Pt100 retorna uma variação de $+0.04\Omega$. Essa variação aplicada no circuito condicionador, de forma simulada, apresenta uma variação de $+7mV$ na saída do circuito. Com a configuração do ADC de 14bits, com entrada de $0V$ a $+5V$, tem-se uma resolução de entrada de $0.305mV/bit$. Com isso, acredita-se que será conseguido a resolução esperada de $0.1ºC$ para entrada.
+A variação de $+0.1ºC$ na função de transferência teórica para o Pt100 dá uma variação de $+0.04\Omega$. Essa variação aplicada no circuito condicionador, de forma simulada, apresenta uma variação de $+7mV$ na saída do circuito. Com a configuração do ADC de 14bits, com entrada de $0V$ a $+5V$, tem-se uma resolução de entrada de $0.305mV/bit$. Com isso, consegue-se uma resolução teórica esperada de $0.1ºC$ para entrada.
 
 \section{Anemômetro}
 
-A parte prática referente à implementação experimental do anemômetro ainda não foi efetivada, pois os sensores comprados ainda não chegaram e, na visão do grupo, trata-se de uma área que não exige muito condicionamento eletrônico, logo, demanda menos tempo para desenvolvimento.
+\todo{anemometro}
 
 \section{Pluviômetro}
 \subsection{Função de Transferência para a capacitância}
@@ -737,7 +735,7 @@ A Equação \ref{eq:tf:nivel:capacitancia} foi ajustada com $R^2$ dado pela Equa
 	\label{eq:tf:nivel:capacitancia-r2}
 \end{equation}
 
-Pela Figura \ref{fig:tf:nivel:capacitancia} é possível aproximar o sensor como linear e obter erros inferiores à 5\%. Acredita-se que os pontos de discrepância das medidas se dá devido ao erro do instrumento utilizado para estimar a capacitância.
+Pela Figura \ref{fig:tf:nivel:capacitancia} é possível aproximar o sensor como linear e obter erros inferiores a 5\%. Acredita-se que os pontos de discrepância das medidas ocorre devido ao erro do instrumento utilizado para estimar a capacitância.
 
 Na Figura \ref{fig:resultados-pluviometro-capacitancia-comparacao} está apresentada uma comparação entre os valores de capacitância medidas e calculadas pela Equação \ref{eq:metodologia-pluviometro-capacitancia-teorico-final}.
 
@@ -747,7 +745,7 @@ Na Figura \ref{fig:resultados-pluviometro-capacitancia-comparacao} está apresen
 	\label{fig:resultados-pluviometro-capacitancia-comparacao}
 \end{figure}
 
-O erro de linearidade da medida de capacitância foi de 24.6777\%. O erro é grande devido ao fato de haver um deslocamento dos valores medidos e teóricos calculados devido à capacitância dos fios de conexão e imprecisão do instrumento que indicava erro de bateria fraca durante as medidas.
+O erro de linearidade da medida de capacitância foi de 24.6\% devido ao fato de haver um deslocamento dos valores medidos e teóricos calculados decorrente da capacitância dos fios de conexão e imprecisão do instrumento que indicava erro de bateria fraca durante as medidas.
 
 \subsection{Função de Transferência para a frequência do oscilador}
 
@@ -910,7 +908,7 @@ Na Figura \ref{fig:resultados-pluviometro-frequencia-comparacao} está apresenta
 	\label{fig:resultados-pluviometro-frequencia-comparacao}
 \end{figure}
 
-O erro de conformidade da medida de frequência foi de 368\%. A confiança neste valor é baixa, o erro é amplificado pelo comportamento de $x^{-1}$ da curva, que magnifica de forma grande os valores iniciais de frequência bem como a impedância de entrada pouco definida do amplificador operacional de entrada do circuito de condicionamento.
+O erro de conformidade da medida de frequência foi de 368\%. A confiança neste valor é baixa, o erro é amplificado pelo comportamento de $x^{-1}$ da curva, que magnifica os valores iniciais de frequência bem como a impedância de entrada pouco definida do amplificador operacional de entrada do circuito de condicionamento.
 
 \subsection{Função de Transferência para a contagem de ciclos por oscilação}
 
@@ -1066,7 +1064,7 @@ A Equação \ref{eq:resultados-pluviometro-tf-ciclos} foi ajustada com $R^2$ dad
 
 Logo, conforme esperado pela Equação \ref{eq:metologia-pluviometro-periodo} apresentada na metodologia experimental, o comportamento do período de oscilação é linear em função da capacitância.
 
-Na Figura \ref{fig:resultados-pluviometro-ciclos-comparacao} está apresentada uma comparação entre os números de ciclos contados em cada oscilação medidas e calculadas pela Equação \ref{eq:metodologia-pluviometro-ciclos-teorico}.
+Na Figura \ref{fig:resultados-pluviometro-ciclos-comparacao} está apresentada uma comparação entre os números de ciclos contados em cada oscilação medida e calculada pela Equação \ref{eq:metodologia-pluviometro-ciclos-teorico}.
 
 \begin{figure}[H]
 	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Ciclos-Comparacao.pdf}
@@ -1074,11 +1072,11 @@ Na Figura \ref{fig:resultados-pluviometro-ciclos-comparacao} está apresentada u
 	\label{fig:resultados-pluviometro-ciclos-comparacao}
 \end{figure}
 
-O erro de linearidade da medida de capacitância foi de 14.03\%.
+O erro de linearidade da medida de contagem de ciclos foi de 14.03\%.
 
 \subsection{Função de Transferência para a equação de compensação}
 
-A função de transferência da equação de compensação do sistema em função do volume de água dentro do recipiente do sensor está apresentado na Figura \ref{fig:resultados-pluviometro-tf-compensado}
+A função de transferência da equação de compensação do sistema em função do volume de água dentro do recipiente do sensor está apresentada na Figura \ref{fig:resultados-pluviometro-tf-compensado}
 
 \begin{figure}[H]
 	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Compensado-Ajuste.pdf}
@@ -1102,9 +1100,9 @@ A Equação \ref{eq:resultados-pluviometro-tf-compensado} foi ajustada com $R^2$
 	\label{eq:resultados-pluviometro-tf-compensado-r2}
 \end{equation}
 
-Devido aos sensores de compensação, em especial o sensor de referência de líquido, o sistema perdeu a característica linear. Isto se deve ao fato da referência não ser perfeitamente fixa durante a execução do experimento. Isto é, a capacitância continuava variando a medida que água fosse adicionada ao recipiente. Este efeito pode ser compensado caso seja usada uma referência de líquido externa, semelhante à referência de ambiente.
+Devido aos sensores de compensação, em especial o sensor de referência de líquido, o sistema perdeu a característica linear. Isto se deve ao fato da referência não ser perfeitamente fixa durante a execução do experimento, isto é, a capacitância continuava variando a medida que água fosse adicionada ao recipiente. Este efeito pode ser compensado caso seja usada uma referência de líquido externa, semelhante à referência de ambiente.
 
-Na Figura \ref{fig:resultados-pluviometro-compensacao-comparacao} está apresentada uma comparação entre os números de ciclos contados em cada oscilação medidas e calculadas pela Equação \ref{eq:metodologia-pluviometro-compensacao}.
+Na Figura \ref{fig:resultados-pluviometro-compensacao-comparacao} está apresentada uma comparação entre o valor N do sistema medido e calculado pela Equação \ref{eq:metodologia-pluviometro-compensacao}.
 
 \begin{figure}[H]
 	\centering \includegraphics[width=\textwidth]{Nivel/Experimental/Compensado-Comparacao.pdf}
@@ -1112,7 +1110,7 @@ Na Figura \ref{fig:resultados-pluviometro-compensacao-comparacao} está apresent
 	\label{fig:resultados-pluviometro-compensacao-comparacao}
 \end{figure}
 
-O erro de linearidade da medida de capacitância foi de 66.86\%.
+O erro de linearidade da medida pela função de compensação foi de 66.86\%.
 
 \newpage
 \begin{thebibliography}{9}
