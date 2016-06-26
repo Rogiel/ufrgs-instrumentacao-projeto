@@ -31,30 +31,15 @@
 \chapter{Introdução}
 De acordo com o livro-texto da disciplina \textit{ENG04457 - Instrumentação A} \cite{livro-texto}, em seu prefácio, expõe que "hoje o mundo não escreve: digita. Internet, iPod, celulares, pen-drives... Toda essa revolução na sociedade criou novas habilitações dentro das engenharias, como, por exemplo, as engenharias de computação, de software e de tecnologia da informação. O analógico aparentemente tornou-se obsoleto, tirando a atenção de disciplinas relacionadas, como instrumentação, sensores e transdutores -- um equívoco ocorrido em função da compreensão superficial do que está por trás desta revolução tecnológica que estamos vivendo. Porém, o som, a imagem e diversos outros fenômenos que nos cercam são entes analógicos. Antes de virar bytes, o mundo é captado analogicamente". É com base nesta necessidade do domínio da captação do mundo analógico que a disciplina corretamente propõe a elaboração, planejamento e montagem de um projeto experimental utilizando os conceitos vistos em sala de aula.
 
-O grupo, orientado por algumas indicações do professor da disciplina, optou pela elaboração do projeto de uma \textit{Central Meteorológica} capaz de executar medições de precipitação (chuva), de temperatura e de velocidade do vento. De acordo com a enciclopédia eletrônica livre \textit{Wikipedia}\cite{estacao}, "uma estação meteorológica é um local onde são recolhidos dados para análise do tempo meteorológico. Encontram-se equipadas com instrumentos (ou sensores eletrônicos) de medição e registro das variáveis meteorológicas/climáticas. Os seus dados são utilizados para a previsão do tempo e para a caracterização do clima, pelo que também podem ser designadas por estações climatológicas".
-
-O projeto desenvolvido pelo grupo fará a captação e tratamento dos dados de temperatura, velocidade do vento e volume de precipitação. Assim, serão projetados os seguintes instrumentos:
-
-\begin{itemize}
-	\item \textbf{Termômetro}: para medir a temperatura;
-	\item \textbf{Anemômetro}: para medir a velocidade do vento;
-	\item \textbf{Pluviômetro}: para medir a precipitação pluviométrica.
-\end{itemize}
+O grupo, orientado por algumas indicações do professor da disciplina, optou pela elaboração do projeto de uma \textit{Central Meteorológica} capaz de executar medições de precipitação (chuva), de temperatura e de velocidade do vento, por meio de um pluviômetro, um termômetro e um anemômetro, respectivamente. Esses instrumentos experimentais foram projetados, montados e testados pelo grupo e esse desenvolvimento é apresentado nos capítulos seguintes.
 
 \chapter{Metodologia Experimental}
-A seguir serão apresentadas as especificações de cada um dos instrumentos que estão sendo projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
+A seguir serão apresentadas as especificações de cada um dos instrumentos experientais que foram projetados e implementados para a montagem da Central Meteorológica, objeto do projeto final da disciplina.
 
 \section{Termômetro}
-Para a implementação do termômetro será utilizado um sensor do tipo RTD (\textit{Resistance Temperature Detectors}) a fim de medir a temperatura do ar ambiente onde a estação está instalada. A faixa de medição de interesse foi estipulada de $-10ºC$ a $+50ºC$, e será tentado uma resolução de $0.1ºC$. Os termômetros de resistência funcionam com base no fato de que, de modo geral, a resistência dos metais aumenta com a temperatura \cite{livro-texto}. As principais características dos RTDs são:
+Para a implementação do termômetro foi utilizado um sensor do tipo RTD (\textit{Resistance Temperature Detectors}) a fim de medir a temperatura do ar ambiente onde a estação está instalada. A faixa de medição de interesse foi estipulada de $-10ºC$ a $+50ºC$, por se tratar de medição de temperatura ambiente, com uma resolução de $0.1ºC$.
 
-\begin{itemize}
-	\item Condutor metálico (a platina é o metal mais utilizado);
-	\item São dispositivos praticamente lineares;
-	\item Dependendo do metal são muito estáveis;
-	\item Apresentam baixíssima tolerância de fabricação (0,06\% a 0,15\%).
-\end{itemize}
-
-O RTD utilizado será um Pt100, que é um RTD de platina que apresenta $100\Omega$ @ $0ºC$. O modelo utilizado é o DM-301, da LABFACILITY. Segundo catálogo \cite{catalogo-pt100} disponibilizado por um distribuidor do sensor, o DM-301 é um sensor Pt100 do tipo película fina, para uso de $-50ºC$ a $+500ºC$, classe B da norma IEC751. Sua resistência no ponto de fusão da água ($0ºC$) é de $100\Omega$, apresenta um intervalo fundamental ($0ºC$ a $100ºC$) de $38.5\Omega$ (nominal), resposta térmica de $0.1s$ e estabilidade $\pm 0.05\%$. A Figura \ref{fig:DM-301} apresenta uma foto do sensor DM-301. Já a Figura \ref{fig:termometro-ilustracao} apresenta a ilustração com a montagem do sensor em uma estrutura para utilização no experimento.
+O RTD utilizado foi um Pt100, que é um RTD de platina que apresenta $100\Omega$ @ $0ºC$. O modelo utilizado é o DM-301, da LABFACILITY. Segundo catálogo \cite{catalogo-pt100} disponibilizado por um distribuidor do sensor, o DM-301 é um sensor Pt100 do tipo película fina, para uso de $-50ºC$ a $+500ºC$, classe B da norma IEC751. Sua resistência no ponto de fusão da água ($0ºC$) é de $100\Omega$, apresenta um intervalo fundamental ($0ºC$ a $100ºC$) de $38.5\Omega$ (nominal), resposta térmica de $0.1s$ e estabilidade $\pm 0.05\%$. A Figura \ref{fig:DM-301} apresenta uma foto do sensor DM-301. Já a Figura \ref{fig:termometro-ilustracao} apresenta a ilustração com a montagem do sensor em uma estrutura para utilização no experimento.
 
 \begin{figure}[H]
 	\centering \includegraphics[width=0.5\textwidth]{DM-301.jpg}
@@ -64,7 +49,7 @@ O RTD utilizado será um Pt100, que é um RTD de platina que apresenta $100\Omeg
 \end{figure}
 
 \begin{figure}[H]
-	\centering \includegraphics[width=0.5\textwidth]{termometro-ilustracao.jpg}
+	\centering \includegraphics[width=0.5\textwidth]{termometro-ilustracao2.jpg}
 	\caption{Ilustração com a montagem do sensor Pt100 em uma estrutura para utilização no experimento.}
 
 	\label{fig:termometro-ilustracao}
@@ -135,36 +120,38 @@ A ponte de Wheatstone tem como característica principal o atingimento da tensã
 
 Para os valores indicados, a situação explicitada na Equação \ref{eq:termometro-ponte-equilibrio} só acontece para $R(T)=100\Omega$, isto é, quando o sensor estiver percebendo uma temperatura de $0ºC$. Neste caso, a tensão diferencial é de $0V$.
 
-Porém, como a temperatura mínima a ser medida é de $-10ºC$, é interessante que se tenha um circuito para o ajuste de \textit{offset}, na qual se consiga ajustar o valor de   saída em $0V$, independente do valor de $R(T)$. Para isso, será implementado um circuito divisor de tensão, com um potenciômetro alimentado com tensão simétrica e um resistor em série com o cursor do potenciômetro, ligado ao nó $V_1$ da ponte, conforme pode ser verificado na Figura \ref{fig:termometro-ponte-offset}.
+Porém, como a temperatura mínima a ser medida é de $-10ºC$, é interessante que se tenha um circuito para o ajuste de balanço da ponte, na qual se consiga ajustar o valor de   saída em $0V$, independente do valor de $R(T)$. Para isso, foi adicionado um potenciômetro em paralelo com a ponte, com o cursor do potenciômetro ligado ao nó $V_2$ da ponte, conforme pode ser verificado na Figura \ref{fig:termometro-ponte-balanco}.
 
 \begin{figure}[H]
-	\centering \includegraphics[width=\textwidth]{pt100-ponte-offset.png}
-	\caption{Esquemático da estrutura básica da ponte de Wheatstone e um circuito para correção de offset utilizada como parte do circuito condicionador do Pt100.}
-	\label{fig:termometro-ponte-offset}
+	\centering \includegraphics[width=0.7\textwidth]{pt100-ponte-balanco.png}
+	\caption{Esquemático da estrutura básica da ponte de Wheatstone e um circuito para ajuste de balanço da ponte utilizada como parte do circuito condicionador do Pt100.}
+	\label{fig:termometro-ponte-balanco}
 \end{figure}
 
-Associado ao circuito da ponte de Wheatstone e ao circuito de correção de offset, deve-se utilizar um amplificador de instrumentação (AI), a fim de deixar os níveis de tensão de saída mais apropriados ao nível de tensão de entrada do ADC. Para isto, será utilizado o AI INA126 \cite{datasheet-INA126}, da Texas Instruments. Esse AI possui um ganho expresso por:
+Associado ao circuito da ponte de Wheatstone com ajuste de balanço deve-se utilizar um amplificador de instrumentação (AI), a fim de deixar os níveis de tensão de saída mais apropriados ao nível de tensão de entrada do ADC. Para isto, será utilizado o AI INA126 \cite{datasheet-INA126}, da Texas Instruments. Esse AI possui um ganho expresso por:
 
  \begin{equation}
 	G=5+\frac{80k\Omega}{R_G}
 	\label{eq:ganho-INA126}
 \end{equation}
 
-\noindent onde $R_G$ é um resistor conectado aos pinos 1 e 8 do CI, em função do ganho escolhido.
+\noindent onde $R_G$ é um resistor conectado aos pinos 1 e 8 do CI, em função do ganho escolhido. para o circuito implementado, foi utilizado um resistor de $100\Omega$ que, de acordo com a Equação \ref{eq:ganho-INA126}, obtém-se um ganho de, aproximadamente, 805 vezes.
 
-A Figura \ref{fig:termometro-ckt-condicionador-completo} mostra o circuito condicionador proposto para o Pt100, com a ponte de Wheatstone, o circuito corretor de offset e o AI INA126.
+Para controle de \textit{offset} da tensão de saída do AI foi adicionado ainda um potenciômetro alimentado com $+Vcc$ e $-Vcc$, e um resistor de $4.7k\Omega$ ligado ao nó $V1$ da ponte. Foi adicionado ainda um resistor de $1k\Omega$ em série com a alimentação e a ponte, a fim de limitar a corrente no circuito.
+
+A Figura \ref{fig:termometro-ckt-condicionador-completo} mostra o circuito condicionador proposto para o Pt100, com a ponte de Wheatstone com ajuste de balanço, o circuito corretor de offset e o AI INA126.
 
 \begin{figure}[H]
-	\centering \includegraphics[width=\textwidth]{pt100-ponte-com-ina-min.png}
+	\centering \includegraphics[width=\textwidth]{pt100-condicionamento-completo.png}
 	\caption{Esquemático da estrutura básica de condicionamento proposto para o Pt100.}
 	\label{fig:termometro-ckt-condicionador-completo}
 \end{figure}
 
-Com base na estrutura de condicionamento proposta e os valores teóricos da função de transferência do Pt100 (Equação \ref{eq:pt100-eq-teorica-valor}), pode-se elaborar a Cadeia de Medidas proposta para o termômetro a ser implementado, verificada na Figura \ref{fig:termometro-cadeia-medidas-proposta}.
+Com base na estrutura de condicionamento proposta e os valores teóricos da função de transferência do Pt100 (Equação \ref{eq:pt100-eq-teorica-valor}), pode-se elaborar a Cadeia de Medidas experimental proposta para o termômetro a ser implementado, verificada na Figura \ref{fig:termometro-cadeia-medidas-proposta}. Os potênciômetros de balanço e de \textit{offset} foram ajustados para uma saída próximo de $0V$ para uma temperatura de 20$ºC$, que é a metade do range escolhido, representado por cerca de $108\Omega$.
 
 \begin{figure}[H]
 	\centering \includegraphics[width=\textwidth]{termometro-cadeia-medidas-proposta.jpg}
-	\caption{Cadeia de Medidas proposta para o termômetro a ser implementado.}
+	\caption{Cadeia de Medidas experimental proposta para o termômetro a ser implementado.}
 	\label{fig:termometro-cadeia-medidas-proposta}
 \end{figure}
 
