@@ -99,7 +99,7 @@ Usando-se os valores-padrão estabelecidos pela norma IEC751 para sensores Pt100
 	\label{eq:pt100-eq-teorica-valor}
 \end{equation}
 
-Tendo a sensibilidade teórica desse sistema representado por:
+Sendo a sensibilidade teórica desse sistema representado por:
 
 \begin{equation}
 	S=0.385 [\Omega/ºC]
@@ -230,7 +230,7 @@ A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do 
 	\label{fig:sensor-nivel-capacitivo}
 \end{figure}
 
-A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando um multímetro Minipa ET-2082B \cite{multimetro-minipa} na escala de 20nF e 200 nF (onde aplicável) para a medição da capacitância para volumes de água entre 0 mL e 118 mL com resolução de 1mL.
+A fim de determinar a viabilidade de medição deste sistema, um experimento rápido foi realizado onde a função de transferência da capacitância do sistema foi extraída utilizando uma ponte LCR comercial Minipa MX-1010 \cite{ponte-minipa} em modo série com frequência de 1 kHz para a medição da capacitância para volumes de água entre 0 mL e 118 mL com resolução de 1mL.
 
 Com o intuito de estimar o valor de capacitância do sistema, foi utilizado um circuito de condicionamento misto digital e analógico. Na parte analógica, um oscilador controlado pela capacitância do sensor foi utilizado. O oscilador gera uma onda quadrada com frequência (e período) variável que depende diretamente do valor de capacitância do sensor. A Figura \ref{fig:metodologia-capacitivo-oscilador} apresenta o esquemático do oscilador.
 
@@ -387,6 +387,8 @@ A sensibilidade do sistema é dada pela Equação \ref{eq:metodologia-pluviometr
 	  &=& 577.084 \text{ ciclos/mm} \nonumber
 \end{eqnarray}
 
+O valor de contagem de ciclos (e seu correspondente em tempo real) foram validados utilizando um osciloscópio Tektronix TDS2002C.
+
 Para transferir os dados para um computador foi utilizado o controlador de serial por hardware do próprio processador para comunicar via UART com o computador. A placa desenvolvimento do MSP430 já possui adaptador UART-USB para conexão com o computador, esta mesma que impõe um limite da \textit{baud rate} de no máximo 9600 bps. Periodicamente o processador envia os dados pela comunicação serial utilizando um pacote de dados com a seguinte estrutura, expressa conforme uma estrutura em C:
 
 \begin{lstlisting}[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial, language=C++, directivestyle={\color{black}} emph={int,char,double,float,unsigned,uint8_t}, emphstyle={\color{blue}}]
@@ -441,7 +443,7 @@ Periodicamente um pacote "packet\_payload" é enviado com os dados de todas as m
 
 O programa completo se encontra no anexo \todo{anexo do msp430}.
 
-No computador, foi implementado uma classe em C++11 utilizando APIs \textit{POSIX} (\textit{Portable Operating System Interface}, padrão definido pela IEEE para interoperabilidade de sistemas operacionais) para a leitura de dados da porta serial. A classe pode ser compilada e utilizada em qualquer sistema operacional \textit{UNIX-like} como Apple Mac OS X, Linux, FreeBSD ou Solaris. Esta classe apenas oferece uma forma assíncrona de acesso aos dados e não implementa nenhuma interface gráfica.
+No computador, foi implementado uma classe em C++11 utilizando APIs \textit{POSIX} (\textit{Portable Operating System Interface}, padrão definido pela IEEE para interoperabilidade de sistemas operacionais) para a leitura de dados da porta serial. A classe pode ser compilada e utilizada em qualquer sistema operacional \textit{UNIX-like} como Apple Mac OS X, Linux, FreeBSD ou Solaris. Esta classe apenas oferece uma forma assíncrona de acesso aos dados e não implementa nenhuma interface gráfica e automaticamente implementa um filtro passa-baixas digital para a suavização e remoção de ruído do sinal. A frequência de corte é de 1 Hz.
 
 Para a interface gráfica utilizada para a interação homem-máquina, foi desenvolvido um aplicativo para Apple Mac OS X 10.11.5 utilizando a linguagem de programação Objective-C para as partes nativas do sistema (\textit{Cocoa}) e Objective-C++ para comunicação com o sistema de aquisição de dados via serial.
 
@@ -586,7 +588,9 @@ A variação de $+0.1ºC$ na função de transferência teórica para o Pt100 d�
 \section{Pluviômetro}
 \subsection{Função de Transferência para a capacitância}
 
-A Tabela \ref{tab:resultados-pluviometro-capacitancia} apresenta os dados experimentais 
+Todos os cálculos desta seção foram realizados no software Wolfram Mathematica versão 10.3.0 desenvolvido pela Wolfram Research, Inc. Os códigos utilizados estão em anexo no Anexo \todo{adicionar o anexo}.
+
+A Tabela \ref{tab:resultados-pluviometro-capacitancia} apresenta os dados experimentais
 
 \begin{longtable}{cc}
 \caption{Valores de capacitância obtidos experimentalmente} \label{tab:resultados-pluviometro-capacitancia} \\
@@ -733,6 +737,13 @@ A Equação \ref{eq:tf:nivel:capacitancia} foi ajustada com $R^2$ dado pela Equa
 \begin{equation}
 	R^2 = 0.99716
 	\label{eq:tf:nivel:capacitancia-r2}
+\end{equation}
+
+A sensibilidade experimental para os valores de capacitância do sistema é dado pela Equação \ref{eq:resultados-pluviometro-capacitancia-sensibilidade}
+
+\begin{equation}
+	S = 2.75376 pF/mL
+	\label{eq:resultados-pluviometro-capacitancia-sensibilidade}
 \end{equation}
 
 Pela Figura \ref{fig:tf:nivel:capacitancia} é possível aproximar o sensor como linear e obter erros inferiores a 5\%. Acredita-se que os pontos de discrepância das medidas ocorre devido ao erro do instrumento utilizado para estimar a capacitância.
@@ -899,6 +910,12 @@ A Equação \ref{eq:resultados-pluviometro-tf-frequencia} foi ajustada com $R^2$
 	\label{eq:resultados-pluviometro-tf-frequencia-r2}
 \end{equation}
 
+A sensibilidade experimental para os valores de frequência do sistema é dado pela Equação \ref{eq:resultados-pluviometro-frequencia-sensibilidade}
+
+\begin{equation}
+	S = -2.24631 Hz/mL
+	\label{eq:resultados-pluviometro-frequencia-sensibilidade}
+\end{equation}
 
 Na Figura \ref{fig:resultados-pluviometro-frequencia-comparacao} está apresentada uma comparação entre os valores de frequência medidas e calculadas.
 
@@ -1062,6 +1079,13 @@ A Equação \ref{eq:resultados-pluviometro-tf-ciclos} foi ajustada com $R^2$ dad
 	\label{eq:resultados-pluviometro-tf-ciclos-r2}
 \end{equation}
 
+A sensibilidade experimental para o número de ciclos por oscilação do oscilador do sistema é dado pela Equação \ref{eq:resultados-pluviometro-ciclos-sensibilidade}
+
+\begin{equation}
+	S = 658.776 ciclos/mL
+	\label{eq:resultados-pluviometro-ciclos-sensibilidade}
+\end{equation}
+
 Logo, conforme esperado pela Equação \ref{eq:metologia-pluviometro-periodo} apresentada na metodologia experimental, o comportamento do período de oscilação é linear em função da capacitância.
 
 Na Figura \ref{fig:resultados-pluviometro-ciclos-comparacao} está apresentada uma comparação entre os números de ciclos contados em cada oscilação medida e calculada pela Equação \ref{eq:metodologia-pluviometro-ciclos-teorico}.
@@ -1100,6 +1124,13 @@ A Equação \ref{eq:resultados-pluviometro-tf-compensado} foi ajustada com $R^2$
 	\label{eq:resultados-pluviometro-tf-compensado-r2}
 \end{equation}
 
+A sensibilidade experimental para a equação de compensação do sistema é dado pela Equação \ref{eq:resultados-pluviometro-compensado-sensibilidade}
+
+\begin{equation}
+	S = 0.00898593 - 0.0000296905 \text{ mL}^{-1}
+	\label{eq:resultados-pluviometro-compensado-sensibilidade}
+\end{equation}
+
 Devido aos sensores de compensação, em especial o sensor de referência de líquido, o sistema perdeu a característica linear. Isto se deve ao fato da referência não ser perfeitamente fixa durante a execução do experimento, isto é, a capacitância continuava variando a medida que água fosse adicionada ao recipiente. Este efeito pode ser compensado caso seja usada uma referência de líquido externa, semelhante à referência de ambiente.
 
 Na Figura \ref{fig:resultados-pluviometro-compensacao-comparacao} está apresentada uma comparação entre o valor N do sistema medido e calculado pela Equação \ref{eq:metodologia-pluviometro-compensacao}.
@@ -1118,7 +1149,7 @@ O erro de linearidade da medida pela função de compensação foi de 66.86\%.
 
 \bibitem{livro-texto}  Balbinot, A.; Brusamarello, V. J., Instrumentação e Fundamentos de Medida - Vol.1 - 2ª Ed. Rio de Janeiro: LTC, 2014.
 
-\bibitem{capacitor-plano} K. J. Binns and P. J. Lawrenson (Auth.), Analysis and Computation of Electric and Magnetic Field Problems - 2ª Ed., Pergamon Press, 1973.
+\bibitem{capacitor-plano} Binns, K. J.; Lawrenson, P. J., Analysis and Computation of Electric and Magnetic Field Problems - 2ª Ed., Pergamon Press, 1973.
 
 \bibitem{estacao} \url{https://pt.wikipedia.org/wiki/Esta\%C3\%A7\%C3\%A3o_meteorol\%C3\%B3gica}, acessado em 16/04/2016.
 
@@ -1137,6 +1168,7 @@ O erro de linearidade da medida pela função de compensação foi de 66.86\%.
 \bibitem{medicao-capacitancia} Use Analog Techniques To Measure Capacitance In Capacitive Sensors, \url{http://m.electronicdesign.com/analog/use-analog-techniques-measure-capacitance-capacitive-sensors}, acessado em 01/06/2016.
 
 \bibitem{multimetro-minipa} Manual do multímetro digital Minipa ET-2082B, disponível em \url{http://portal.if.usp.br/labdid/sites/portal.if.usp.br.labdid/files/Et-2082b-1100.pdf}.
+\bibitem{ponte-minipa} Manual da Ponte LCR Minipa MX-1010, disponível em \url{http://www.multcomercial.com.br/pdf/minipa/Mx-1010-1100.pdf}.
 
 
 %\bibitem{ref1} Sobrenome, A.B.; Sobrenome, C.D. Title of the cited article. Journal Title 2007, 6, 100-110. 
