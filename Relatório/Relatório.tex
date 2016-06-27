@@ -114,7 +114,7 @@ Um típico condicionamento dado a RTDs utiliza o método baseado em uma ponte de
 	\label{fig:termometro-ponte}
 \end{figure}
 
-\noindent onde $R_1=R_2=R_3$ são resistores de $100\Omega$ e $R(T)$ é o sensor Pt100 com $100\Omega@0ºC$. $V_{in}$ é uma fonte de tensão de $5V$, e $V_1$ e $V_2$ são os nós diferenciais da ponte.
+\noindent onde $R_1=R_2=R_3$ são resistores de $100\Omega\pm5\%$  e $R(T)$ é o sensor Pt100 com $100\Omega@0ºC$. $V_{in}$ é uma fonte de tensão de $5V$, e $V_1$ e $V_2$ são os nós diferenciais da ponte.
 
 Equacionando o circuito apresentado na Figura \ref{fig:termometro-ponte}, para a saída diferencial, tem-se:
 
@@ -123,7 +123,7 @@ Equacionando o circuito apresentado na Figura \ref{fig:termometro-ponte}, para a
 	\label{eq:termometro-ponte-saida}
 \end{equation}
 
-Substituindo-se, na Equação \ref{eq:termometro-ponte-saida}, pelos valores nominais dos resistores, tem-se:
+Substituindo-se, na Equação \ref{eq:termometro-ponte-saida}, pelos valores nominais dos resistores e da fonte de alimentação, tem-se:
 
 \begin{equation}
 	V_{out}=2.5-\frac{500}{R(T)+100}
@@ -147,16 +147,16 @@ Porém, como a temperatura mínima a ser medida é de $-10ºC$, é interessante 
 	\label{fig:termometro-ponte-balanco}
 \end{figure}
 
-Associado ao circuito da ponte de Wheatstone com ajuste de balanço deve-se utilizar um amplificador de instrumentação (AI), a fim de deixar os níveis de tensão de saída mais apropriados ao nível de tensão de entrada do ADC. Para isto, será utilizado o AI INA126 \cite{datasheet-INA126}, da Texas Instruments. Esse AI possui um ganho expresso por:
+Associado ao circuito da ponte de Wheatstone com ajuste de balanço deve-se utilizar um amplificador de instrumentação (AI), a fim de deixar os níveis de tensão de saída mais apropriados ao nível de tensão de entrada do ADC. Para isto, foi utilizado o AI INA126 \cite{datasheet-INA126}, da Texas Instruments. Esse AI possui um ganho expresso por:
 
  \begin{equation}
 	G=5+\frac{80k\Omega}{R_G}
 	\label{eq:ganho-INA126}
 \end{equation}
 
-\noindent onde $R_G$ é um resistor conectado aos pinos 1 e 8 do CI, em função do ganho escolhido. para o circuito implementado, foi utilizado um resistor de $100\Omega$ que, de acordo com a Equação \ref{eq:ganho-INA126}, obtém-se um ganho de, aproximadamente, 805 vezes.
+\noindent onde $R_G$ é um resistor conectado aos pinos 1 e 8 do CI, em função do ganho escolhido. Para o circuito implementado, foi utilizado um resistor de $100\Omega\pm5\%$ que, de acordo com a Equação \ref{eq:ganho-INA126}, obtém-se um ganho de, aproximadamente, 805 vezes.
 
-Para controle de \textit{offset} da tensão de saída do AI foi adicionado ainda um potenciômetro alimentado com $+Vcc$ e $-Vcc$, e um resistor de $4.7k\Omega$ ligado ao nó $V1$ da ponte. Foi adicionado ainda um resistor de $1k\Omega$ em série com a alimentação e a ponte, a fim de limitar a corrente no circuito.
+Para controle de \textit{offset} da tensão de saída do AI foi adicionado ainda um \textit{trimpot} multivoltas de $10k\Omega$ alimentado com $+Vcc$ e $-Vcc$, e um resistor de $4.7k\Omega\pm5\%$ ligado ao nó $V1$ da ponte. Foi adicionado ainda um resistor de $1k\Omega\pm5\%$ em série com a alimentação e a ponte, a fim de limitar a corrente no circuito.
 
 A Figura \ref{fig:termometro-ckt-condicionador-completo} mostra o circuito condicionador proposto para o Pt100, com a ponte de Wheatstone com ajuste de balanço, o circuito corretor de offset e o AI INA126.
 
@@ -178,15 +178,8 @@ Com base na estrutura de condicionamento proposta e os valores teóricos da fun�
 
 O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo foi utilizado neste projeto.
 
-%\begin{figure}[h]
-%	\centering
-%		\includegraphics{Figuras/anemometro.png}
-%	\caption{Exemplo de anemômetro de copo}
-%	Fonte: \url{https://www.google.com.br/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=&url=http\%3A\%2F\%2Fwww.seinstrumentos.com.br\%2Fanemometro.html&psig=AFQjCNGjijn5ng5hpmUAcBq4F_TVvceWUw&ust=1461032511805601}
-%	\label{fig:anemometro}
-%\end{figure}
 
-Como forma de medir a velocidade de rotação do anemômetro, foi utilizado um sensor de efeito \textit{Hall} associado com um ímã, conforme ilustra a Figura \ref{fig:anemometro-ilustracao}. Assim, toda vez que o ímã passar pelo sensor de efeito \textit{Hall}, este deixa passar corrente, podendo assim ser contabilizado o número de voltas em um determinado período de análise.
+Como forma de medir a velocidade de rotação do anemômetro, foi utilizado um sensor de efeito \textit{Hall} associado com um ímã, conforme ilustra a Figura \ref{fig:anemometro-ilustracao}. Assim, toda vez que o ímã passar pelo sensor de efeito \textit{Hall}, este altera a sua tensão de saída, podendo assim ser contabilizado o número de voltas em um determinado período de análise.
 
 \begin{figure}[H]
 	\centering \includegraphics[width=0.5\textwidth]{anemometro-ilustracao.jpg}
@@ -212,15 +205,81 @@ Na Figura \ref{fig:anemometro-bloco-experimental} verifica-se o digrama de bloco
 	\label{fig:anemometro-bloco-experimental}
 \end{figure}.
 
+O sensor Hall utilizado possui três terminais, dos quais 2 deles são para alimentação, e o terceiro é a saída do sensor. De acordo com o datasheet do fabricante \cite{datasheet-hall}, quando na ausência de magnetismo, a saída do sensor permanece em um valor constante de 4.00$V$ $\pm$ 0.04$V$ a 25$ºC$. Com a aproximação de um campo magnético positivo, sua tensão aumenta em 5.0$mV$ $\pm$ 0.1$mV$ por \textit{gauss}, que é a unidade de densidade de fluxo magnético. Se o campo for negativo, a tensão diminui nas mesmas proporções.
+
+Como a intenção do uso do sensor é apenas para a contagem da rotação da estrutura do anemômetro, não interessa a intensidade do fluxo magnético em si, mas apenas a sua presença ou não. Isto é, com a presença de um campo magnético positivo, a tensão no terminal de saída do sensor sobe e assim é possível executar a contagem dos giros.
+
+Para facilitar essa contagem, foi montado um circuito condicionador que discretiza o sinal por meio de um circuito \textit{Schmitt Trigger}, isto é, quando o sinal cruza por um certo valor de tensão, a saída do sistema se altera de 0$V$ para $+Vcc$, provocando um chaveamento no sinal de saída. Com isso, tem-se na saída do circuito uma onda quadrada. O circuito apresentado na Figura \ref{fig:hall-circuito} foi implementado para executar a função de chaveamento do sinal. 
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.7\textwidth]{hall-circuito.png}
+	\caption{Esquemático básico do sistema de condicionamento de chaveamento do sensor Hall.}
+	\label{fig:hall-circuito}
+\end{figure}.
+
+Foi utilizado um potenciômetro para poder realizar o ajuste da tensão limite para a realização do chaveamento. Por se tratar de um circuito comparador inversor, quando a tensão de entrada está abaixo do limite estipulado, a saída permanece em $+Vcc$. Quando a entrada passa para valores acima do estipulado, a saída vai para 0$V$, votando para $+Vcc$ quando a tensão de entrada cair para valores abaixo do ajustado.
+
+Foi estipulada uma faixa de trabalho de 3$m/s$ a 15$m/s$, com uma resolução de saída de 0.1$m/s$. Para a determinação da velocidade do vento verificou-se a quantidade de RPM (rotações por minuto) e calculou-se a velocidade tangencial na extremidade das hastes do anemômetro, utilizando-se a Equação \ref{eq:anemometro-rpm-to-vtan}.
+
+\begin{equation}
+	v=\frac{\mathrm{RPM}*2*\pi*r}{60}[m/s]
+	\label{eq:anemometro-rpm-to-vtan}
+\end{equation}
+
+\noindent onde $v$ é a velocidade tangencial na extremidade das hastes e $r$ é o comprimento de cada haste, em metros.
+
+Para uma estrutura com hastes de 18cm, como foi utilizado no projeto experimental, para os limites inferior e superior da faixa de trabalho estipulada, tem-se 159 RPM e 796 RPM, respectivamente, representando 2.65$Hz$ e 13.27$Hz$. A Equação \ref{eq:anemometro-FT-proposta} explicita a função de transferência do sistema, com a velocidade do vento, dada em $m/s$, em função da rotação das hastes, dada em RPM.
+
+\begin{equation}
+	v=0.01885*\mathrm{RPM} [m/s]
+	\label{eq:anemometro-FT-proposta}
+\end{equation}
+
+\noindent que apresenta uma sensibilidade de:
+
+\begin{equation}
+	S=0.01885 \left [ \frac{m/s}{\mathrm{RPM}} \right ]
+	\label{eq:anemometro-sensibilidade-proposta}
+\end{equation}
+
+A Figura \ref{fig:anemometro-cadeia-medidas-proposta} apresenta a cadeia de medidas proposta, tomando por base os limites estipulados.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{anemometro-cadeia-medidas-proposta.jpg}
+	\caption{Cadeia de medidas proposta para o anemômetro.}
+	\label{fig:anemometro-cadeia-medidas-proposta}
+\end{figure}.
+
+Haja vista que a velocidade medida é a velocidade de giro dos braços do anemômetro, é de se esperar que este valor não condiza exatamente com o valor do vento que faz girar a estrutura, já que o sistema apresenta uma inércia agindo contra a força que o vento exerce sobre a estrutura. Assim, para se ter o valor correto de velocidade do vento, um anemômetro digital modelo LM-8010 \cite{anemometro-manual}, da Lutron Electronic, que na escala de $m/s$ trabalha em um range de 0.4 a 30.0$m/s$, com uma resolução de 0.1$m/s$, e uma precisão de $\pm$ 3$\%$ do fundo de escala para medidas até 20$m/s$ e de $\pm$ 4$\%$ do fundo de escala para medidas acima de 20$m/s$, foi utilizado para se realizar a comparação com o vento aplicado no equipamento experimental e a saída apresentada, a fim de se obter sua função de transferência.
+
+
+
+
+
+
 \section{Pluviômetro}
-\todo{tirar referência da wikipedia}
-Segundo a Wikipedia \cite{pluviometro}, "o pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local". O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$]. Como o equipamento mensura a quantidade de chuva que precipita, em conjunto com o sensor de temperatura, são variáveis elementares para estudos meteorológicos e hidrológicos.
+O pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local. O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$]. Como o equipamento mensura a quantidade de chuva que precipita, em conjunto com o sensor de temperatura, são variáveis elementares para estudos meteorológicos e hidrológicos.
 
-A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado.
+A estrutura física do pluviômetro consiste em um sistema de captação de chuva, com uma área determinada, e um reservatório para coleta do material captado. Nesse reservatório há um sensor que possibilita medir a diferença do nível de fluído armazenado, calculando assim o índice pluviométrico em milímetros, que indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um \textit{software} de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva.
 
-Um dos princípios de funcionamento é feito por um sensor de precipitação tipo báscula, um equipamento que mensura a massa de um corpo, pois o índice pluviométrico em milímetros indica o volume em litros de água que caíram em um metro quadrado de área, assim uma chuva de 20 mm corresponderá à precipitação de 20 litros de água por metro quadrado, logicamente sempre na horizontal. Como quaisquer equipamentos automáticos, um \textit{software} de coleta e tratamento de dados é utilizado para relatórios temporais e análises das características da chuva. Como a maneira de medir a quantidade de chuva é muito ampla, cabe aos membros do grupo investigar o melhor tipo de sensor e metodologia de medição apropriados para obter boas medidas. 
+Para cálculo do índice pluviométrico (ou pluviosidade), dado em mm, é a relação do volume de água recolhida, em litros, pela área de abertura do coletor de precipitação, em $m^2$. Para facilitação dos cálculos, partiu-se do princípio que o coletor compõe-se de um funil com um dimâmetro de entrada de 13.82$cm$, conforme ilustra a Figura \ref{fig:pluviometro-funil}. Parte-se do princípio que a chuva caiu na vertical e que toda a água coletada na entrada do funil foi para o reservatório, não havendo assim perdas.
 
-Optou-se por utilizar um sensor capacitivo com referência baseada em um documento do "TI Designs"\cite{pluviometro-capacitivo-texas} onde é proposto um sensor simples de medida de capacitância utilizando uma placa de circuito impresso com duas placas paralelas co-planares. A fim de determinar a validade do \textit{design} de sensor, foi confeccionado um sistema simples com uma placa de circuito impresso contendo duas barras que funcionam como eletrodos do sensor e a placa foi fixa na face interna de um recipiente de acrílico. A placa foi isolada com verniz e papel \textit{contact} para evitar que a água fizesse contato elétrico entre os eletrodos. O recipiente possui dimensões internas de 3cm por 6cm com 15cm de altura e foi confeccionado sob medida.
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{pluviometro_funil.jpg}
+	\caption{Ilustração com dimensão de entrada do funil coletor do pluviômetro.}
+	\label{fig:pluviometro-funil}
+\end{figure}
+
+Com esse diâmetro é possível calcular a área de coleta, conforme a Equação \ref{eq:pluviometro-indice-area}.
+
+\begin{equation}
+	A=\pi*r^2=\pi*\left ( \frac{D}{2} \right )^2=\pi*\left ( \frac{0.1382m}{2} \right )^2=0.015m^2
+	\label{eq:pluviometro-indice-area}
+\end{equation}
+
+Como a pluviosidade é dada pelo volume coletado divido pela área de coleta, dada a área, tem-se que, a cada 1.5$mL$ coletado, equivale a 1$mm$ de chuva, ou seja, é como se tivesse chovido 1$L$ em 1$m^2$. Assim, determinou-se a resolução de saída do sistema em 1$mm$.
+
+Optou-se por utilizar um sensor capacitivo com referência baseada em um documento do "TI Designs"\cite{pluviometro-capacitivo-texas} onde é proposto um sensor simples de medida de capacitância utilizando uma placa de circuito impresso com duas placas paralelas co-planares. A fim de determinar a validade do \textit{design} de sensor, foi confeccionado um sistema simples com uma placa de circuito impresso contendo duas barras que funcionam como eletrodos do sensor e a placa foi fixada na face interna de um recipiente de acrílico. A placa foi isolada com verniz e papel \textit{contact} para evitar que a água fizesse contato elétrico entre os eletrodos. O recipiente possui dimensões internas de 3cm por 6cm com 15cm de altura e foi confeccionado sob medida.
 
 A Figura \ref{fig:sensor-nivel-capacitivo} apresenta um desenho esquemático do sensor de nível
 
@@ -261,7 +320,7 @@ No sistema montado foram utilizados os seguintes componentes indicados nas Equa�
 
 \begin{eqnarray}
 	R &=& (2.2 M\Omega \pm 10\%) 		\label{eq:metodologia-pluviometro-componentes}					\\
-	C &=& (27 nF \pm 20\%) + C(V) 		\nonumber			\\
+	C &=& (27 pF \pm 20\%) + C(V) 		\nonumber			\\
 	R_1 = R_2 &=& (10 k\Omega \pm 10\%)	\nonumber
 \end{eqnarray}
 \noindent onde $C(V)$ é o valor de capacitância do sensor correspondente ao volume $V$ em $mL$.
@@ -1149,11 +1208,14 @@ O erro de linearidade da medida pela função de compensação foi de 66.86\%.
 
 \bibitem{livro-texto}  Balbinot, A.; Brusamarello, V. J., Instrumentação e Fundamentos de Medida - Vol.1 - 2ª Ed. Rio de Janeiro: LTC, 2014.
 
+\bibitem{anemometro-manual} Manual do Anemômetro LM-8010, da Lutron Electronic, disponível em \url{http://eshop.micronix.cz/data/cz/att/002/4582-2595.pdf}.
+
 \bibitem{capacitor-plano} Binns, K. J.; Lawrenson, P. J., Analysis and Computation of Electric and Magnetic Field Problems - 2ª Ed., Pergamon Press, 1973.
 
 \bibitem{estacao} \url{https://pt.wikipedia.org/wiki/Esta\%C3\%A7\%C3\%A3o_meteorol\%C3\%B3gica}, acessado em 16/04/2016.
 
 \bibitem{pluviometro} \url{https://pt.wikipedia.org/wiki/Pluvi\%C3\%B4metro}, acessado em 16/04/2016.
+
 \bibitem{pluviometro-1} \url{http://www.agsolve.com.br/dicas-e-solucoes/como-funciona-o-pluviometro}, acessado em 16/04/2016.
 
 \bibitem{datasheet-hall} Datasheet do sensor de efeito Hall SS94A2, da Honeywell, disponível em \url{http://docs-europe.electrocomponents.com/webdocs/0098/0900766b80098534.pdf}.
