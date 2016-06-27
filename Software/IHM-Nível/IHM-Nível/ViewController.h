@@ -17,6 +17,7 @@
 @property (weak) IBOutlet NSTextField *levelField;
 @property (weak) IBOutlet NSTextField *referenceField;
 @property (weak) IBOutlet NSTextField *environmentField;
+@property (weak) IBOutlet NSTextField *uncertaintyField;
 
 - (IBAction)calibrateAction:(id)sender;
 @end

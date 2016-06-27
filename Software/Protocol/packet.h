@@ -12,10 +12,10 @@
 /**
  * The type used to represent a number of cycles
  */
-typedef uint32_t cicles_t;
+typedef uint32_t cycles_t;
 
 /**
- * A struture containing the measurement ID and cicle count
+ * A struture containing the measurement ID and cycle count
  */
 struct measurement_t {
     /**
@@ -24,9 +24,9 @@ struct measurement_t {
 	uint8_t id;
 
     /**
-     * The number of cicles that happened between the last two oscilator low borders
+     * The number of cycles that happened between the last two oscilator low borders
      */
-    cicles_t cicleCount;
+    cycles_t cycleCount;
 } __attribute__((packed));
 
 /**

@@ -31,7 +31,8 @@
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         
         self.textField.stringValue = [formatter stringFromNumber:[NSNumber numberWithDouble:payload.level]];
-        self.levelIndicator.doubleValue = payload.level / 120.0 * 50.0;
+        self.uncertaintyField.stringValue = [@"± " stringByAppendingString:[formatter stringFromNumber:[NSNumber numberWithDouble:payload.uncertainty]]];
+        self.levelIndicator.doubleValue = payload.level * 10.0;
         
         self.levelField.stringValue = [NSString stringWithFormat:@"%@ Hz - %@ ciclos",
                                        [formatter stringFromNumber:[NSNumber numberWithDouble:payload.frequency]],
