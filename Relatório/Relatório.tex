@@ -36,8 +36,8 @@
 	\emailaddress{R.J.S.}{rogiel@rogiel.com} e
 	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com}
 }
-\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica experimental que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão do tempo e também a caracterização do clima. Para tanto, foram desenvolvido instrumentos e sensores eletrônicos experimentais de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, foram feitos apenas alguns deles, tais como um termômetro, um anemômetro e um pluviômetro. No termômetro foi utilizado um sensor resistivo Pt100, montado em uma ponte de Wheatstone, que apresentou um erro de linearidade de 9.9$\%$, muito em virtude da diferença de ajuste de zero entre o sistema teórico e o sistema experimental. O anemômetro utilizou um sensor de efeito Hall linear, porém, como foi utilizado apenas para a contagem de voltas, foi implementado em um sistema de chaveamento que, ao final, apresentou um erro de linearidade de 11.8$\%$, por problemas de estrutura para uma boa calibração. Para o pluviômetro foi projetado um sensor de nível capacitivo, que utiliza a variação do nível de água como variação do dielétrico do capacitor. Essa variação é percebida por um circuito oscilador, que altera a sua frequência em função da alteração da capacitância percebida. O erro de linearidade percebido na capacitância ficou abaixo de 5$\%$.}
-\abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate  characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall.}
+\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica experimental que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão do tempo e também a caracterização do clima. Para tanto, foram desenvolvido instrumentos e sensores eletrônicos experimentais de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, foram feitos apenas alguns deles, tais como um termômetro, um anemômetro e um pluviômetro. No termômetro foi utilizado um sensor resistivo Pt100, montado em uma ponte de Wheatstone, que apresentou um erro de linearidade de 9.9$\%$, em virtude da diferença de ajuste de zero entre o sistema teórico e o sistema experimental. O anemômetro utilizou um sensor de efeito Hall linear, porém, como foi utilizado apenas para a contagem de voltas, foi implementado em um sistema de chaveamento que, ao final, apresentou um erro de linearidade de 11.8$\%$, por problemas de estrutura para uma boa calibração. Para o pluviômetro foi projetado um sensor de nível capacitivo foi projetado, construído e implementado, que utiliza a variação do nível de água como variação do dielétrico do capacitor. Essa variação é percebida por um circuito oscilador, que altera a sua frequência em função da alteração da capacitância percebida. O erro de linearidade percebido na capacitância ficou abaixo de 5$\%$.}
+\abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate  characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall. For the thermometer a Pt100 sensor was used under a Wheatstone bridge topology, it attained a linearity error of about 9.9\% due to the difference in the zero-adjustment from the theoretical value and the experimental system. The anemometer used a linear Hall effect sensor, however, as it was only used to count turns a switching system was implemented which resulted in a digitalized Hall sensor, with linearity error of about 11.8\%, due to infrastructural problems to get the calibration curve. For the rain gauge a capacitive sensor level was projected, designed and implemented, which used the water level as the varying capacitor's dielectric. This change is perceived by a oscillation circuit which shifts the frequency based on the capacitance. The capacitance linearity error was below 5\%.}
 \keywords{estação meteorológica; instrumentos de medição; temperatura; quantidade de chuva; velocidade de vento.}
 \institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Prof. Dr. Alexandre Balbinot}
 
@@ -539,7 +539,7 @@ struct packet_payload {
 
 Periodicamente um pacote "packet\_payload" é enviado com os dados de todas as medidas. O campo "sync" possui um byte de sincronia fixo definido arbitrariamente com o valor hexadecimal de $0xFB$. O cliente, ao iniciar a comunicação aguarda até o recebimento do campo de sincronia e então começa a leitura dos dados de forma sequencial.
 
-O programa completo se encontra no anexo \todo{anexo do msp430}.
+O programa completo se encontra no anexo \ref{ch:anexo-a}.
 
 No computador, foi implementado uma classe em C++11 utilizando APIs \textit{POSIX} (\textit{Portable Operating System Interface}, padrão definido pela IEEE para interoperabilidade de sistemas operacionais) para a leitura de dados da porta serial. A classe pode ser compilada e utilizada em qualquer sistema operacional \textit{UNIX-like} como Apple Mac OS X, Linux, FreeBSD ou Solaris. Esta classe apenas oferece uma forma assíncrona de acesso aos dados e não implementa nenhuma interface gráfica e automaticamente implementa um filtro passa-baixas digital para a suavização e remoção de ruído do sinal. A frequência de corte é de 1 Hz.
 
@@ -859,7 +859,7 @@ A Figura \ref{fig:anemometro-cadeia-medidas-experimental} apresenta a cadeia de 
 \section{Pluviômetro}
 \subsection{Função de Transferência para a capacitância}
 
-Todos os cálculos desta seção foram realizados no software Wolfram Mathematica versão 10.3.0 desenvolvido pela Wolfram Research, Inc. Os códigos utilizados estão em anexo no Anexo \todo{adicionar o anexo}.
+Todos os cálculos desta seção foram realizados no software Wolfram Mathematica versão 10.3.0 desenvolvido pela Wolfram Research, Inc. Os códigos utilizados estão em anexo no Anexo B.
 
 A Tabela \ref{tab:resultados-pluviometro-capacitancia} apresenta os dados experimentais
 
@@ -1471,5 +1471,29 @@ O pluviômetro
 %pp. 154-196.
 
 \end{thebibliography}
+
+\chapter*{Anexo A}
+\label{ch:anexo-a}
+
+\lstinputlisting[caption=Estrutura dos pacotes de conteúdo enviados pela linha de comunicação serial, language=C++, directivestyle={\color{black}} emph={int,char,double,float,unsigned,uint8_t}, emphstyle={\color{blue}}]{../Software/MSP430/Source/main.cpp}
+
+\includepdf[fitpaper=true,pages=1,pagecommand={
+	\pagestyle{fancy}
+	\chapter*{Anexo B}
+	\label{ch:anexo-nivel}
+}]{../Resources/Mathematica/NivelExperimental.nb.pdf}
+\includepdf[fitpaper=true,pages=2-,pagecommand={
+	\pagestyle{fancy}
+}]{../Resources/Mathematica/NivelExperimental.nb.pdf}
+
+\includepdf[fitpaper=true,pages=1,pagecommand={
+	\pagestyle{fancy}
+	\chapter*{Anexo C}
+	\label{ch:anexo-temperatura}
+}]{../Resources/Mathematica/Temperatura.nb.pdf}
+\includepdf[fitpaper=true,pages=2-,pagecommand={
+	\pagestyle{fancy}
+}]{../Resources/Mathematica/Temperatura.nb.pdf}
+
 
 \end{document}

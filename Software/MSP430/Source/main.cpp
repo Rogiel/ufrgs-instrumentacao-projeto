@@ -1,24 +1,3 @@
-//***************************************************************************************
-// MSP430 Timer Blink LED Demo - Timer A Software Toggle P1.0 & P1.6
-//
-// Description; Toggle P1.0 and P1.6 by xor'ing them inside of a software loop.
-// Since the clock is running at 1Mhz, an overflow counter will count to 8 and then toggle
-// the LED. This way the LED toggles every 0.5s.
-// ACLK = n/a, MCLK = SMCLK = default DCO
-//
-// MSP430G2xx
-// -----------------
-// /|\| XIN|-
-// | | |
-// --|RST XOUT|-
-// | P1.6|-->LED
-// | P1.0|-->LED
-//
-// Aldo Briano
-// Texas Instruments, Inc
-// June 2010
-// Built with Code Composer Studio v4
-//***************************************************************************************
 #include <msp430g2553.h>
 #include "uart.h"
 
@@ -86,13 +65,13 @@ int main(void) {
 		__enable_interrupt();
 
 		packet.payload.level.id = 0;
-		packet.payload.level.cicleCount = contextCopy.level.counter;
+		packet.payload.level.cycleCount = contextCopy.level.counter;
 
 		packet.payload.reference.id = 1;
-		packet.payload.reference.cicleCount = contextCopy.reference.counter;
+		packet.payload.reference.cycleCount = contextCopy.reference.counter;
 
 		packet.payload.environment.id = 2;
-		packet.payload.environment.cicleCount = contextCopy.environment.counter;
+		packet.payload.environment.cycleCount = contextCopy.environment.counter;
 
 		for(int i = 0; i < sizeof(packet.payload); i++) {
 			uart_putc(packet.buffer[i]);

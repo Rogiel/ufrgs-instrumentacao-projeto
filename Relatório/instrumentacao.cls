@@ -88,7 +88,7 @@
 	\includepdf[pages={1},pagecommand={
 		\pagestyle{fancy}
 		\subsection{#2}
-		\label{att:#3}
+		\label{#3}
 	}]{#1}
 	\includepdf[pages={2-},pagecommand={
 		\pagestyle{fancy}
@@ -99,7 +99,7 @@
 	\includepdf[pages={1}, pagecommand={
 		\pagestyle{fancy}
 		\subsection{#2}
-		\label{att:#3}
+		\label{#3}
 	}]{#1}
 }
 
