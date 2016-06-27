@@ -291,7 +291,9 @@ A Figura \ref{fig:anemometro-cadeia-medidas-proposta} apresenta a cadeia de medi
 	\label{fig:anemometro-cadeia-medidas-proposta}
 \end{figure}.
 
-Haja vista que a velocidade medida é a velocidade de giro dos braços do anemômetro, é de se esperar que este valor não condiza exatamente com o valor do vento que faz girar a estrutura, já que o sistema apresenta uma inércia agindo contra a força que o vento exerce sobre a estrutura. Assim, para se ter o valor correto de velocidade do vento, um anemômetro digital modelo LM-8010 \cite{anemometro-manual}, da Lutron Electronic, que na escala de $m/s$ trabalha em um range de 0.4 a 30.0$m/s$, com uma resolução de 0.1$m/s$, e uma precisão de $\pm$ 3$\%$ do fundo de escala para medidas até 20$m/s$ e de $\pm$ 4$\%$ do fundo de escala para medidas acima de 20$m/s$, foi utilizado para se realizar a comparação com o vento aplicado no equipamento experimental e a saída apresentada, a fim de se obter sua função de transferência.
+Haja vista que a velocidade medida é a velocidade de giro dos braços do anemômetro, é de se esperar que este valor não condiza exatamente com o valor do vento que faz girar a estrutura, já que o sistema apresenta um arrasto agindo contra a força que o vento exerce sobre a estrutura. Assim, para se ter o valor correto de velocidade do vento, um anemômetro digital modelo LM-8010 \cite{anemometro-manual}, da Lutron Electronic, que na escala de $m/s$ trabalha em um range de 0.4 a 30.0$m/s$, com uma resolução de 0.1$m/s$, e uma precisão de $\pm$ 3$\%$ do fundo de escala para medidas até 20$m/s$ e de $\pm$ 4$\%$ do fundo de escala para medidas acima de 20$m/s$, foi utilizado para se realizar a comparação com o vento aplicado no equipamento experimental e a saída apresentada, a fim de se obter sua função de transferência.
+
+No Labview foi criado um \textit{script} que faz a leitura da saída do circuito condicionador, que presenta uma onda quadrada quando a estrutura experimental está girando. Desta forma, é possível calcular o período de cada volta, utilizando um bloco de \textit{MATLAB Script} que conta o tempo entre as bordas de descida da onda, fornecendo assim o período de oscilação.
 
 \section{Pluviômetro}
 O pluviômetro é um aparelho de meteorologia usado para recolher e medir, em milímetros lineares, a quantidade de líquidos ou sólidos (chuva, neve, granizo) precipitados durante um determinado tempo e local. O parâmetro determinado por esse instrumento chama-se \textit{índice pluviométrico}, que é o somatório da precipitação num determinado local durante um período de tempo estabelecido, medido em milímetros [$mm$]. Como o equipamento mensura a quantidade de chuva que precipita, em conjunto com o sensor de temperatura, são variáveis elementares para estudos meteorológicos e hidrológicos.
@@ -765,7 +767,7 @@ E uma sensibilidade de:
 
 \begin{equation}
 	S_{exp}=49.6\frac{mV}{ºC}
-	\label{eq:termometro-sensibilidade-experimental-decada}
+	\label{eq:termometro-sensibilidade-experimental-pt100}
 \end{equation}
 
 Comparando-se os valores obtidos por meio da função de transferência teórica geral com os valores obtidos para a função de transferência experimental geral, observa-se um erro de linearidade de 9.9$\%$, porém grande parte desse erro observado vem da diferença de ajuste de zero entre o circuito simulado e o circuito real.
@@ -783,10 +785,65 @@ A proposta inicial era fornecer um instrumento com um range de -10$ºC$ a +50$º
 
 \section{Anemômetro}
 
-\todo{Anemometro}
+Com base no circuito de condicionamento estipulado e na estrutura montada, com hastes de 18$cm$, foi aplicado vento centrado no copo de uma das hastes do anemômetro, fazendo o mesmo girar. O experimento foi realizado com duas intensidades de vento e três distâncias diferentes da boca do emissor do vento para o copo do anemômetro. As mesmas intensidades e distâncias foram aplicadas ao anemômetro digital comercial modelo LM-8010 \cite{anemometro-manual}, da Lutron Electronic. A Tabela \ref{tab:anemometro-amostras-comercial-periodo} apresenta os valores das intensidades e distâncias, o valor apresentado no anemômetro comercial e o período observado pela estrutura experimental, utilizando a interface criada no Labview.
 
+\begin{table}[H]
+\centering
+\caption{Valores experimentais da velocidade do vento medido por anemômetro digital comercial e período de rotação do anemômetro experimental.}
+\label{tab:anemometro-amostras-comercial-periodo}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Intensidade} & \textbf{Distância ($cm$)} & \textbf{Vel comercial ($m/s$)} & \textbf{Período observado ($s$)} \\ \hline
+med               & 60                      & 4.1$\pm$0.9                           & 0.720                          \\ \hline
+max               & 60                      & 4.5$\pm$0.9                           & 0.591                          \\ \hline
+med               & 40                      & 5.7$\pm$0.9                           & 0.535                          \\ \hline
+med               & 20                      & 6.9$\pm$0.9                           & 0.476                          \\ \hline
+max               & 40                      & 7.3$\pm$0.9                           & 0.412                          \\ \hline
+max               & 20                      & 10.1$\pm$0.9                          & 0.327                          \\ \hline
+\end{tabular}
+\end{table}
 
+Com os valores obtidos, pôde-se gerar uma função de transferência relacionando o período observado e os valores medidos experimentalmente com o anemômetro comercial, apresentada na Equação \ref{eq:anemometro-tf-experimental}.
 
+\begin{equation}
+	v(T)=15.0118-16.8067*T
+	\label{eq:anemometro-tf-experimental}
+\end{equation}
+
+Apresentando um valor de $R^2$ de:
+
+\begin{equation}
+	R^2=0.8953
+	\label{eq:anemometro-r2-tf-experimental}
+\end{equation}
+
+E uma sensibilidade de:
+
+\begin{equation}
+	S_{exp}=-16.8067\frac{m/s}{s}
+	\label{eq:anemometro-sensibilidade-experimental}
+\end{equation}
+
+A Tabela \ref{tab:anemometro-comparativo-vtf-vtan} faz a comparação dos valores obtidos por meio da função de transferência experimental (Equação \ref{eq:anemometro-tf-experimental}) com o valor calculado da velocidade tangencial das extremidades das hastes da estrutura experimental, utilizando a Equação \ref{eq:anemometro-FT-proposta}.
+
+\begin{table}[H]
+\centering
+\caption{Comparativo dos valores observados pelo anemômetro comercial, período de oscilação do anemômetro experimental, velocidade do vento por meio da função de tranferência experimental, velocidade tangencial experimental calculada e relação velocidade do vento pela função de transferência e velocidade tangencial.}
+\label{tab:anemometro-comparativo-vtf-vtan}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Vel comercial ($m/s$)} & \textbf{Período observado ($s$)} & \textbf{Vel FT ($m/s$)} & \textbf{V tan ($m/s$)} & \textbf{Rel (V FT/V tan)} \\ \hline
+4.1                           & 0.720                          & 2.911                  & 1.570833333           & 54.0\%                      \\ \hline
+4.5                           & 0.591                          & 5.079                  & 1.913705584           & 37.7\%                      \\ \hline
+5.7                           & 0.535                          & 6.020                  & 2.114018692           & 35.1\%                      \\ \hline
+6.9                           & 0.476                          & 7.012                  & 2.37605042            & 33.9\%                      \\ \hline
+7.3                           & 0.412                          & 8.087                  & 2.745145631           & 33.9\%                      \\ \hline
+10.1                          & 0.327                          & 9.516                  & 3.458715596           & 36.3\%                      \\ \hline
+\end{tabular}
+\end{table}
+
+Com exceção da primeira medida, que está mais discrepante, os outros valores da relação da velocidade do vento pela função de transferência experimental com a velocidade tangencial experimental calculada, foram muito próximos um dos outros, o que leva a acreditar que o arrasto que a estrutura experimental insere no sistema é uma constante.
+\todo{Cadeia de Medidas}
 \section{Pluviômetro}
 \subsection{Função de Transferência para a capacitância}
 
