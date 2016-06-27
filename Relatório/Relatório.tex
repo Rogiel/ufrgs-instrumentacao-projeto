@@ -36,8 +36,8 @@
 	\emailaddress{R.J.S.}{rogiel@rogiel.com} e
 	\emailaddress{R.C.S.}{csilveira.rodrigo@gmail.com}
 }
-\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão do tempo e também a caracterização do clima. Para tanto, será desenvolvido instrumentos e sensores eletrônicos de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, serão feitos apenas alguns deles, tais como o termômetro para medir a temperatura, o anemômetro para medir a velocidade do vento e o pluviômetro para medir a precipitação pluviométrica}
-\abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall.}
+\resume{Este trabalho visa o desenvolvimento do trabalho final da disciplina cujo objetivo é construir uma estação meteorológica experimental que permite fazer algumas medições que, através dos dados recolhidos em um determinado período, contribuem para fazer a previsão do tempo e também a caracterização do clima. Para tanto, foram desenvolvido instrumentos e sensores eletrônicos experimentais de medição que registram as variáveis meteorológicas e climáticas. Como uma estação meteorológica possui muitos instrumentos de medição, para este trabalho, foram feitos apenas alguns deles, tais como um termômetro, um anemômetro e um pluviômetro. No termômetro foi utilizado um sensor resistivo Pt100, montado em uma ponte de Wheatstone, que apresentou um erro de linearidade de 9.9$\%$, muito em virtude da diferença de ajuste de zero entre o sistema teórico e o sistema experimental. O anemômetro utilizou um sensor de efeito Hall linear, porém, como foi utilizado apenas para a contagem de voltas, foi implementado em um sistema de chaveamento que, ao final, apresentou um erro de linearidade de 11.8$\%$, por problemas de estrutura para uma boa calibração. Para o pluviômetro foi projetado um sensor de nível capacitivo, que utiliza a variação do nível de água como variação do dielétrico do capacitor. Essa variação é percebida por um circuito oscilador, que altera a sua frequência em função da alteração da capacitância percebida. O erro de linearidade percebido na capacitância ficou abaixo de 5$\%$.}
+\abstract{This class final project objective is to build a meteorological station which allows to collect data over time whose measurements contribute to weather and to climate  characterization. For such, sensors and electronic sensors will be developed which will register meteorological variables. As a meteorological station has several instruments, only a subset of those will be implemented on this project, these include a thermometer to measure temperatures, anemometer to measure the wind speed and a rain gauge to measure the rainfall.}
 \keywords{estação meteorológica; instrumentos de medição; temperatura; quantidade de chuva; velocidade de vento.}
 \institute{Universidade Federal do Rio Grande do Sul, Departamento de Engenharia Elétrica, Curso de Engenharia Elétrica, Instrumentação A, Prof. Dr. Alexandre Balbinot}
 
@@ -219,6 +219,7 @@ A variação de $+0.1ºC$ na função de transferência teórica para o Pt100 d�
 
 O anemômetro é um instrumento que mede a velocidade do vento horizontal. Os anemômetros de copo são o tipo padrão de anemômetro, pois são robustos e resistentes aos ventos oblíquos causados por mastros e travessas, e este tipo foi utilizado neste projeto.
 
+O experimento foi construído utilizando um modelo de anemômetro de copo com quatro hastes. Seu eixo e suas hastes foram feitas de madeira balsa, por apresentar baixa densidade e alta resistência. A ligação do eixo com a base foi feita por meio de um rolamento metálico de uso automotivo. Paralelo ao eixo, foi fixado um mastro para a colocação do sensor e, no eixo foi fixado um ímã de terras raras.
 
 Como forma de medir a velocidade de rotação do anemômetro, foi utilizado um sensor de efeito \textit{Hall} associado com um ímã, conforme ilustra a Figura \ref{fig:anemometro-ilustracao}. Assim, toda vez que o ímã passar pelo sensor de efeito \textit{Hall}, este altera a sua tensão de saída, podendo assim ser contabilizado o número de voltas em um determinado período de análise.
 
@@ -843,7 +844,18 @@ A Tabela \ref{tab:anemometro-comparativo-vtf-vtan} faz a comparação dos valore
 \end{table}
 
 Com exceção da primeira medida, que está mais discrepante, os outros valores da relação da velocidade do vento pela função de transferência experimental com a velocidade tangencial experimental calculada, foram muito próximos um dos outros, o que leva a acreditar que o arrasto que a estrutura experimental insere no sistema é uma constante.
-\todo{Cadeia de Medidas}
+
+Em virtude das grandes incertezas quando da verificação das velocidades constatadas tanto pelo anemômetro comercial, quanto pelo anemômetro experimental, tendo em vista a dificuldade de se simular a ocorrência de vento, a menos que se utilize de um tunel de vento, o sistema apresenta um erro de linearidade um tanto alto, chegando a 11.8$\%$.
+
+A Figura \ref{fig:anemometro-cadeia-medidas-experimental} apresenta a cadeia de medidas experimental levantada com base nos valores experimentais adquiridos e suas funções de tranferência experimentais.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.5\textwidth]{anemometro-cadeia-medidas-experimental.jpg}
+	\caption{Cadeia de Medidas experimental para o anemômetro implementado.}
+	\label{fig:anemometro-cadeia-medidas-experimental}
+\end{figure}
+
+
 \section{Pluviômetro}
 \subsection{Função de Transferência para a capacitância}
 
@@ -1401,6 +1413,24 @@ Na Figura \ref{fig:resultados-pluviometro-compensacao-comparacao} está apresent
 \end{figure}
 
 O erro de linearidade da medida pela função de compensação foi de 66.86\%.
+
+ Figura \ref{fig:pluviometro-cadeia-medidas-experimental} apresenta a cadeia de medidas experimental levantada com base nos valores experimentais adquiridos e suas funções de tranferência experimentais.
+
+\begin{figure}[H]
+	\centering \includegraphics[width=0.8\textwidth]{pluviometro-cadeia-medidas-experimental.jpg}
+	\caption{Cadeia de Medidas experimental para o pluviômetro implementado.}
+	\label{fig:pluviometro-cadeia-medidas-experimental}
+\end{figure}
+
+\chapter{Conclusão}
+
+O presente projeto se propôs à elaboração de uma central meteorológica experimental contendo termômetro, anemômetro e pluviômetro.
+
+O termômetro foi construído utilizando um sensor termoresistivo Pt100, que apresenta uma boa linearidade dentro da faixa de aplicação do projeto. Inicialmente foi proposto um range de -10$ºC$ a +50$ºC$. Porém, por problema de simulação de temperaturas abaixo de 0$ºC$, optou-se por alterar o range para +5$ºC$ a +50$ºC$. O sensor foi montado em uma ponte de Wheatstone com ajuste de balanço e ajuste de zero para a saída do amplificador de instrumentação. A saída do amplificador de instrumentação foi conectada à DAQ NI USB-6009 a qual aplica a função de transferência experimental na tensão observada e retorna o valor da temperatura correspondente. O circuito apresentou erro de linearidade de 9.9$\%$ muito em virtude de diferenças nos ajustes de zero do circuito teórico e do circuito experimental.
+
+Para o anemômetro foi utilizado um sensor de efeito Hall linear, porém, como a intenção de seu uso era exclusivamente a contagem de voltas, seu funcionamento foi condicionado a um circuito de chaveamento, que fica em nível alto até perceber a presença do ímã, quando então passa para nível baixo. Esse circuito então apresenta a sua saída como uma onda quadrada, na qual é possível fazer a contagem da duração do período de cada volta. Para obter valores comparativos a fim de se gerar a função de trasferência experimental, foi utilizado um anemômetro digital comercial submetido às mesmas condições que o anemômetro experimental. O resultado final apresentou um erro de linearidade de 11.8$\%$. Esse erro elevado deve-se ao fato de as simulações experimentais não terem sido executadas em ambientes controlados como, por exemplo, um tunel de vento.
+
+O pluviômetro 
 
 \newpage
 \begin{thebibliography}{9}
