@@ -539,7 +539,7 @@ struct packet_payload {
 
 Periodicamente um pacote "packet\_payload" é enviado com os dados de todas as medidas. O campo "sync" possui um byte de sincronia fixo definido arbitrariamente com o valor hexadecimal de $0xFB$. O cliente, ao iniciar a comunicação aguarda até o recebimento do campo de sincronia e então começa a leitura dos dados de forma sequencial.
 
-O programa completo se encontra no anexo \ref{ch:anexo-a}.
+O programa completo se encontra no anexo A.
 
 No computador, foi implementado uma classe em C++11 utilizando APIs \textit{POSIX} (\textit{Portable Operating System Interface}, padrão definido pela IEEE para interoperabilidade de sistemas operacionais) para a leitura de dados da porta serial. A classe pode ser compilada e utilizada em qualquer sistema operacional \textit{UNIX-like} como Apple Mac OS X, Linux, FreeBSD ou Solaris. Esta classe apenas oferece uma forma assíncrona de acesso aos dados e não implementa nenhuma interface gráfica e automaticamente implementa um filtro passa-baixas digital para a suavização e remoção de ruído do sinal. A frequência de corte é de 1 Hz.
 
